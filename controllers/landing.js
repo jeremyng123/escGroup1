@@ -17,8 +17,17 @@ exports.submit_lead = function(req, res, next) {
 /* findAll() is a promise. what it means will be covered in details later.
     This method runs asynchronously*/
 exports.show_leads = function(req, res, next) {
-    models.lead.findAll().then(leads=> {
+    return models.lead.findAll().then(leads=> {
         res.render('landing', { title: 'Express', leads: leads });
     })
-    
+};
+
+exports.show_lead = function(req, res, next) {
+    return models.lead.findOne({
+        where : {
+            id : req.params.lead_id
+        }
+    }).then(lead => {
+        res.render('lead', { lead : lead });
+    })
 };

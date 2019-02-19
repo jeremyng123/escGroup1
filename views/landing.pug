@@ -9,4 +9,8 @@ block content
   if leads
     h1 leads
     for lead in leads
-      p #{lead.email}
+      //- span is to tell the browser to put the following body inline with the span body
+      p 
+        span #{lead.email}
+         
+        a(href="/lead/" + lead.id)  Details
