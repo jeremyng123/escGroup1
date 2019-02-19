@@ -6,7 +6,6 @@ exports.get_landing = function(req, res, next) {
 
 exports.submit_lead = function(req, res, next) {
     console.log('lead email:', req.body.lead_email);
-
     return models.lead.create({
         email: req.body.lead_email
     }).then(lead=> {    // lead is a variable sent to the /leads/
