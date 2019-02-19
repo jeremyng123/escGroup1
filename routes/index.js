@@ -18,6 +18,8 @@ router.post('/lead/:lead_id/edit', landing.edit_lead);
 
 /********* DELETE ROW FROM leads TABLE *************/
 router.post('/lead/:lead_id/delete', landing.delete_lead);
+// different ways to do delete. NOTICE THAT WE DID NOT router.get()! This is unncessary if we are using JSON --> jQuery w/ AJAX because these are done in background
+router.post('/lead/:lead_id/delete-json', landing.delete_lead_json);
 
 module.exports = router;
 
