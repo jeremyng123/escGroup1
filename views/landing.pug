@@ -1,23 +1,26 @@
-extends layout
-
-block content
-  h1= title
-  p Welcome to #{title}
-  form(action="/", method="POST")
-    input(name="lead_email", type="email", placeholder="Enter your email address")
-    button(type="submit") Submit
-  if leads
-    h1 leads
-    for lead in leads
-      //- span is to tell the browser to put the following body inline with the span body
-      p(id=lead.id)
-        span #{lead.email}
-         
-        a(href="/lead/" + lead.id)  Details
-         
-        button(onclick=`deleteLead('${lead.id}')`) Delete
-  script(src='https://code.jquery.com/jquery-3.3.1.min.js')
-  script(src='/javascripts/leads.js')
+doctype html
+html(lang='en')
+  include common/header.pug
+  +header("Starter MVP")
+  body
+    h1= title
+    p Welcome to #{title}
+    form(action="/", method="POST")
+      input(name="lead_email", type="email", placeholder="Enter your email address")
+      button(type="submit") Submit
+    if leads
+      h1 leads
+      for lead in leads
+        //- span is to tell the browser to put the following body inline with the span body
+        p(id=lead.id)
+          span #{lead.email}
+          
+          a(href="/lead/" + lead.id)  Details
+          
+          button(onclick=`deleteLead('${lead.id}')`) Delete
+    include common/footer.pug
+    +footer()
+    script(src='/javascripts/leads.js')
       //- LOOK AT THE BUTTON's FUNCTION. use `<javascript>` and '<pug variable>'
 
 //- look at the condition: if leads mean if the webpage is rendering this page and puts a value into the key 'leads', then this condition is true and it
@@ -25,3 +28,5 @@ block content
 
 //- on HTML/CSS/JS side: pug/JS are hierarchical in nature. if we delete the body corresponding to p(id=lead.id), we are effectively deleting all the
 //-     child bodies that are nested inside of p body.
+    
+    Notice how we put header and footer at the top and body of the entire body
