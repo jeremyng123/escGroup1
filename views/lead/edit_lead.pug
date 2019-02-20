@@ -1,16 +1,24 @@
 doctype html
 html(lang='en')
-    include ../common/header.pug
-    +header("Starter MVP")
-    body
-        form(action="/lead/" + lead.id + "/edit", method="POST")
-            input(name="lead_email", type="email", placeholder="Enter your email address", value = lead.email)
-            button(type="submit") Save
-        <br>
-        <br>
-        form(action="/lead/" + lead.id + "/delete", method="POST")
-            button(type="submit") Delete
-        
-        include ../common/footer.pug
-        +footer()
-    
+  include ../common/header.pug
+  +header("Leads")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1 Edit Lead
+            form(action="/", method="POST")
+              .input-group.mb-3
+                input(name="lead_email", value=lead.email, type="email", placeholder="Enter your email address").form-control
+                .input-group-append
+                  button(type="submit").btn.btn-primary Save
+
+
+    include ../common/footer.pug
+    +footer()
+    script(src="/javascripts/leads.js")
+
+
