@@ -51,3 +51,4 @@ module.exports = (sequelize, DataTypes) => {
     // do nothing for now
   };
   return user;
+};
