@@ -37,7 +37,7 @@ module.exports = function(passport){
         return models.User.findOne({
             where: {
                 'email' : email
-            }
+            },
         }).then(user => {
             /* Perform all the error-catches. if none caught, then email and password should validate! */
             if (user == null) {
