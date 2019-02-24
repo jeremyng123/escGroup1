@@ -8,28 +8,19 @@ let flash = require('connect-flash');       // this allow us to display an error
 exports.show_login = function(req, res, next){
     res.render('users/login', { formData: {}, errors: {} });
 }
-
 exports.show_signup = function(req, res, next){
     res.render('users/signup', { formData: {}, errors: {} });
 }
-
-// exports.signup = function(req, res, next) {
-//     console.log('email:', req.body.email);
-//     console.log('password', req.body.password);
-//     return models.user.create({
-//         email: req.body.email,
-//         password: req.body.password
-//     }).then(lead=> {    // lead is a variable sent to the /leads/
-//         res.redirect('/login')  // redirect to a new webpage when we submit email
-//     });
-// };
-
 const generateHash = function(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(8), null)
 }
+
+
 exports.signup = function(req, res, next) {
-    const newUser = models.User.build({
+    const newUser = models.user.build({
         email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         password: generateHash(req.body.password)
     });
     return newUser.save().then(result => {
@@ -41,6 +32,17 @@ exports.signup = function(req, res, next) {
     })
 }
 
+
 exports.login = function(req,res,next){
-    
+    passport.authenticate('local', {
+        successRedirect: "/",
+        failureRedirect: "/login",
+        failureFlash: true
+    })(req, res, next);
+}
+
+exports.logout = function(req,res,next){
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
 }

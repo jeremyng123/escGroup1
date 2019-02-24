@@ -1,5 +1,3 @@
-const bcrypt = require('bcrypt');
-
 /* jshint indent: 2 */
 'use strict';
 module.exports = (sequelize, DataTypes) => {
@@ -9,11 +7,6 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      unique: true
     },
     firstName: {
         type: DataTypes.STRING,
