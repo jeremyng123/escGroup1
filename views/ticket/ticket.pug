@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   include ../common/header.pug
-  +header("Leads")
+  +header("Tickets")
   body
     header
       include ../common/navbar.pug
@@ -9,7 +9,7 @@ html(lang='en')
       .container
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
-            h1 leads
+            h1 tickets
             table.table
               thread
               tr
@@ -18,18 +18,18 @@ html(lang='en')
                 th(scope="col") Delete
               tr
               tbody
-                  tr(id=lead.id)
+                  tr(id=ticket.id)
                   td
-                    span #{lead.email}
+                    span #{ticket.email}
                   td
-                    a(href="/lead/" + lead.id + "/edit") Edit
+                    a(href="/ticket/" + ticket.id + "/edit") Edit
                   td
-                    form(action="/lead/" + lead.id + "/delete", method="POST")
+                    form(action="/ticket/" + ticket.id + "/delete", method="POST")
                       button(type="submit").btn.btn-primary Delete
 
 
     include ../common/footer.pug
     +footer()
-    script(src="/javascripts/leads.js")
+    script(src="/javascripts/tickets.js")
 
 

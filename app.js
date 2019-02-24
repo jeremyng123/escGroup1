@@ -9,6 +9,7 @@ let session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+let {isLoggedIn,hasAuth} = require('./middleware/hasAuth');
 /* the next 2 lines is just an example of how we pass arguments when we perform require('package')(<parameters>) */
 // const print = require('./print-in-frame');
 // print(5, 'Hey');
@@ -34,6 +35,8 @@ app.use(session({ secret: 'our little secret' }));
 app.use(passport.initialize());   // we want to set up passport in a separate file from app.js. for that, we add in the line at line 12
 app.use(passport.session());
 
+/** if user is not logged in, direct to usersRouter */
+app.all('/secret', isLoggedIn)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

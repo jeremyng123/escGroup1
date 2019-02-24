@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var lead = sequelize.define('ticket', {
+  var ticket = sequelize.define('ticket', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -20,9 +20,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   });
-  lead.associate = function(models) {
+  ticket.associate = function(models) {
     // associations can be defined here
     // do nothing for now
   };
-  return lead;
+  return ticket;
 };

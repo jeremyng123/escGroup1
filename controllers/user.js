@@ -41,7 +41,8 @@ exports.signup = function(req, res, next) {
                         email: req.body.email,
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
-                        password: generateHash(req.body.password)
+                        password: generateHash(req.body.password),
+                        phoneNumber: req.body.phoneNumber
                     });
                 }else {
                     newUser = models.user.build({
@@ -49,7 +50,8 @@ exports.signup = function(req, res, next) {
                         firstName: req.body.firstName,
                         lastName: req.body.lastName,
                         password: generateHash(req.body.password),
-                        is_admin: true
+                        is_admin: true,
+                        phoneNumber: req.body.phoneNumber
                     });
                 }return newUser.save().then(result => {
                     passport.authenticate('local', {
