@@ -30,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /******************* use Session **************************/
 // take note that we have to write the following codes in order
 // bcus nodejs read codes line by line
+<<<<<<< HEAD
 app.use(session({ 
   secret: 'our little secret',
   name: "some name",
@@ -37,11 +38,18 @@ app.use(session({
   resave: true,
   saveUninitialized: true
 }));
+=======
+app.use(session({ secret: 'our little secret' }));
+>>>>>>> 0ab21d0070f26f50789414261215cb10f081e0fe
 app.use(passport.initialize());   // we want to set up passport in a separate file from app.js. for that, we add in the line at line 12
 app.use(passport.session());
 
 app.use('/', indexRouter);
+<<<<<<< HEAD
 app.use('/userss', usersRouter);
+=======
+app.use('/users', usersRouter);
+>>>>>>> 0ab21d0070f26f50789414261215cb10f081e0fe
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

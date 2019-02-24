@@ -34,7 +34,11 @@ module.exports = function(passport){
     },
     // we are adding this function to validate email and password
     function(req,email,password,done){
+<<<<<<< HEAD
         return models.User.findOne({
+=======
+        return models.user.findOne({
+>>>>>>> 0ab21d0070f26f50789414261215cb10f081e0fe
             where: {
                 'email' : email
             },
