@@ -1,0 +1,22 @@
+mixin header(title)
+    head
+        meta(charset='utf-8')
+        title=title
+        //[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunks/html5.js"></script><![endif]
+        //<base href="/">
+        meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1')
+        meta(name='description',content='')
+        link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
+
+
+
+
+//- mixins allow us to create reusable blocks. think of it like Class or abstract class where many classes will extend from this.
+
+//- The folowing are standard metatype scripts that we should include in all our html scripts
+    //[if lt IE 9]><script src="http://html5shim.googlecode.com/svn/trunks/html5.js"></script><![endif]
+        //<base href="/">
+        meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1')
+        meta(name='description',content='')
+    
+    

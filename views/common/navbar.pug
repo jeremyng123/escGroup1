@@ -1,0 +1,21 @@
+mixin navbar(user)
+    nav.navbar.navbar-expand.navbar-light.bg-light
+      a(href="/", aria-label="Golden Goose").navbar-brand.mr-0.mr-md2
+        img(src="/images/golden-goose.jpg", width="36", height="36")
+      .collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href="/") Home
+          li.nav-item
+            a.nav-link(href="/leads") Leads
+      .navbar-right
+        if user
+          span.navbar-text Hello #{user.email}!
+      .navbar-right
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            a.nav-link(href="/users/signup") Sign up
+          li.nav-item
+            a.nav-link(href="/users/login") Login
+          li.nav-item
+            a.nav-link(href="/users/logout") Logout

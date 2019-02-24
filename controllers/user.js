@@ -1,0 +1,48 @@
+let models = require('../models');
+let bcrypt = require('bcrypt');
+const passport = require('passport');
+const myPassport = require('../passport_setup')(passport);
+let flash = require('connect-flash');       // this allow us to display an error message on the page that is going to be rendered. it is a one-time
+
+
+exports.show_login = function(req, res, next){
+    res.render('users/login', { formData: {}, errors: {} });
+}
+exports.show_signup = function(req, res, next){
+    res.render('users/signup', { formData: {}, errors: {} });
+}
+const generateHash = function(password){
+    return bcrypt.hashSync(password,bcrypt.genSaltSync(8), null)
+}
+
+
+exports.signup = function(req, res, next) {
+    const newUser = models.user.build({
+        email: req.body.email,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        password: generateHash(req.body.password)
+    });
+    return newUser.save().then(result => {
+        passport.authenticate('local', {
+            successRedirect: "/",
+            failureRedirect: "/users/signup",
+            failureFlash: true
+        })(req, res, next);
+    })
+}
+
+
+exports.login = function(req,res,next){
+    passport.authenticate('local', {
+        successRedirect: "/",
+        failureRedirect: "/users/login",
+        failureFlash: true
+    })(req, res, next);
+}
+
+exports.logout = function(req,res,next){
+    req.logout();
+    req.session.destroy();
+    res.redirect('/');
+}
