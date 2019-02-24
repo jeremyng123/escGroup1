@@ -5,11 +5,7 @@ html(lang='en')
 	body
 		header
 		include ../common/navbar.pug
-<<<<<<< HEAD
-		+navbar()
-=======
 		+navbar(user)
->>>>>>> 0ab21d0070f26f50789414261215cb10f081e0fe
 		.container
 			.row
 				.col-sm-12.offset-md-2.col-md-8
@@ -17,11 +13,7 @@ html(lang='en')
 						h2.text-center Login
 						.row
 							.col-sm-12.col-md-12.col-xs-12
-<<<<<<< HEAD
-								form(action='/login', method='POST')
-=======
 								form(action='/users/login', method='POST')
->>>>>>> 0ab21d0070f26f50789414261215cb10f081e0fe
 									div.formgroup
 										label.small.mb-1.mt-3 Email:
 										input(placeholder='Enter your email',required=true, name='email',type='email',value='').form-control

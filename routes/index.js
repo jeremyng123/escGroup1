@@ -2,40 +2,38 @@ var express = require('express');
 var router = express.Router();
 
 let landing = require('../controllers/landing');
-<<<<<<< HEAD
-let user = require('../controllers/user');
-
-/* Login Page */
-router.get('/login', user.show_login);
-router.get('/signup', user.show_signup);
-router.post('/login',user.login);
-router.post('/signup',user.signup);
-router.post('/logout', user.logout);
-router.get('/logout', user.logout);
-=======
 // let user = require('../controllers/user');
 
+/**
+ * the router function has a special function that can allow us to open a sequence of handlers before handling the route
+ * this is called middleware
+ */
 
->>>>>>> 0ab21d0070f26f50789414261215cb10f081e0fe
+// const noop = function(req,res,next){
+//     next();     // when the /leads path is executed, the next thing that is executed is noop. next() tells the webpage to go to the next handler in the argument
+    
+// }
+// router.get('/leads',noop,landing.show_leads);
 
+let {isLoggedIn} = require('../middleware/hasAuth');
 /* GET home page. */
 router.get('/', landing.get_landing);
 router.post('/', landing.submit_lead);
 
 // create a new route
-router.get('/leads',landing.show_leads);
-router.get('/lead/:lead_id/', landing.show_lead);    // using : defines it as a parameter. whatever route assigned to :lead_id from landing.pug will be stored in lead_id
+router.get('/leads',isLoggedIn,landing.show_leads);
+router.get('/lead/:lead_id/',hasAuth, landing.show_lead);    // using : defines it as a parameter. whatever route assigned to :lead_id from landing.pug will be stored in lead_id
 /* get shows the form to edit, post submits the form to edit the lead_id */
 
 /* Notice that the get and post are from the same URL its so that the handler can handle both requests */
 /********* ADD ROW TO leads TABLE *************/
-router.get('/lead/:lead_id/edit', landing.show_edit_lead);    // using : defines it as a parameter, defined by landing.show_edit_lead
-router.post('/lead/:lead_id/edit', landing.edit_lead);      
+router.get('/lead/:lead_id/edit',hasAuth, landing.show_edit_lead);    // using : defines it as a parameter, defined by landing.show_edit_lead
+router.post('/lead/:lead_id/edit',hasAuth, landing.edit_lead);      
 
 /********* DELETE ROW FROM leads TABLE *************/
-router.post('/lead/:lead_id/delete', landing.delete_lead);
+router.post('/lead/:lead_id/delete', hasAuth, landing.delete_lead);
 // different ways to do delete. NOTICE THAT WE DID NOT router.get()! This is unncessary if we are using JSON --> jQuery w/ AJAX because these are done in background
-router.post('/lead/:lead_id/delete-json', landing.delete_lead_json);
+router.post('/lead/:lead_id/delete-json',hasAuth, landing.delete_lead_json);
 
 module.exports = router;
 
