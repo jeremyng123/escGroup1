@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 let landing = require('../controllers/landing');
-// let user = require('../controllers/user');
+let user = require('../controllers/user');      // to direct them to login page!
 
 /**
  * the router function has a special function that can allow us to open a sequence of handlers before handling the route
@@ -15,13 +15,13 @@ let landing = require('../controllers/landing');
 // }
 // router.get('/leads',noop,landing.show_leads);
 
-let {isLoggedIn} = require('../middleware/hasAuth');
+let {isLoggedIn,hasAuth} = require('../middleware/hasAuth');
 /* GET home page. */
-router.get('/', landing.get_landing);
+router.get('/', isLoggedIn, landing.get_landing);
 router.post('/', landing.submit_lead);
 
 // create a new route
-router.get('/leads',isLoggedIn,landing.show_leads);
+router.get('/leads',hasAuth,landing.show_leads);
 router.get('/lead/:lead_id/',hasAuth, landing.show_lead);    // using : defines it as a parameter. whatever route assigned to :lead_id from landing.pug will be stored in lead_id
 /* get shows the form to edit, post submits the form to edit the lead_id */
 

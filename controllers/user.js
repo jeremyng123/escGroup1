@@ -23,7 +23,6 @@ const generateHash = function(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(8), null)
 }
 
-
 exports.signup = function(req, res, next) {
     let errors = {};
     return validateUser(errors, req).then(errors => {
@@ -60,13 +59,9 @@ exports.signup = function(req, res, next) {
                     })(req, res, next);
                 })
             })
-            
-            
         }
     })
-    
 }
-
 
 exports.login = function(req,res,next){
     passport.authenticate('local', {

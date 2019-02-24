@@ -25,6 +25,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    phoneNumber:{
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false
+    },
     is_admin: {
       type: DataTypes.BOOLEAN,
       allowNull: true,

@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  var lead = sequelize.define('lead', {
+  var lead = sequelize.define('ticket', {
     id: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
@@ -8,6 +8,14 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true    // PrimaryKey meant that it must have a unique value
     },
     email: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false
     },
