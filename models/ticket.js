@@ -23,6 +23,24 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    description: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    responses: {
+      allowNull: true,
+      type: DataTypes.STRING,
+      defaultValue: "Awaiting admin's response"
+    },
+    topic: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    status:{
+      allowNull: true,
+      type: DataTypes.INTEGER,
+      defaultValue: 0   // 0 = Queued, 1 = in-progress, 2 = solved
+    }
     
   });
   ticket.associate = function(models) {

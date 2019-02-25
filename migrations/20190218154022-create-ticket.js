@@ -21,6 +21,23 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      description: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      responses: {
+        allowNull: true,
+        type: Sequelize.STRING
+      },
+      topic: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      status:{
+        allowNull: true,
+        type: Sequelize.INTEGER,
+        defaultValue: 0   // 0 = Queued, 1 = in-progress, 2 = solved
+      }
     }); 
   },
   down: (queryInterface, Sequelize) => {

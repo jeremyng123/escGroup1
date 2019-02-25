@@ -46,11 +46,13 @@ exports.show_ticket_form = function(req, res, next) {
 };
 
 exports.create_ticket = function(req, res, next) {
-    return models.ticket.create({
+    return models.ticket.build({
         email: req.body.ticket_email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        phoneNumber: req.body.phoneNumber
+        phoneNumber: req.body.phoneNumber,
+        topic: req.body.topic,
+        description: req.body.description
     }).then(ticket=> {    // ticket is a variable sent to the /tickets/
         res.redirect('/tickets')  // redirect to a new webpage when we submit email
     });
