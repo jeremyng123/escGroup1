@@ -1,0 +1,44 @@
+doctype html
+html(lang='en')
+  include ../common/header.pug
+  +header("Tickets Form")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
+            h1.display-4.m-b-2 Sign Up
+
+            // register form
+            form(method='POST' action='/register')
+              div.form-group
+                label(for='name') Name:
+                input#name.form-control(type='text', placeholder='first and last', name='name', value=user.firstName + " " + user.lastName)
+              div.form-group
+                label(for='email') Email:
+                input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email)
+              div.form-group
+                label(for='phoneNumber') Phone Number:
+                input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber)
+              div.form-group
+                label(for='topic') Topics:
+                br
+                select(name='topic')
+                  each topic in topics
+                    option#topic.form-control(value=topic) #{topic}
+              div.form-group
+                label(for='description') Description:
+                input#description.form-control(type='text', placeholder='Max 4000 chars' name='description')
+                
+              button.btn.btn-primary(type='submit') Submit
+
+
+
+    include ../common/footer.pug
+    +footer()
+    script(src="/javascripts/tickets.js")
+
+

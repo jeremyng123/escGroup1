@@ -1,15 +1,15 @@
-function deleteLead(leadId){
+function deleteticket(ticketId){
     $.ajax({
-        url: '/lead/' + leadId + '/delete-json',
+        url: '/ticket/' + ticketId + '/delete-json',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
-        data: JSON.stringify({leadId}), // JSON.stringify is used to send data over to server. the server side will have a JSON.parse(string)
+        data: JSON.stringify({ticketId}), // JSON.stringify is used to send data over to server. the server side will have a JSON.parse(string)
         type: 'POST',
         success: ((res) => {
             // Replace follow button with unfollow.
             console.log("Result: ", res)
-            $("#"+leadId).remove();         // we are using a $ sign here. it means we are making a call to JQuery. $.ajax --> function belonging to JQUERY
-                                            // When we use $("#"+lead.id), it is necessary to use "#" to indicate that we are looking for an element with that particular ID
+            $("#"+ticketId).remove();         // we are using a $ sign here. it means we are making a call to JQuery. $.ajax --> function belonging to JQUERY
+                                            // When we use $("#"+ticket.id), it is necessary to use "#" to indicate that we are looking for an element with that particular ID
         }),
         error: ((error) => {
             console.log("Error:",error);
@@ -31,6 +31,6 @@ function deleteLead(leadId){
  *      the currently served HTML browser is called DOM (Document Object Model).
  * 
  *  Jquery has convenient functions that help us manipulate the DOM, such as remove() function in `line 11`.
- *      we are looking for a HTML element with $("#" + leadID)
+ *      we are looking for a HTML element with $("#" + ticketID)
  *      however, for jquery to find that element, we must assign an ID to each line of email it displays. to do that, we add the attribute to the for loop in landing.pug
  */

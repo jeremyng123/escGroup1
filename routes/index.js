@@ -10,30 +10,34 @@ let user = require('../controllers/user');      // to direct them to login page!
  */
 
 // const noop = function(req,res,next){
-//     next();     // when the /leads path is executed, the next thing that is executed is noop. next() tells the webpage to go to the next handler in the argument
+//     next();     // when the /tickets path is executed, the next thing that is executed is noop. next() tells the webpage to go to the next handler in the argument
     
 // }
-// router.get('/leads',noop,landing.show_leads);
+// router.get('/tickets',noop,landing.show_tickets);
 
 let {isLoggedIn,hasAuth} = require('../middleware/hasAuth');
 /* GET home page. */
-router.get('/', isLoggedIn, landing.get_landing);
-router.post('/', landing.submit_lead);
+router.get('/', landing.get_landing);
+// router.post('/', landing.submit_ticket);
+
+/** Ticket Form for users */
+router.get('/ticket/user', isLoggedIn, landing.show_ticket_form);
+router.post('/ticket/users', isLoggedIn, landing.create_ticket);
 
 // create a new route
-router.get('/leads',hasAuth,landing.show_leads);
-router.get('/lead/:lead_id/',hasAuth, landing.show_lead);    // using : defines it as a parameter. whatever route assigned to :lead_id from landing.pug will be stored in lead_id
-/* get shows the form to edit, post submits the form to edit the lead_id */
+router.get('/tickets',hasAuth,landing.show_tickets);
+router.get('/ticket/:ticket_id/',hasAuth, landing.show_ticket);    // using : defines it as a parameter. whatever route assigned to :ticket_id from landing.pug will be stored in ticket_id
+/* get shows the form to edit, post submits the form to edit the ticket_id */
 
 /* Notice that the get and post are from the same URL its so that the handler can handle both requests */
-/********* ADD ROW TO leads TABLE *************/
-router.get('/lead/:lead_id/edit',hasAuth, landing.show_edit_lead);    // using : defines it as a parameter, defined by landing.show_edit_lead
-router.post('/lead/:lead_id/edit',hasAuth, landing.edit_lead);      
+/********* ADD ROW TO tickets TABLE *************/
+router.get('/ticket/:ticket_id/edit',hasAuth, landing.show_edit_ticket);    // using : defines it as a parameter, defined by landing.show_edit_ticket
+router.post('/ticket/:ticket_id/edit',hasAuth, landing.edit_ticket);      
 
-/********* DELETE ROW FROM leads TABLE *************/
-router.post('/lead/:lead_id/delete', hasAuth, landing.delete_lead);
+/********* DELETE ROW FROM tickets TABLE *************/
+router.post('/ticket/:ticket_id/delete', hasAuth, landing.delete_ticket);
 // different ways to do delete. NOTICE THAT WE DID NOT router.get()! This is unncessary if we are using JSON --> jQuery w/ AJAX because these are done in background
-router.post('/lead/:lead_id/delete-json',hasAuth, landing.delete_lead_json);
+router.post('/ticket/:ticket_id/delete-json',hasAuth, landing.delete_ticket_json);
 
 module.exports = router;
 
@@ -51,10 +55,10 @@ module.exports = router;
  * 4. [b] the 2nd argument in res.render('`filename in views folder`', { 'key' : value } ) because it allows the pug file to obtain a value from 'key' and display it on the webpage
  * 4. [c] we also use function(res, req, next) {} to perform ASYNC task.
  * 4. [d] models is a class obtain through var models = require('../models')
- * 4. [e] models.lead <-- telling it to look at the leads table
- * 4. [f] models.lead.create <-- telling the method to CREATE a ROW to leads TABLE with email: `<name of email>` value
- * 4. [g] models.lead.findAll() <-- telling the method to SELECT * FROM leads; --> as it is an ASYNC Task, it will keep returning the next value to landing.pug
- * 4. [h] models.lead.destroy() <-- telling the method to DESTROY `<id>` FROM leads;
- *          DELETE FROM "leads" WHERE "id" = '0cdbc929-1b18-40fe-9937-a06cf2782334'
+ * 4. [e] models.ticket <-- telling it to look at the tickets table
+ * 4. [f] models.ticket.create <-- telling the method to CREATE a ROW to tickets TABLE with email: `<name of email>` value
+ * 4. [g] models.ticket.findAll() <-- telling the method to SELECT * FROM tickets; --> as it is an ASYNC Task, it will keep returning the next value to landing.pug
+ * 4. [h] models.ticket.destroy() <-- telling the method to DESTROY `<id>` FROM tickets;
+ *          DELETE FROM "tickets" WHERE "id" = '0cdbc929-1b18-40fe-9937-a06cf2782334'
  * 4. [i] res.redirect('<url page>') --> as the name suggest, redirects page.
  */
