@@ -21,7 +21,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
-<<<<<<< HEAD:migrations/20190218154022-create-ticket.js
       description: {
         allowNull: false,
         type: Sequelize.STRING
@@ -38,18 +37,6 @@ module.exports = {
         allowNull: true,
         type: Sequelize.INTEGER,
         defaultValue: 0   // 0 = Queued, 1 = in-progress, 2 = solved
-=======
-      firstName: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },
-      lastName: {
-        allowNull: false,
-        type: DataTypes.STRING,
-      },phoneNumber: {
-        allowNull: false,
-        type: DataTypes.STRING,
->>>>>>> origin/v1.1:migrations/20190218154022-create-ticket.js
       }
     }); 
   },

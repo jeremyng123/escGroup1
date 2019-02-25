@@ -3,16 +3,10 @@ let createError = require('http-errors');
 exports.isLoggedIn = function(req,res,next){
     if (req.user){
         next();
-<<<<<<< HEAD
+    }
     else
         console.log('Currently at:', "some route");
         next(createError(404, "Page does not exist"));     // need to do something here, so that users go to login/register page first!
-=======
-    }
-    else{
-        next('/login');
-    }
->>>>>>> origin/v1.1
 }
 
 /**

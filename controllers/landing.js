@@ -5,7 +5,6 @@ exports.get_landing = function(req, res, next) {
    // passport session will flood the request with 'user' when there is one in session
 };
 
-<<<<<<< HEAD
 // exports.submit_ticket = function(req, res, next) {
 //     console.log('ticket email:', req.body.ticket_email);
 //     return models.ticket.create({
@@ -14,26 +13,12 @@ exports.get_landing = function(req, res, next) {
 //         res.redirect('/tickets')  // redirect to a new webpage when we submit email
 //     });
 // };
-=======
-exports.submit_ticket = function(req, res, next) {
-    console.log('ticket email:', req.body.ticket_email);
-    return models.ticket.create({
-        email: req.body.ticket_email
-    }).then(ticket=> {    // ticket is a variable sent to the /tickets/
-        res.redirect('/tickets')  // redirect to a new webpage when we submit email
-    });
-};
->>>>>>> origin/v1.1
 
 /* findAll() is a promise. what it means will be covered in details later.
     This method runs asynchronously*/
 exports.show_tickets = function(req, res, next) {
     return models.ticket.findAll().then(tickets=> {
-<<<<<<< HEAD
         res.render('ticket/tickets', { title: 'Express', tickets: tickets, user: req.user });
-=======
-        res.render('ticket/tickets', { title: 'Express', tickets: tickets });
->>>>>>> origin/v1.1
     });
 };
 
@@ -43,11 +28,7 @@ exports.show_ticket = function(req, res, next) {
             id : req.params.ticket_id
         }
     }).then(ticket => {
-<<<<<<< HEAD
         res.render('ticket/ticket', { ticket : ticket, user: req.user });
-=======
-        res.render('ticket/ticket', { ticket : ticket });
->>>>>>> origin/v1.1
     });
 };
 
@@ -57,7 +38,6 @@ exports.show_edit_ticket = function(req, res, next) {
             id : req.params.ticket_id
         }
     }).then(ticket => {
-<<<<<<< HEAD
         res.render('ticket/edit_ticket', { ticket : ticket, user: req.user });
     });
 };
@@ -76,9 +56,6 @@ exports.create_ticket = function(req, res, next) {
         description: req.body.description
     }).then(ticket=> {    // ticket is a variable sent to the /tickets/
         res.redirect('/tickets')  // redirect to a new webpage when we submit email
-=======
-        res.render('ticket/edit_ticket', { ticket : ticket });
->>>>>>> origin/v1.1
     });
 };
 

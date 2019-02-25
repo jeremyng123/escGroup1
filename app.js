@@ -36,7 +36,7 @@ app.use(passport.initialize());   // we want to set up passport in a separate fi
 app.use(passport.session());
 
 /** if user is not logged in, direct to usersRouter */
-app.all('/secret', isLoggedIn)
+// app.all('/secret', isLoggedIn)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
