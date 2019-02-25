@@ -17,12 +17,17 @@ let user = require('../controllers/user');      // to direct them to login page!
 
 let {isLoggedIn,hasAuth} = require('../middleware/hasAuth');
 /* GET home page. */
+<<<<<<< HEAD
 router.get('/', landing.get_landing);
 // router.post('/', landing.submit_ticket);
 
 /** Ticket Form for users */
 router.get('/ticket/user', isLoggedIn, landing.show_ticket_form);
 router.post('/ticket/users', isLoggedIn, landing.create_ticket);
+=======
+router.get('/',landing.get_landing);
+router.post('/', landing.submit_ticket);
+>>>>>>> origin/v1.1
 
 // create a new route
 router.get('/tickets',hasAuth,landing.show_tickets);

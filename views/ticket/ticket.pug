@@ -18,6 +18,7 @@ html(lang='en')
                 th(scope="col") Delete
               tr
               tbody
+<<<<<<< HEAD:views/ticket/ticket.pug
                 tr(id=ticket.id)
                 td
                   span #{ticket.email}
@@ -26,6 +27,16 @@ html(lang='en')
                 td
                   form(action="/ticket/" + ticket.id + "/delete", method="POST")
                     button(type="submit").btn.btn-primary Delete
+=======
+                  tr(id=ticket.id)
+                  td
+                    span #{ticket.email}
+                  td
+                    a(href="/ticket/" + ticket.id + "/edit") Edit
+                  td
+                    form(action="/ticket/" + ticket.id + "/delete", method="POST")
+                      button(type="submit").btn.btn-primary Delete
+>>>>>>> origin/v1.1:views/ticket/ticket.pug
 
 
     include ../common/footer.pug
