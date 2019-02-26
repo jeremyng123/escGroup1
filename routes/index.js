@@ -22,10 +22,10 @@ router.get('/', landing.get_landing);
 
 /** Ticket Form for users */
 router.get('/ticket/user', isLoggedIn, landing.show_ticket_form);
-router.post('/ticket/users', isLoggedIn, landing.create_ticket);
+router.post('/ticket/user', landing.create_ticket);
 
 // create a new route
-router.get('/tickets',hasAuth,landing.show_tickets);
+router.get('/tickets',landing.show_tickets);
 router.get('/ticket/:ticket_id/',hasAuth, landing.show_ticket);    // using : defines it as a parameter. whatever route assigned to :ticket_id from landing.pug will be stored in ticket_id
 /* get shows the form to edit, post submits the form to edit the ticket_id */
 

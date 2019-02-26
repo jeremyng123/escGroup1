@@ -43,20 +43,20 @@ exports.show_edit_ticket = function(req, res, next) {
 };
 
 exports.show_ticket_form = function(req, res, next) {
-    res.render('ticket/ticket_form', { title: 'Ticket Form' , user: req.user });
+    return res.render('ticket/ticket_form', { user: req.user });
 };
 
 exports.create_ticket = function(req, res, next) {
-    return models.ticket.build({
-        email: req.body.ticket_email,
+    return models.ticket.create({
+        email: req.body.email,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         phoneNumber: req.body.phoneNumber,
         topic: req.body.topic,
         description: req.body.description
     }).then(ticket=> {    // ticket is a variable sent to the /tickets/
-        res.redirect('/tickets')  // redirect to a new webpage when we submit email
-    });
+        res.redirect('/')  // redirect to a new webpage when we submit email
+    }).catch(err=>console.log("error again!" + err));
 };
 
 exports.edit_ticket = function(req, res, next) {

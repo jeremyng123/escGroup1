@@ -10,25 +10,28 @@ html(lang='en')
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
             - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
-            h1.display-4.m-b-2 Sign Up
+            h1.display-4.m-b-2 Ticket Form
 
             // register form
-            form(method='POST' action='/register')
+            form(action='/ticket/user',method='POST' )
               div.form-group
-                label(for='name') Name:
-                input#name.form-control(type='text', placeholder='first and last', name='name', value=user.firstName + " " + user.lastName)
+                label(for='name') First Name:
+                input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly="readonly")
+              div.form-group
+                label(for='name') Last Name:
+                input#name.form-control(type='text', placeholder='e.g. Beckham', name='lastName', value=user.lastName, readonly="readonly")
               div.form-group
                 label(for='email') Email:
-                input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email)
+                input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly="readonly")
               div.form-group
                 label(for='phoneNumber') Phone Number:
-                input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber)
+                input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly="readonly")
               div.form-group
                 label(for='topic') Topics:
-                br
-                select(name='topic')
-                  each topic in topics
-                    option#topic.form-control(value=topic) #{topic}
+              br
+              select(name='topic')
+                each topic in topics
+                  option#topic.form-control(value=topic) #{topic}
               div.form-group
                 label(for='description') Description:
                 input#description.form-control(type='text', placeholder='Max 4000 chars' name='description')
@@ -39,6 +42,6 @@ html(lang='en')
 
     include ../common/footer.pug
     +footer()
-    script(src="/javascripts/tickets.js")
+    //- script(src="../javascripts/tickets.js")
 
 

@@ -2,11 +2,11 @@ let createError = require('http-errors');
 
 exports.isLoggedIn = function(req,res,next){
     if (req.user){
-        next();
+        return next();
     }
     else
         console.log('Currently at:', "some route");
-        next(createError(404, "Page does not exist"));     // need to do something here, so that users go to login/register page first!
+        return next(createError(404, "Page does not exist"));     // need to do something here, so that users go to login/register page first!
 }
 
 /**
@@ -15,7 +15,7 @@ exports.isLoggedIn = function(req,res,next){
 
  exports.hasAuth = function(req,res,next){
     if (req.user && req.user.is_admin == true)
-        next();
+        return next();
     else
-        next(createError(404, "Page does not exist"))
+        return next(createError(404, "Page does not exist"))
  }

@@ -2,8 +2,8 @@
 module.exports = (sequelize, DataTypes) => {
   var ticket = sequelize.define('ticket', {
     id: {
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
       allowNull: false,
       primaryKey: true    // PrimaryKey meant that it must have a unique value
     },
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     responses: {
       allowNull: true,
       type: DataTypes.STRING,
-      defaultValue: "Awaiting admin's response"
+      defaultValue: "Awaiting admin's response..."
     },
     topic: {
       allowNull: false,
@@ -44,8 +44,9 @@ module.exports = (sequelize, DataTypes) => {
     
   });
   ticket.associate = function(models) {
-    // associations can be defined here
-    // do nothing for now
+    // ticket.belongsTo(models.user, {
+    //   foreignKey: 'user_id'
+    // })
   };
   return ticket;
 };
