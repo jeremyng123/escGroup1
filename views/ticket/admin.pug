@@ -1,0 +1,51 @@
+- var count = 1
+doctype html
+html(lang='en')
+  include ../common/header.pug
+  +header("Tickets")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container-fluid
+        .row.align-items-center
+          .col-md-10.order-md-1.text-center.text-md-left
+            h1 tickets
+            table.table
+              thread
+              tr
+                th(scope="col") #
+                th(scope="col") Name
+                th(scope="col") Email
+                th(scope="col") Phone Number
+                th(scope="col") Topic
+                th(scope="col") Description
+                th(scope="col") Dev Responses
+                th(scope="col") Respond
+              tr
+              tbody
+              for ticket in tickets
+                if !ticket.tag
+                  //- display only if ticket status == 0 (queued)
+                  tr(id=ticket.ticketId)
+                    td
+                      span #{count++}
+                    td
+                      span #{ticket.user.firstName + " " + ticket.user.lastName}
+                    td
+                      span #{ticket.user.email}
+                    td
+                      span #{ticket.user.phoneNumber}
+                    td
+                      span #{ticket.topic}  
+                    td
+                      span #{ticket.description}
+                    td
+                      span #{ticket.responses}
+                    td
+                      a(href="/ticket/" + ticket.ticketId + "/respond") Respond
+                  
+
+
+    include ../common/footer.pug
+    +footer()

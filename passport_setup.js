@@ -11,13 +11,13 @@ const validPassword = function(user,password){
 module.exports = function(passport){
     // serializeUser determines which handler to the user object is to be saved in the session
     passport.serializeUser(function(user,done){
-        done(null,user.id)
+        done(null,user.userId)
     });
     // deserializeUser will retrieve that object using that handler
     passport.deserializeUser(function(id, done) {
         models.user.findOne({
             where: {
-                'id' : id
+                'userId' : id
             }
         }).then(user =>{
             if (user == null){

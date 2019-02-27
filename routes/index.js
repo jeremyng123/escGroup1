@@ -16,6 +16,7 @@ let user = require('../controllers/user');      // to direct them to login page!
 // router.get('/tickets',noop,landing.show_tickets);
 
 let {isLoggedIn,hasAuth} = require('../middleware/hasAuth');
+let {hasAdminRights} = require('../middleware/hasAccess');
 /* GET home page. */
 router.get('/', landing.get_landing);
 // router.post('/', landing.submit_ticket);
@@ -24,20 +25,19 @@ router.get('/', landing.get_landing);
 router.get('/ticket/user', isLoggedIn, landing.show_ticket_form);
 router.post('/ticket/user', landing.create_ticket);
 
-// create a new route
-router.get('/tickets',landing.show_tickets);
-router.get('/ticket/:ticket_id/',hasAuth, landing.show_ticket);    // using : defines it as a parameter. whatever route assigned to :ticket_id from landing.pug will be stored in ticket_id
-/* get shows the form to edit, post submits the form to edit the ticket_id */
-
-/* Notice that the get and post are from the same URL its so that the handler can handle both requests */
-/********* ADD ROW TO tickets TABLE *************/
-router.get('/ticket/:ticket_id/edit',hasAuth, landing.show_edit_ticket);    // using : defines it as a parameter, defined by landing.show_edit_ticket
+// ticket routes
+router.get('/tickets',hasAdminRights);                     // check which page to direct the user (depend on admin rights)
+router.get('/tickets/:user_id', hasAuth, landing.show_tickets);       // admin page -- display all queued tickets
+router.get('/ticket/:ticket_id/respond', hasAuth, landing.show_respond_ticket);     // respond to ticket
+router.post('/ticket/:ticket_id/respond', hasAuth, landing.respond_ticket);
+router.get('/my_tickets/:user_id', isLoggedIn,landing.show_my_tickets); // user page
+router.get('/ticket/:ticket_id',hasAuth, landing.show_one_ticket);
+router.get('/ticket/:ticket_id/edit',hasAuth, landing.show_edit_ticket);
 router.post('/ticket/:ticket_id/edit',hasAuth, landing.edit_ticket);      
 
 /********* DELETE ROW FROM tickets TABLE *************/
-router.post('/ticket/:ticket_id/delete', hasAuth, landing.delete_ticket);
-// different ways to do delete. NOTICE THAT WE DID NOT router.get()! This is unncessary if we are using JSON --> jQuery w/ AJAX because these are done in background
-router.post('/ticket/:ticket_id/delete-json',hasAuth, landing.delete_ticket_json);
+router.post('/ticket/:ticket_id/delete', hasAuth, landing.delete_ticket);       // using post and different route
+router.post('/ticket/:ticket_id/delete-json',hasAuth, landing.delete_ticket_json);  // using ajax
 
 module.exports = router;
 

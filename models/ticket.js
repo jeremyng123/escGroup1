@@ -1,27 +1,12 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   var ticket = sequelize.define('ticket', {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+    ticketId: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true    // PrimaryKey meant that it must have a unique value
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    phoneNumber: {
-      type: DataTypes.STRING,
-      allowNull: false
     },
     description: {
       allowNull: false,
@@ -29,24 +14,22 @@ module.exports = (sequelize, DataTypes) => {
     },
     responses: {
       allowNull: true,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(4000),
       defaultValue: "Awaiting admin's response..."
     },
     topic: {
       allowNull: false,
       type: DataTypes.STRING
     },
-    status:{
+    tag:{
       allowNull: true,
       type: DataTypes.INTEGER,
       defaultValue: 0   // 0 = Queued, 1 = in-progress, 2 = solved
     }
     
   });
-  ticket.associate = function(models) {
-    // ticket.belongsTo(models.user, {
-    //   foreignKey: 'user_id'
-    // })
-  };
+  ticket.associate = function(model) {
+    ticket.belongsTo(model.user, {foreignKey: 'fk_userId', targetKey: 'userId'}); // Adds fk_userId to ticket
+  }
   return ticket;
 };

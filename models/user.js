@@ -1,8 +1,9 @@
 /* jshint indent: 2 */
 'use strict';
+const ticket = require('./ticket');
 module.exports = (sequelize, DataTypes) => {
   var user = sequelize.define('user', {
-    id: {
+    userId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
@@ -34,25 +35,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       allowNull: true,
     }
-//   },
-//     {
-//         freezeTableName: true,
-//         instanceMethods: {
-//             generateHash(password){
-//                 return bcrypt.hash(password, bcrypt.genSaltSync(8));
-//             },
-//             validPassword(password){
-//                 return bcrypt.compare(password, this.password);
-//             }
-//         }
-//     }
-    
   });
-  user.associate = function(models) {
-    // user.hasMany(models.ticket, {
-    //   foreignKey: 'userId',
-    //   as: 'tickets'
-    // });
+  user.associate = function(model) {
+    user.hasMany(model.ticket, { foreignKey: 'fk_userId'});
+    // user.hasMany(model.ticket);
   };
   return user;
 };

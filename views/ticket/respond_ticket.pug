@@ -1,0 +1,50 @@
+doctype html
+html(lang='en')
+  include ../common/header.pug
+  +header("Tickets")
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container-fluid
+        .row.align-items-center
+          .col-md-10.order-md-1.text-center.text-md-left
+            h1 tickets
+            table.table
+              thread
+              tr
+                th(scope="col") Name
+                th(scope="col") Email
+                th(scope="col") Phone Number
+                th(scope="col") Topic
+                th(scope="col") Description
+              tr
+              tbody
+                tr(id=ticket.id)
+                  td
+                    span #{ticket.firstName + " " + ticket.lastName}
+                  td
+                    span #{ticket.email}
+                  td
+                    span #{ticket.phoneNumber}
+                  td
+                    span #{ticket.topic}  
+                  td
+                    span #{ticket.description}
+                tr
+            
+            form(action="/ticket/" + ticket.id +"/respond", method="POST")
+              em
+                strong 
+                  label(for='ticket_responses') Dev's Responses:
+                  .input-group.mb-3
+                    input(disabled, maxlength="3", size="3", value="10", id="counter")
+                    textarea#ticket_responses.form-control(onkeyup=`textCounter('${this}', '${counter}', 4000)`,name='ticket_response',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.responses}
+                    .input-group-append
+                      button(type="submit").btn.btn-primary Submit
+            
+
+
+    include ../common/footer.pug
+    +footer()
+    script(src="/javascripts/Counter.js")
