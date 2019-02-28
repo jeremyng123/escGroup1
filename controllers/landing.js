@@ -35,6 +35,9 @@ exports.show_tickets = function(req, res, next) {
 
 exports.show_my_tickets = function(req, res, next) {
     return models.user.findOne({
+        where : {
+            userId : req.user.userId
+        },
         include: [ {
             model : models.ticket
         }]
@@ -45,7 +48,7 @@ exports.show_my_tickets = function(req, res, next) {
 };
 
 exports.show_one_ticket = function(req, res, next) {
-    return models.user.findOne({
+    return models.ticket.findOne({
         where : {
             ticketId : req.params.ticket_id
         }
@@ -99,7 +102,8 @@ exports.show_respond_ticket = function(req, res, next) {
     return models.ticket.findOne({
         where : {
             ticketId : req.params.ticket_id
-        }
+        },
+        include: [ models.user ]
     }).then(ticket => {
         res.render('ticket/respond_ticket', { ticket : ticket, user: req.user });
     }).catch(err=>console.log("No ticket found: " + err));
@@ -107,7 +111,8 @@ exports.show_respond_ticket = function(req, res, next) {
 
 exports.respond_ticket = function(req, res, next) {
     return models.ticket.update({
-        responses: req.body.ticket_response
+        responses: req.body.ticket_response,
+        tag: 1      // change queued ticket to in-progress ticket
     }, {
         where: {
             ticketId: req.params.ticket_id

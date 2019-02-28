@@ -20,26 +20,25 @@ html(lang='en')
                 th(scope="col") Description
               tr
               tbody
-                tr(id=ticket.id)
+                tr(id=ticket.ticketId)
                   td
-                    span #{ticket.firstName + " " + ticket.lastName}
+                    span #{ticket.user.firstName + " " + ticket.user.lastName}
                   td
-                    span #{ticket.email}
+                    span #{ticket.user.email}
                   td
-                    span #{ticket.phoneNumber}
+                    span #{ticket.user.phoneNumber}
                   td
                     span #{ticket.topic}  
                   td
                     span #{ticket.description}
                 tr
             
-            form(action="/ticket/" + ticket.id +"/respond", method="POST")
+            form(action="/ticket/" + ticket.ticketId +"/respond", method="POST")
               em
                 strong 
                   label(for='ticket_responses') Dev's Responses:
                   .input-group.mb-3
-                    input(disabled, maxlength="3", size="3", value="10", id="counter")
-                    textarea#ticket_responses.form-control(onkeyup=`textCounter('${this}', '${counter}', 4000)`,name='ticket_response',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.responses}
+                    textarea#ticket_responses.form-control(name='ticket_response',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.responses}
                     .input-group-append
                       button(type="submit").btn.btn-primary Submit
             
