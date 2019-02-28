@@ -31,9 +31,9 @@ router.get('/tickets/:user_id', hasAuth, landing.show_tickets);       // admin p
 router.get('/ticket/:ticket_id/respond', hasAuth, landing.show_respond_ticket);     // respond to ticket
 router.post('/ticket/:ticket_id/respond', hasAuth, landing.respond_ticket);
 router.get('/my_tickets/:user_id', isLoggedIn,landing.show_my_tickets); // user page
-router.get('/my_tickets/ticket/:user_id/:ticket_id',hasAuth, landing.show_one_ticket);  // user making edit to his/her tickets
-router.get('/ticket/:ticket_id/edit',hasAuth, landing.show_edit_ticket);
-router.post('/ticket/:ticket_id/edit',hasAuth, landing.edit_ticket);      
+router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, landing.show_edit_ticket);  // user making edit to his/her tickets
+// router.get('/ticket/:ticket_id/edit',hasAuth, landing.show_edit_ticket);
+router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, landing.edit_ticket);      
 
 /********* DELETE ROW FROM tickets TABLE *************/
 router.post('/ticket/:ticket_id/delete', hasAuth, landing.delete_ticket);       // using post and different route

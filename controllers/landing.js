@@ -47,16 +47,6 @@ exports.show_my_tickets = function(req, res, next) {
     });
 };
 
-exports.show_one_ticket = function(req, res, next) {
-    return models.ticket.findOne({
-        where : {
-            ticketId : req.params.ticket_id
-        }
-    }).then(ticket => {
-        res.render('ticket/ticket', { ticket : ticket, user: req.user });
-    });
-};
-
 exports.show_edit_ticket = function(req, res, next) {
     return models.ticket.findOne({
         where : {
@@ -64,6 +54,20 @@ exports.show_edit_ticket = function(req, res, next) {
         }
     }).then(ticket => {
         res.render('ticket/edit_ticket', { ticket : ticket, user: req.user });
+    });
+};
+
+exports.edit_ticket = function(req, res, next) {
+    return models.ticket.update({
+        topic: req.body.topic,
+        description: req.body.description
+        
+    }, {
+        where: {
+            ticketId: req.params.ticket_id
+        }
+    }).then(result => {
+        res.redirect('/my_tickets/' + req.user.userId);
     });
 };
 
@@ -83,19 +87,7 @@ exports.create_ticket = function(req, res, next) {
 };
 
 
-exports.edit_ticket = function(req, res, next) {
-    // req.params.ticket_id  // object
-    // req.body.ticket_email
-    return models.ticket.update({
-        email: req.body.ticket_email
-    }, {
-        where: {
-            ticketId: req.params.ticket_id
-        }
-    }).then(result => {
-        res.redirect('/ticket/' + req.params.ticket_id);
-    });
-};
+
 
 exports.show_respond_ticket = function(req, res, next) {
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ At show_respond_ticket: " + req.params.ticket_id);

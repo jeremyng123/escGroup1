@@ -33,7 +33,7 @@ html(lang='en')
                     td
                       span #{ticket.responses}
                     td
-                      a(href="/ticket/" + ticket.id) Edit
+                      a(href="/my_tickets/" + user.userId + '/' + ticket.ticketId) Edit
                     td
                       button(onclick=`deleteticket('${ticket.id}')`).btn.btn-primary Delete
                   
