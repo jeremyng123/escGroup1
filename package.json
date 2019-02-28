@@ -19,6 +19,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "pug": "^2.0.3",
+    "request": "^2.88.0",
     "sequelize": "^4.42.0",
     "sequelize-cli": "^5.4.0",
     "sequelizer": "^1.1.3",

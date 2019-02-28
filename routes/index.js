@@ -17,13 +17,14 @@ let user = require('../controllers/user');      // to direct them to login page!
 
 let {isLoggedIn,hasAuth} = require('../middleware/hasAuth');
 let {hasAdminRights} = require('../middleware/hasAccess');
+let {send_email} = require('../middleware/email');
 /* GET home page. */
 router.get('/', landing.get_landing);
 // router.post('/', landing.submit_ticket);
 
 /** Ticket Form for users */
 router.get('/ticket/user', isLoggedIn, landing.show_ticket_form);
-router.post('/ticket/user', landing.create_ticket);
+router.post('/ticket/user', send_email,landing.create_ticket);
 
 // ticket routes
 router.get('/tickets',isLoggedIn,hasAdminRights);                     // check which page to direct the user (depend on admin rights)
