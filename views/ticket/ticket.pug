@@ -6,26 +6,24 @@ html(lang='en')
     header
       include ../common/navbar.pug
       +navbar(user)
-      .container
+      .container0-fluid
         .row.align-items-center
-          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+          .col-md-10.order-md-1.text-center.text-md-left
+          - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
             h1 tickets
-            table.table
-              thread
-              tr
-                th(scope="col") Email
-                th(scope="col") Edit
-                th(scope="col") Delete
-              tr
-              tbody
-                tr(id=ticket.id)
-                td
-                  span #{ticket.email}
-                td
-                  a(href="/ticket/" + ticket.id + "/edit") Edit
-                td
-                  form(action="/ticket/" + ticket.id + "/delete", method="POST")
-                    button(type="submit").btn.btn-primary Delete
+            form(action='/my_tickets/ticket/' + user.userId + '/' + ticket.ticketId,method='POST' )
+              div.form-group
+                label(for='Topic') Topic
+                select(name='topic')
+                  each topic in topics
+                    option#topic.form-control(value=topic) #{topic}
+              div.form-group
+                label(for='description') Description:
+                textarea#responses.form-control(name='responses',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.responses}
+              div.form-group
+                label(for='email') Dev's Response:
+                input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly="readonly")  
+              button.btn.btn-primary(type='submit') Submit
 
 
     include ../common/footer.pug

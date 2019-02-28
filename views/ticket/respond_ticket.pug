@@ -36,9 +36,9 @@ html(lang='en')
             form(action="/ticket/" + ticket.ticketId +"/respond", method="POST")
               em
                 strong 
-                  label(for='ticket_responses') Dev's Responses:
+                  label(for='responses') Dev's Responses:
                   .input-group.mb-3
-                    textarea#ticket_responses.form-control(name='ticket_response',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.responses}
+                    textarea#responses.form-control(name='responses',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.responses}
                     .input-group-append
                       button(type="submit").btn.btn-primary Submit
             

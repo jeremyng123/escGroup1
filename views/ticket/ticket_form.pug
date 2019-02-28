@@ -34,7 +34,7 @@ html(lang='en')
                   option#topic.form-control(value=topic) #{topic}
               div.form-group
                 label(for='description') Description:
-                input#description.form-control(type='text', placeholder='Max 4000 chars' name='description')
+                textarea#description.form-control(name='description',type='text', placeholder='max 4000 chars',maxlength="4000", wrap="soft", row="10")
                 
               button.btn.btn-primary(type='submit') Submit
 

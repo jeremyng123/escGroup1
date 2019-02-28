@@ -111,7 +111,7 @@ exports.show_respond_ticket = function(req, res, next) {
 
 exports.respond_ticket = function(req, res, next) {
     return models.ticket.update({
-        responses: req.body.ticket_response,
+        responses: req.body.response,
         tag: 1      // change queued ticket to in-progress ticket
     }, {
         where: {
