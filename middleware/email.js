@@ -12,7 +12,7 @@ exports.send_email = function(req, res, next) {
     body: 
      { subject: 'test subject using ACNAPI',
        sender: 'admin@accenture.com',
-       recipient: req.user.email,
+       recipient: 'newbie126@gmail.com', // req.user.email -- we can use this to send to clients' email too! :)
        html: '<h1>Hello</h1>' },
     json: true };
   

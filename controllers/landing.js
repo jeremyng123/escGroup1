@@ -5,31 +5,43 @@ exports.get_landing = function(req, res, next) {
    // passport session will flood the request with 'user' when there is one in session
 };
 
-// exports.submit_ticket = function(req, res, next) {
-//     console.log('ticket email:', req.body.ticket_email);
-//     return models.ticket.create({
-//         email: req.body.ticket_email
-//     }).then(ticket=> {    // ticket is a variable sent to the /tickets/
-//         res.redirect('/tickets')  // redirect to a new webpage when we submit email
-//     });
-// };
 
-/* findAll() is a promise. what it means will be covered in details later.
-    This method runs asynchronously*/
+exports.show_ticket_form = function(req, res, next) {
+    return res.render('ticket/ticket_form', { user: req.user });
+};
 
-// var findUserWithFkey = function(tickets){
-//     return models.user.findAll({
-//         where : {
-//             userId : tickets.fUserId
-//         }
-//     });
-// }
+exports.create_ticket = function(req, res, next) {
+    return models.ticket.create({
+        fk_userId: req.user.userId,
+        topic: req.body.topic,
+        description: req.body.description
+    }).then(ticket=> {    // ticket is a variable sent to the /tickets/
+        console.log(ticket);
+        res.redirect('/')  // redirect to a new webpage when we submit email
+    }).catch(err=>console.log("error again!" + err));
+};
 
-exports.show_tickets = function(req, res, next) {
+exports.show_tickets_queued = function(req, res, next) {
     return models.ticket.findAll({
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin', { title: 'Express', tickets: tickets, user: req.user });
+            res.render('ticket/admin_0', { title: 'Express', tickets: tickets, user: req.user });
+        })
+};
+
+exports.show_tickets_inprogress = function(req, res, next) {
+    return models.ticket.findAll({
+        include: [ models.user ]
+    }).then(tickets => {
+            res.render('ticket/admin_1', { title: 'Express', tickets: tickets, user: req.user });
+        })
+};
+
+exports.show_tickets_solved = function(req, res, next) {
+    return models.ticket.findAll({
+        include: [ models.user ]
+    }).then(tickets => {
+            res.render('ticket/admin_2', { title: 'Express', tickets: tickets, user: req.user });
         })
 };
 
@@ -70,24 +82,6 @@ exports.edit_ticket = function(req, res, next) {
         res.redirect('/my_tickets/' + req.user.userId);
     });
 };
-
-exports.show_ticket_form = function(req, res, next) {
-    return res.render('ticket/ticket_form', { user: req.user });
-};
-
-exports.create_ticket = function(req, res, next) {
-    return models.ticket.create({
-        fk_userId: req.user.userId,
-        topic: req.body.topic,
-        description: req.body.description
-    }).then(ticket=> {    // ticket is a variable sent to the /tickets/
-        console.log(ticket);
-        res.redirect('/')  // redirect to a new webpage when we submit email
-    }).catch(err=>console.log("error again!" + err));
-};
-
-
-
 
 exports.show_respond_ticket = function(req, res, next) {
     console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ At show_respond_ticket: " + req.params.ticket_id);

@@ -2,7 +2,7 @@ let createError = require('http-errors');
 
 exports.hasAdminRights = function(req,res,next){
     if (req.user && req.user.is_admin == true){
-        return res.redirect('/tickets/' + req.user.userId);
+        return res.redirect('/tickets/' + req.user.userId + '/0');  // tickets page that are queued
     }
     else if (req.user){
         return res.redirect('/my_tickets/' + req.user.userId);

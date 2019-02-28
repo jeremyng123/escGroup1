@@ -28,7 +28,9 @@ router.post('/ticket/user', send_email,landing.create_ticket);
 
 // ticket routes
 router.get('/tickets',isLoggedIn,hasAdminRights);                     // check which page to direct the user (depend on admin rights)
-router.get('/tickets/:user_id', hasAuth, landing.show_tickets);       // admin page -- display all queued tickets
+router.get('/tickets/:user_id/0', hasAuth, landing.show_tickets_queued);       // admin page -- display all queued tickets
+router.get('/tickets/:user_id/1', hasAuth, landing.show_tickets_inprogress);       // admin page -- display all in-progress tickets
+router.get('/tickets/:user_id/2', hasAuth, landing.show_tickets_solved);       // admin page -- display all solved tickets
 router.get('/ticket/:ticket_id/respond', hasAuth, landing.show_respond_ticket);     // respond to ticket
 router.post('/ticket/:ticket_id/respond', hasAuth, landing.respond_ticket);
 router.get('/my_tickets/:user_id', isLoggedIn,landing.show_my_tickets); // user page
