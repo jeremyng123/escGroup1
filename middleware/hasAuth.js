@@ -6,7 +6,7 @@ exports.isLoggedIn = function(req,res,next){
     }
     else
         console.log('Currently at:', "some route");
-        return next(createError(404, "Page does not exist"));     // need to do something here, so that users go to login/register page first!
+        return res.redirect('/users/signup');  // need to do something here, so that users go to login/register page first!
 }
 
 /**

@@ -36,10 +36,7 @@ exports.show_tickets = function(req, res, next) {
 exports.show_my_tickets = function(req, res, next) {
     return models.user.findOne({
         include: [ {
-            model : models.ticket,
-            where : {
-                fk_userId : req.user.userId
-            }
+            model : models.ticket
         }]
     }).then(tickets=> {
         console.log(JSON.stringify(tickets + " @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"));

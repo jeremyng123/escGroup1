@@ -1,7 +1,7 @@
 doctype html
 html(lang='en')
   include common/header.pug
-  +header("Starter MVP")
+  +header("ACNAPI Portal")
   body
     header
       include common/navbar.pug
@@ -9,50 +9,11 @@ html(lang='en')
       .container
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
-            h1.mb-3 Minimum Viable Landing Page
-            p.ticket This tutorial teaches you how to build a NodeJS WebApp covering key topics
-            p.ticket.mb-4 Learn how to launch a landing page and start collecting sales tickets.
-                //- we have built a container that has a row. this row has a column of medium-sized screen of 6
-            form(action="/", method="POST")
-              .input-group.mb-3
-                input(name="ticket_email", type="email", placeholder="Enter your email address").form-control
-                .input-group-append
-                  button(type="submit").btn.btn-primary Get Started
-        //-form(action="/", method="POST")                We have deleted this part
-            input(name="ticket_email", type="email", placeholder="Enter your email address")
-            button(type="submit") Submit
-
-            
-        //- Notice that tr(id=ticket.id) element is instantiated with the id.
-            this is so that when we delete the element with that particular id, it will remove the entire row
-        
-        
-        //- Replaced these code into a table
-          for ticket in tickets
-            //- span is to tell the browser to put the following body inline with the span body
-            
-            p(id=ticket.id)
-              span #{ticket.email}
-              
-              a(href="/ticket/" + ticket.id)  Details
-              
-              button(onclick=`deleteticket('${ticket.id}')`) Delete
+            a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
+              img(src="/images/homepage_Accenture.png")
+              br
+            h1 Welcome to ACNAPI Portal
           
     include common/footer.pug
     +footer()
     //- script(src="/javascripts/tickets.js")
-
-
-
-
-
-
-      //- LOOK AT THE BUTTON's FUNCTION. use `<javascript>` and '<pug variable>'
-
-//- look at the condition: if tickets mean if the webpage is rendering this page and puts a value into the key 'tickets', then this condition is true and it
-//- will render some things based on the command we have tasked it to do
-
-//- on HTML/CSS/JS side: pug/JS are hierarchical in nature. if we delete the body corresponding to p(id=ticket.id), we are effectively deleting all the
-//-     child bodies that are nested inside of p body.
-    
-    Notice how we put header and footer at the top and body of the entire body
