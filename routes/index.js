@@ -1,67 +1,40 @@
 var express = require('express');
 var router = express.Router();
 
-let landing = require('../controllers/landing');
+/*************** CONTROLLER *****************/
+let general = require('../controllers/general');
+let admins = require('../controllers/admins');
 let user = require('../controllers/user');      // to direct them to login page!
 
-/**
- * the router function has a special function that can allow us to open a sequence of handlers before handling the route
- * this is called middleware
- */
-
-// const noop = function(req,res,next){
-//     next();     // when the /tickets path is executed, the next thing that is executed is noop. next() tells the webpage to go to the next handler in the argument
-    
-// }
-// router.get('/tickets',noop,landing.show_tickets);
-
+/*************** MIDDLEWARE *****************/
 let {isLoggedIn,hasAuth} = require('../middleware/hasAuth');
 let {hasAdminRights} = require('../middleware/hasAccess');
 let {send_email} = require('../middleware/email');
-/* GET home page. */
-router.get('/', landing.get_landing);
-// router.post('/', landing.submit_ticket);
 
-/** Ticket Form for users */
-router.get('/ticket/user', isLoggedIn, landing.show_ticket_form);
-router.post('/ticket/user', send_email,landing.create_ticket);
 
-// ticket routes
-router.get('/tickets',isLoggedIn,hasAdminRights);                     // check which page to direct the user (depend on admin rights)
-router.get('/tickets/:user_id/0', hasAuth, landing.show_tickets_queued);       // admin page -- display all queued tickets
-router.get('/tickets/:user_id/1', hasAuth, landing.show_tickets_inprogress);       // admin page -- display all in-progress tickets
-router.get('/tickets/:user_id/2', hasAuth, landing.show_tickets_solved);       // admin page -- display all solved tickets
-router.get('/ticket/:ticket_id/respond', hasAuth, landing.show_respond_ticket);     // respond to ticket
-router.post('/ticket/:ticket_id/respond', hasAuth, landing.respond_ticket);
-router.get('/my_tickets/:user_id', isLoggedIn,landing.show_my_tickets); // user page
-router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, landing.show_edit_ticket);  // user making edit to his/her tickets
-// router.get('/ticket/:ticket_id/edit',hasAuth, landing.show_edit_ticket);
-router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, landing.edit_ticket);      
+/*************** HOMEPAGE *****************/
+router.get('/', general.get_welcome);
+
+/*************** GENERAL TICKET ROUTES *****************/
+router.get('/ticket/form', isLoggedIn, general.show_ticket_form);       // create ticket form
+router.post('/ticket/form', send_email, general.create_ticket);
+router.get('/my_tickets/:user_id/0', isLoggedIn, general.show_my_tickets_queued);       // user page -- display all queued tickets
+router.get('/my_tickets/:user_id/1', isLoggedIn, general.show_my_tickets_inprogress);   // user page -- display all in-progress tickets
+router.get('/my_tickets/:user_id/2', isLoggedIn, general.show_my_tickets_solved);       // user page -- display all solved tickets
+router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.show_edit_ticket);  // user making edit to his/her tickets
+router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);      
+
+
+/*************** ADMIN ROUTES *****************/
+router.get('/tickets',isLoggedIn,hasAdminRights);   // if user is not logged in, redirect to signup page, else admin/user tickets page
+router.get('/tickets/:user_id/0', hasAuth, admins.show_tickets_queued);             // admin page -- display all queued tickets
+router.get('/tickets/:user_id/1', hasAuth, admins.show_tickets_inprogress);         // admin page -- display all in-progress tickets
+router.get('/tickets/:user_id/2', hasAuth, admins.show_tickets_solved);             // admin page -- display all solved tickets
+router.get('/ticket/:user_id/:ticket_id/respond', hasAuth, admins.show_respond_ticket);     // respond to ticket
+router.post('/ticket/:user_id/:ticket_id/respond', hasAuth, admins.respond_ticket);
 
 /********* DELETE ROW FROM tickets TABLE *************/
-router.post('/ticket/:ticket_id/delete', hasAuth, landing.delete_ticket);       // using post and different route
-router.post('/ticket/:ticket_id/delete-json',hasAuth, landing.delete_ticket_json);  // using ajax
+router.post('/ticket/:ticket_id/delete', hasAuth, admins.delete_ticket);       // using post and different route
+router.post('/ticket/:ticket_id/delete-json',hasAuth, admins.delete_ticket_json);  // using ajax
 
 module.exports = router;
-
-
-
-/**************** THE FLOW OF HOW THINGS WORK *******************/
-/**
- * 1. app.js starts up the webapp backend
- * 2. Loads the '/' framework through var indexRouter = requires('routes/landing.js')
- * 3. (a) landing.js looks at current URL and router.get('<URL branches>', function), whereby function is being sorted out in controllers/landing.js
- * 3. (b) the landing.(method) is accomplished by `let landing = require('../controllers/landing')` which allows us to call the methods found in that file
- * 3. (c) this allows us to know at which `branch` will certain method perform certain action
- * 
- * 4. [a]some of the methods in landing.js will render the page according to the pug files found in views folder through res.render('`filename in views folder`', { 'key' : value } )
- * 4. [b] the 2nd argument in res.render('`filename in views folder`', { 'key' : value } ) because it allows the pug file to obtain a value from 'key' and display it on the webpage
- * 4. [c] we also use function(res, req, next) {} to perform ASYNC task.
- * 4. [d] models is a class obtain through var models = require('../models')
- * 4. [e] models.ticket <-- telling it to look at the tickets table
- * 4. [f] models.ticket.create <-- telling the method to CREATE a ROW to tickets TABLE with email: `<name of email>` value
- * 4. [g] models.ticket.findAll() <-- telling the method to SELECT * FROM tickets; --> as it is an ASYNC Task, it will keep returning the next value to landing.pug
- * 4. [h] models.ticket.destroy() <-- telling the method to DESTROY `<id>` FROM tickets;
- *          DELETE FROM "tickets" WHERE "id" = '0cdbc929-1b18-40fe-9937-a06cf2782334'
- * 4. [i] res.redirect('<url page>') --> as the name suggest, redirects page.
- */

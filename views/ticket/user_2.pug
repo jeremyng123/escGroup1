@@ -11,6 +11,13 @@ html(lang='en')
         .row.align-items-center
           .col-md-10.order-md-1.text-center.text-md-left
             h1 tickets
+            p
+              span
+                a(href="/my_tickets/" + user.userId + "/0") Queued #{pre}
+                |          |
+                a(href="/my_tickets/" + user.userId + "/1") In-Progress #{pre}
+                |          |
+                a(href="/my_tickets/" + user.userId + "/2") Solved
             table.table
               thread
               tr
@@ -22,20 +29,22 @@ html(lang='en')
                 th(scope="col") 
               tr
               tbody
-              for ticket in tickets.tickets
-                  tr(id=ticket.id)
-                    td
-                      span #{count++}
-                    td
-                      span #{ticket.topic}  
-                    td
-                      span #{ticket.description}
-                    td
-                      span #{ticket.responses}
-                    td
-                      a(href="/my_tickets/" + user.userId + '/' + ticket.ticketId) Edit
-                    td
-                      button(onclick=`deleteticket('${ticket.id}')`).btn.btn-primary Delete
+              if tickets != NULL
+                for ticket in tickets.tickets
+                  if !ticket.tag
+                    tr(id=ticket.id)
+                      td
+                        span #{count++}
+                      td
+                        span #{ticket.topic}  
+                      td
+                        span #{ticket.description}
+                      td
+                        span #{ticket.responses}
+                      td
+                        a(href="/my_tickets/" + user.userId + '/' + ticket.ticketId) Edit
+                      td
+                        button(onclick=`deleteticket('${ticket.id}')`).btn.btn-primary Delete
                   
 
 

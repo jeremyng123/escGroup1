@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
     is_admin: {
       type: DataTypes.BOOLEAN,
       allowNull: true,
+    },
+    is_verified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     }
   });
   user.associate = function(model) {
