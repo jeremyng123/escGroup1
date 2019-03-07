@@ -33,7 +33,7 @@ html(lang='en')
                     span #{ticket.description}
                 tr
             
-            form(action="/ticket/" + ticket.ticketId +"/respond", method="POST")
+            form(action="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond", method="POST")
               em
                 strong 
                   label(for='responses') Dev's Responses:

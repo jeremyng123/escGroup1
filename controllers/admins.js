@@ -5,7 +5,7 @@ exports.show_tickets_queued = function(req, res, next) {
         where : { tag : 0 },
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_0', { tickets: tickets, user: req.user });
+            res.render('ticket/admin_0', { tickets: tickets, user: req.user , subtitle: "queued"});
         })
 };
 
@@ -14,7 +14,7 @@ exports.show_tickets_inprogress = function(req, res, next) {
         where : { tag : 1 },
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_1', { tickets: tickets, user: req.user });
+            res.render('ticket/admin_1', { tickets: tickets, user: req.user  , subtitle: "in-progress"});
         })
 };
 
@@ -23,7 +23,7 @@ exports.show_tickets_solved = function(req, res, next) {
         where : { tag : 2 },
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_2', { tickets: tickets, user: req.user });
+            res.render('ticket/admin_2', { tickets: tickets, user: req.user  , subtitle: "solved"});
         })
 };
 

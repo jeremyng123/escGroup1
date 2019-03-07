@@ -27,7 +27,7 @@ exports.show_my_tickets_queued = function(req, res, next) {
             where : { tag : 0 }
         }]
     }).then(tickets=> {
-        res.render('ticket/user_0', { tickets: tickets, user: req.user });
+        res.render('ticket/user_0', { tickets: tickets, user: req.user , subtitle: "queued" });
     });
 };
 
@@ -39,7 +39,7 @@ exports.show_my_tickets_inprogress = function(req, res, next) {
             where : { tag : 1 }
         }]
     }).then(tickets=> {
-        res.render('ticket/user_1', { tickets: tickets, user: req.user });
+        res.render('ticket/user_1', { tickets: tickets, user: req.user , subtitle: "in-progress" });
     });
 };
 
@@ -51,7 +51,7 @@ exports.show_my_tickets_solved = function(req, res, next) {
             where : { tag : 2 }
         }]
     }).then(tickets=> {
-        res.render('ticket/user_2', { tickets: tickets, user: req.user });
+        res.render('ticket/user_2', { tickets: tickets, user: req.user , subtitle: "solved" });
     });
 };
 
