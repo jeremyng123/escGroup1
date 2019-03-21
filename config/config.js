@@ -1,9 +1,9 @@
 module.exports = {
   "development": {
-    "username": "egslqnsx",
-    "password": 'mD1HstB1AYadqa5DH26yMqj2AFEMp9YA',
-    "database": "egslqnsx",
-    "host": "manny.db.elephantsql.com",
+    "username": process.env.POSTGRES_USERNAME,
+    "password": process.env.POSTGRES_PASSWORD,
+    "database": process.env.POSTGRES_DATABASE,
+    "host": process.env.POSTGRES_HOST,
     "dialect": "postgres",
     "port" : 5432
   },
