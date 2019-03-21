@@ -32,6 +32,6 @@
   "devDependencies": {
     "mocha": "^6.0.2",
     "nodemon": "^1.18.10",
-    "pg": "^7.8.1"
+    "pg": "^7.9.0"
   }
 }
