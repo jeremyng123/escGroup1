@@ -1,0 +1,42 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "env": {
+    "GITHUB_USERNAME": {
+      "required": true
+    },
+    "POSTGRES_DATABASE": {
+      "required": true
+    },
+    "POSTGRES_HOST": {
+      "required": true
+    },
+    "POSTGRES_PASSWORD": {
+      "required": true
+    },
+    "POSTGRES_USERNAME": {
+      "required": true
+    },
+    "SAUCE_ACCESS_KEY": {
+      "required": true
+    },
+    "SAUCE_USERNAME": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "escGroup1",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
