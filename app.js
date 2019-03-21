@@ -9,11 +9,6 @@ let session = require('express-session');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
-let {isLoggedIn,hasAuth} = require('./middleware/hasAuth');
-/* the next 2 lines is just an example of how we pass arguments when we perform require('package')(<parameters>) */
-// const print = require('./print-in-frame');
-// print(5, 'Hey');
-// is the same as saying require('./print-in-frame')(5, 'Hey');
 require('./passport_setup')(passport);
 
 var app = express();
