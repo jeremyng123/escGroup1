@@ -1,7 +1,8 @@
 var webdriver = require('selenium-webdriver'),
     /* Change the username and accessKey to your Saucelabs.com credentials */
-    username = "standard_user",
-    accessKey = "secret_sauce",
+    // USING ENVIRONMENT VARIABLES ARE GOOD because it prevents other people from using ur private keys!
+    username = process.env.SAUCE_USERNAME,
+    accessKey = process.env.SAUCE_ACCESS_KEY,
     /* Base URL sets the target test application */
     baseUrl = "https://www.saucedemo.com",
     /* driver instantiates via callback */

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "if [[ $NODE_ENV == 'production' ]]; then node ./bin/www; else nodemon ./bin/www; fi ",
-    "test": "mocha ./mocha-tests/instant-sauce-mocha-test1.js"
+    "test": "mocha ./mocha-tests/*.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.4",
