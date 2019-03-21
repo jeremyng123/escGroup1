@@ -5,6 +5,10 @@ module.exports = {
     "database": process.env.POSTGRES_DATABASE,
     "host": process.env.POSTGRES_HOST,
     "dialect": "postgres",
+    "protocol": "postgres",
+    "dialectOptions": {
+      ssl: true
+    },
     "port" : 5432
   },
   "test": {
@@ -20,6 +24,10 @@ module.exports = {
     "database": process.env.POSTGRES_DATABASE,
     "host": process.env.POSTGRES_HOST,
     "dialect": "postgres",
+    "protocol": "postgres",
+    "dialectOptions": {
+      ssl: true
+    },
     "port": 5432
   }
 }
