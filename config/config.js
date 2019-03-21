@@ -1,9 +1,9 @@
 module.exports = {
   "development": {
-    "username": "gttvkjsgxmwsbt",
-    "password": 'da18ab722692ddc61221a38cdc3af4c5d7a723309f02370aadd684a92efb7a11',
-    "database": "dd2i30i4mata42",
-    "host": "ec2-184-72-238-22.compute-1.amazonaws.com",
+    "username": "egslqnsx",
+    "password": 'mD1HstB1AYadqa5DH26yMqj2AFEMp9YA',
+    "database": "egslqnsx",
+    "host": "manny.db.elephantsql.com",
     "dialect": "postgres",
     "port" : 5432
   },
