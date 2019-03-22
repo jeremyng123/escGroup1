@@ -62,5 +62,18 @@ describe('Title tests for Users', async () => {
         });
     });
 
-    // after(async () => driver.quit());
+    describe('/users/login', async () => {
+        it('should-open-acnapi-signup-route', async function() {
+            this.timeout(5000);
+            await navbar.findElement(By.id('btn_login')).click();
+            try{
+                await driver.getTitle().then(title => {
+                    expect(title).to.be.equal("ACNAPI Register");
+                    console.log("title is: " + title);
+                });
+            } catch(err){
+                console.log(err);
+            }
+        });
+    });
 });
