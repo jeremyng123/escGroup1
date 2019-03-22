@@ -5,22 +5,22 @@ mixin navbar(user)
       .collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item
-            a.nav-link(href="/") Home
+            a#btn_home.nav-link(href="/") Home
           li.nav-item
-            a.nav-link(href="/tickets") Tickets
+            a#btn_tickets.nav-link(href="/tickets") Tickets
           li.nav-item
-            a.nav-link(href="/ticket/form") Ask questions
+            a#btn_ticket-form.nav-link(href="/ticket/form") Ask questions
       .navbar-right
         if user
           ul.navbar-nav.mr-auto
             span.navbar-text Hello #{user.firstName}!
             li.nav-item
-              a.nav-link(href="/users/logout") Logout
+              a#btn_logout.nav-link(href="/users/logout") Logout
         else
           .navbar-right
             ul.navbar-nav.mr-auto
               li.nav-item
-                a.nav-link(href="/users/signup") Sign up
+                a#btn_signup.nav-link(href="/users/signup") Sign up
               li.nav-item
-                a.nav-link(href="/users/login") Login
+                a#btn_login.nav-link(href="/users/login") Login
           

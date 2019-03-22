@@ -38,7 +38,7 @@ describe('Instant Sauce Test Module 4', function() {
     });
  
     afterEach(function (done) {
-        driver.executeScript("sauce:job-result=" + (true ? "passed" : "failed"));
+        // driver.executeScript("sauce:job-result=" + (true ? "passed" : "failed"));
         driver.quit();
         done();
     });
