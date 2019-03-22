@@ -5,7 +5,7 @@ exports.show_tickets_queued = function(req, res, next) {
         where : { tag : 0 },
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_0', { tickets: tickets, user: req.user , subtitle: "queued"});
+            res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued"});
         })
 };
 
@@ -14,7 +14,7 @@ exports.show_tickets_inprogress = function(req, res, next) {
         where : { tag : 1 },
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_1', { tickets: tickets, user: req.user  , subtitle: "in-progress"});
+            res.render('ticket/admin_1', { title: 'Tickets - in Progress', tickets: tickets, user: req.user  , subtitle: "in-progress"});
         })
 };
 
@@ -23,7 +23,7 @@ exports.show_tickets_solved = function(req, res, next) {
         where : { tag : 2 },
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_2', { tickets: tickets, user: req.user  , subtitle: "solved"});
+            res.render('ticket/admin_2', { title: 'Tickets - Solved', tickets: tickets, user: req.user  , subtitle: "solved"});
         })
 };
 
@@ -34,7 +34,7 @@ exports.show_respond_ticket = function(req, res, next) {
         },
         include: [ models.user ]
     }).then(ticket => {
-        res.render('ticket/respond_ticket', { ticket : ticket, user: req.user });
+        res.render('ticket/respond_ticket', { title: 'Responding Tickets', ticket : ticket, user: req.user });
     }).catch(err=>console.log("No ticket found: " + err));
 };
 

@@ -1,12 +1,12 @@
 const models = require('../models');
 
 exports.get_welcome = function(req, res, next) {
-    return res.render('welcome', { title: 'Express' , user: req.user });
+    return res.render('welcome', { title: "Accenture's ACNAPI Portal" , user: req.user });
    // passport session will flood the request with 'user' when there is one in session
 };
 
 exports.show_ticket_form = function(req, res, next) {
-    return res.render('ticket/ticket_form', { user: req.user });
+    return res.render('ticket/ticket_form', { title: "ACNAPI Ticket Form", user: req.user });
 };
 
 exports.create_ticket = function(req, res, next) {
@@ -27,7 +27,7 @@ exports.show_my_tickets_queued = function(req, res, next) {
             where : { tag : 0 }
         }]
     }).then(tickets=> {
-        res.render('ticket/user_0', { tickets: tickets, user: req.user , subtitle: "queued" });
+        res.render('ticket/user_0', { title: "ACNAPI Tickets - Queued", tickets: tickets, user: req.user , subtitle: "queued" });
     });
 };
 
@@ -39,7 +39,7 @@ exports.show_my_tickets_inprogress = function(req, res, next) {
             where : { tag : 1 }
         }]
     }).then(tickets=> {
-        res.render('ticket/user_1', { tickets: tickets, user: req.user , subtitle: "in-progress" });
+        res.render('ticket/user_1', { title: "ACNAPI Tickets - In Progress", tickets: tickets, user: req.user , subtitle: "in-progress" });
     });
 };
 
@@ -51,7 +51,7 @@ exports.show_my_tickets_solved = function(req, res, next) {
             where : { tag : 2 }
         }]
     }).then(tickets=> {
-        res.render('ticket/user_2', { tickets: tickets, user: req.user , subtitle: "solved" });
+        res.render('ticket/user_2', { title: "ACNAPI Tickets - Solved", tickets: tickets, user: req.user , subtitle: "solved" });
     });
 };
 
@@ -61,7 +61,7 @@ exports.show_edit_ticket = function(req, res, next) {
             ticketId : req.params.ticket_id
         }
     }).then(ticket => {
-        res.render('ticket/edit_ticket', { ticket : ticket, user: req.user });
+        res.render('ticket/edit_ticket', { title: "ACNAPI Ticket - Edit", ticket : ticket, user: req.user });
     });
 };
 

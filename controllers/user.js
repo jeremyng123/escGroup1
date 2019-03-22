@@ -9,14 +9,14 @@ const { validateUser } = require('../validators/signup');
 
 /**formData is basically the values keyed in by the user in the form fields */
 exports.show_login = function(req, res, next){
-    res.render('users/login', { formData: {}, errors: {} });
+    res.render('users/login', { title: "ACNAPI Login", formData: {}, errors: {} });
 }
 exports.show_signup = function(req, res, next){
-    res.render('users/signup', { formData: {}, errors: {} });
+    res.render('users/signup', { title: "ACNAPI Register", formData: {}, errors: {} });
 }
 /** we use const for functions that are local (i.e. other files do not need to use this particular functions) */
 const rerender_signup = function(errors, req, res, next){
-    res.render('users/signup', { formData: req.body, errors: errors });
+    res.render('users/signup', { title: "ACNAPI Register", formData: req.body, errors: errors });
 }
 
 const generateHash = function(password){
