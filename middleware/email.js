@@ -6,9 +6,9 @@ exports.send_email = function(req, res, next) {
     headers: 
      { 'Postman-Token': process.env.POSTMAN_TOKEN,
        'cache-control': 'no-cache',
-       Authorization: 'Bearer ' + process.env.ACC_KEY,
+       Authorization: 'Bearer ' + process.env.SERVER_TOKEN,
        'Content-Type': 'application/json',
-       'Server-Token': process.env.ACC_KEY },
+       'Server-Token': process.env.SERVER_TOKEN },
     body: 
      { subject: 'test subject using ACNAPI',
        sender: 'admin@accenture.com',

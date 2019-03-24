@@ -18,7 +18,6 @@ describe('Title pages for non-users', function() {
     beforeEach(async function (){
         driver = new Builder().forBrowser('chrome').build();
         await driver.getSession().then(sessionid => {
-            // console.log("This is session: " + sessionid.id_);
             driver.sessionID = sessionid.id_;
         });
         await driver.get(baseURL);
@@ -37,7 +36,6 @@ describe('Title pages for non-users', function() {
         it('should-open-acnapi-portal', async function() {
             try{
                 await driver.getTitle().then(title => {
-                    console.log("title is: " + title);
                     expect(title).to.be.equal("Accenture's ACNAPI Portal");
                 });
             } catch(err){
@@ -52,7 +50,6 @@ describe('Title pages for non-users', function() {
             try{
                 await driver.getTitle().then(title => {
                     expect(title).to.be.equal("ACNAPI Register");
-                    console.log("title is: " + title);
                 });
             } catch(err){
                 console.log(err);
@@ -66,7 +63,6 @@ describe('Title pages for non-users', function() {
             try{
                 await driver.getTitle().then(title => {
                     expect(title).to.be.equal("ACNAPI Login");
-                    console.log("title is: " + title);
                 });
             } catch(err){
                 console.log(err);
@@ -79,7 +75,6 @@ describe('Title pages for non-users', function() {
             await navbar.findElement(By.id('btn_home')).click();
             try{
                 await driver.getTitle().then(title => {
-                    console.log("title is: " + title);
                     expect(title).to.be.equal("Accenture's ACNAPI Portal");
                 });
             } catch(err){
@@ -98,7 +93,6 @@ describe('Title pages for non-users', function() {
                 try{
                     await driver.getTitle().then(title => {
                         expect(title).to.be.equal("ACNAPI Register");       // redirected to signup page
-                        console.log("title is: " + title);
                     });
                 } catch(err){
                     console.log(err);
@@ -112,7 +106,6 @@ describe('Title pages for non-users', function() {
                 try{
                     await driver.getTitle().then(title => {
                         expect(title).to.be.equal("ACNAPI Register");       // redirected to signup page
-                        console.log("title is: " + title);
                     });
                 } catch(err){
                     console.log(err);
