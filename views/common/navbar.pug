@@ -13,7 +13,7 @@ mixin navbar(user)
       .navbar-right
         if user
           ul.navbar-nav.mr-auto
-            span.navbar-text Hello #{user.firstName}!
+            span#user_logged.navbar-text Hello #{user.firstName}!
             li.nav-item
               a#btn_logout.nav-link(href="/users/logout") Logout
         else
