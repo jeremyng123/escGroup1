@@ -14,7 +14,7 @@ exports.show_tickets_inprogress = function(req, res, next) {
         where : { tag : 1 },
         include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_1', { title: 'Tickets - in Progress', tickets: tickets, user: req.user  , subtitle: "in-progress"});
+            res.render('ticket/admin_1', { title: 'Tickets - In Progress', tickets: tickets, user: req.user  , subtitle: "in-progress"});
         })
 };
 
