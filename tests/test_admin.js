@@ -70,7 +70,7 @@ describe('Title pages for Users', function() {
                 }
             });
         });
-        describe('/my_tickets/:ticket_id/0', function(){
+        describe('/tickets/:ticket_id/0', function(){
             it('should-open-users-ticket-queue-page', async function() {
                 await driver.findElement(By.id('btn_tickets')).click();     // enter queue page for the first time
                 await driver.findElement(By.id('tickets0')).click();        // click on `solved` Button
