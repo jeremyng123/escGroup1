@@ -12,7 +12,7 @@ const { expect } = require('chai');
 /**
  * Basic user pages. Checks `title` of routes
  */
-describe('Title pages for Users', function() {
+describe('Title pages for Admin', function() {
     this.timeout(15000) // because of passport possibly lagging, we need to have a higher timeout rate
     beforeEach(async function (){
         driver = new Builder().forBrowser('chrome').build();

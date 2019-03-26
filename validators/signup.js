@@ -15,7 +15,7 @@ const validateCreateUserFields = function(errors, req){
     if (!validator.isAscii(req.body.password)){
         errors["password"] = "Invalid characters in password, please try another one!";
     }
-    if (!validator.isLength(req.body.password, {min: 8, max: 25})){
+    if (!validator.isLength(req.body.password, {min: 8})){
         errors["password"] = "Please ensure that your password has a minimum of 8 characters";
     }
     if (!validator.isNumeric(req.body.phoneNumber) || !validator.isLength(req.body.phoneNumber, {min:8, max:8})){

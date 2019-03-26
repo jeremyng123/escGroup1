@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let passport = require('passport');
 let session = require('express-session');
+let flash = require('connect-flash'); 
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -32,6 +33,7 @@ app.use(passport.session());
 
 /** if user is not logged in, direct to usersRouter */
 // app.all('/secret', isLoggedIn)
+app.use(flash());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

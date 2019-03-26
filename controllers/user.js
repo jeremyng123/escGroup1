@@ -26,7 +26,7 @@ const generateHash = function(password){
 exports.signup = function(req, res, next) {
     let errors = {};
     return validateUser(errors, req).then(errors => {
-        if (!isEmpty(errors)){
+        if (!isEmpty(errors)){      // if the error field is not empty,then it will re-render the signup page to show errors in field
             rerender_signup(errors, req, res, next)
         }
         else {
@@ -56,7 +56,7 @@ exports.signup = function(req, res, next) {
                 }return newUser.save().then(result => {
                     passport.authenticate('local', {
                         successRedirect: "/",
-                        failureRedirect: "/signup",
+                        failureRedirect: "/users/signup",
                         failureFlash: true
                     })(req, res, next);
                 })
@@ -68,7 +68,7 @@ exports.signup = function(req, res, next) {
 exports.login = function(req,res,next){
     passport.authenticate('local', {
         successRedirect: "/",
-        failureRedirect: "/login",
+        failureRedirect: "/users/login",
         failureFlash: true
     })(req, res, next);
 }

@@ -12,8 +12,8 @@ exports.send_email = function(req, res, next) {
     body: 
      { subject: 'test subject using ACNAPI',
        sender: 'admin@accenture.com',
-       recipient: 'newbie126@gmail.com', // req.user.email -- we can use this to send to clients' email too! :)
-       html: '<h1>Hello</h1>' }, // test
+       recipient: req.user.email, // req.user.email -- we can use this to send to clients' email too! :)
+       html: '<h1>Hello please verify your account here!</h1>' }, // test
     json: true };
   
     request(options, function (error, response, body) {

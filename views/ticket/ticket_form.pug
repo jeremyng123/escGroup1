@@ -4,6 +4,18 @@ html(lang='en')
   +header(title)
   body
     header
+      link(rel='stylesheet', type='text/css', href='/stylesheets/prism.css')
+      script(src='/javascripts/prism.js')
+      script(src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ld4nt2kua9tevpu1bdsjmargql8oksngzmeps4cqup50heof')
+      script.
+        tinymce.init({
+          selector: 'textarea',
+          plugins: 'autolink codesample formatpainter linkchecker lists checklist media mediaembed pageembed permanentpen powerpaste tinycomments tinydrive tinymcespellchecker',
+          toolbar: 'addcomment showcomments checklist codesample formatpainter insertfile pageembed permanentpen',
+          toolbar_drawer: 'sliding',
+          tinycomments_mode: 'embedded',
+          tinycomments_author: 'Author name'
+        });
       include ../common/navbar.pug
       +navbar(user)
       .container

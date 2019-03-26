@@ -1,6 +1,7 @@
 var assert = require('chai').assert,
-    username = process.env.ESC_USERNAME,
-    password = process.env.ESC_PASSWORD,
+    username = process.env.ESC_USER_USERNAME,
+    password = process.env.ESC_USER_PASSWORD,
+    phoneNumber = process.env.ESC_ADMIN_PHONENUMBER,
     /* Change the baseURL to your application URL */
     baseURL = "https://escgroup1.herokuapp.com",
     driver,
@@ -44,12 +45,80 @@ describe('Title pages for non-users', function() {
         });
     });
 
-    describe('/users/signup', function(){
+    /**
+     * various test cases to test signing up
+     */
+    describe('/users/signup', async function(){
         it('should-open-acnapi-signup-route', async function() {
-            await navbar.findElement(By.id('btn_signup')).click();
+            await navbar.findElement(By.id('btn_signup')).click();      // enter registration page
+            
             try{
                 await driver.getTitle().then(title => {
                     expect(title).to.be.equal("ACNAPI Register");
+                });
+            } catch(err){
+                console.log(err);
+            }
+        });
+
+        it('should-prompt-password-too-short', async function() {
+            await navbar.findElement(By.id('btn_signup')).click();      // enter registration page
+            await driver.findElement(By.name('email')).sendKeys(username);         // enter default user email into `email` box
+            await driver.findElement(By.name('firstName')).sendKeys('Jeremy');         // enter default user first name into `firstName` box
+            await driver.findElement(By.name('lastName')).sendKeys('Ng');         // enter default user last name into `lastName` box
+            await driver.findElement(By.name('phoneNumber')).sendKeys(phoneNumber);         // enter default user phonenumber into `phoneNumber` box
+            await driver.findElement(By.name('password')).sendKeys('1234567', Key.ENTER);         // enter short password into `password` box
+            try{
+                await driver.findElement(By.id('err_password')).then(err_pw => {
+                    expect(err_pw).to.be.equal("Please ensure that your password has a minimum of 8 characters");
+                });
+            } catch(err){
+                console.log(err);
+            }
+        });
+
+        it('should-prompt-invalid-characters-in-password', async function() {
+            await navbar.findElement(By.id('btn_signup')).click();      // enter registration page
+            await driver.findElement(By.name('email')).sendKeys(username);         // enter default user email into `email` box
+            await driver.findElement(By.name('firstName')).sendKeys('Jeremy');         // enter default user first name into `firstName` box
+            await driver.findElement(By.name('lastName')).sendKeys('Ng');         // enter default user last name into `lastName` box
+            await driver.findElement(By.name('phoneNumber')).sendKeys(phoneNumber);         // enter default user phonenumber into `phoneNumber` box
+            await driver.findElement(By.name('password')).sendKeys('1234567我爱你', Key.ENTER);         // enter short password into `password` box
+            try{
+                await driver.findElement(By.id('err_password')).then(err_pw => {
+                    expect(err_pw).to.be.equal("Invalid characters in password, please try another one!");
+                });
+            } catch(err){
+                console.log(err);
+            }
+        });
+
+        it('should-prompt-invalid-phone-number', async function() {
+            await navbar.findElement(By.id('btn_signup')).click();      // enter registration page
+            await driver.findElement(By.name('email')).sendKeys(username);         // enter default user email into `email` box
+            await driver.findElement(By.name('firstName')).sendKeys('Jeremy');         // enter default user first name into `firstName` box
+            await driver.findElement(By.name('lastName')).sendKeys('Ng');         // enter default user last name into `lastName` box
+            await driver.findElement(By.name('phoneNumber')).sendKeys('1234567');         // enter default user phonenumber into `phoneNumber` box
+            await driver.findElement(By.name('password')).sendKeys(password, Key.ENTER);         // enter short password into `password` box
+            try{
+                await driver.findElement(By.id('err_phoneNumber')).then(err_phoneNumber => {
+                    expect(err_phoneNumber).to.be.equal("Please key in a valid phone number with 8 digits (i.e. 91234567). Omit all special characters and spaces!");
+                });
+            } catch(err){
+                console.log(err);
+            }
+        });
+
+        it('should-prompt-invalid-email', async function() {
+            await navbar.findElement(By.id('btn_signup')).click();      // enter registration page
+            await driver.findElement(By.name('email')).sendKeys('some_invalid_email@192.168.0.1');         // enter default user email into `email` box
+            await driver.findElement(By.name('firstName')).sendKeys('Jeremy');         // enter default user first name into `firstName` box
+            await driver.findElement(By.name('lastName')).sendKeys('Ng');         // enter default user last name into `lastName` box
+            await driver.findElement(By.name('phoneNumber')).sendKeys(phoneNumber);         // enter default user phonenumber into `phoneNumber` box
+            await driver.findElement(By.name('password')).sendKeys(password, Key.ENTER);         // enter short password into `password` box
+            try{
+                await driver.findElement(By.id('err_email')).then(err_email => {
+                    expect(err_email).to.be.equal("Please use valid email!");
                 });
             } catch(err){
                 console.log(err);

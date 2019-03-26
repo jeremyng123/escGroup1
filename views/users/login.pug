@@ -16,7 +16,7 @@ html(lang='en')
 								form(action='/users/login', method='POST')
 									div.formgroup
 										label.small.mb-1.mt-3 Email:
-										input(placeholder='Enter your email',required=true, name='email',type='email',value='').form-control
+										input(placeholder='Enter your email',required=true, name='email',type='email',value=formData.email).form-control
 										label.small.mb-1.mt-3 Password:
 										input(placeholder='Enter your password',required=true, name='password', type='password',value='').form-control
 										button.mt-3.btn.btn-primary(type='submit') Log in
