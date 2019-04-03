@@ -13,7 +13,7 @@ exports.create_ticket = function(req, res, next) {
     return models.ticket.create({
         fk_userId: req.user.userId,
         topic: req.body.topic,
-        description: req.body.description
+        description: req.body.content       // change name of key to content!
     }).then(ticket=> {    // ticket is a variable sent to the /tickets/
         res.redirect('/')  // redirect to a new webpage when we submit email
     }).catch(err=>console.log("error again!" + err));
