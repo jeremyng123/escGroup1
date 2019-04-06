@@ -15,13 +15,23 @@ let {send_email} = require('../middleware/email');
 router.get('/', general.get_welcome);
 
 /*************** GENERAL TICKET ROUTES *****************/
-router.get('/ticket/form', isLoggedIn, general.show_ticket_form);       // create ticket form
-router.post('/ticket/form', isLoggedIn, send_email, general.create_ticket);
 router.get('/my_tickets/:user_id/0', isLoggedIn, general.show_my_tickets_queued);       // user page -- display all queued tickets
 router.get('/my_tickets/:user_id/1', isLoggedIn, general.show_my_tickets_inprogress);   // user page -- display all in-progress tickets
 router.get('/my_tickets/:user_id/2', isLoggedIn, general.show_my_tickets_solved);       // user page -- display all solved tickets
 router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.show_edit_ticket);  // user making edit to his/her tickets
 router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);      
+
+/*************** TICKET CREATION ROUTES *****************/
+// router.get('/ticket/basics', isLoggedIn, general.basics_get);
+// router.post('/ticket_form/basics', isLoggedIn, general.basics_post);
+// router.get('ticket_form/solutions', isLoggedIn, general.solutions);
+// router.get('ticket_form/details', isLoggedIn, general.details);
+// router.post('ticket_form/details', isLoggedIn, general.create);
+
+// old functions
+// TODO: add isLoggedIn in all of these files.
+router.get('/ticket_form/basics', general.basics_get);       // create ticket form. 
+router.post('/ticket_form/basics', general.basics_post);   // TODO: add send email middleware 
 
 
 /*************** ADMIN ROUTES *****************/

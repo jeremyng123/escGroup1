@@ -5,6 +5,8 @@ exports.get_welcome = function(req, res, next) {
    // passport session will flood the request with 'user' when there is one in session
 };
 
+
+/********************* TICKET CREATION **********************/
 exports.show_ticket_form = function(req, res, next) {
     return res.render('ticket/ticket_form', { title: "ACNAPI Ticket Form", user: req.user });
 };
@@ -19,6 +21,14 @@ exports.create_ticket = function(req, res, next) {
     }).catch(err=>console.log("error again!" + err));
 };
 
+exports.basics_get = function(req, res, next) {
+    return res.render('ticket/ticket_form/basics', {title: "Creation process: Ticket Basics", user: req.user});
+}
+
+exports.basics_post = function(req, res, next) {
+    
+}
+/******************** SHOW TICKETS ***************************/
 exports.show_my_tickets_queued = function(req, res, next) {
     return models.user.findOne({
         where : { userId : req.user.userId },
