@@ -32,7 +32,7 @@ router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);
 // TODO: add isLoggedIn in all of these files.
 router.get('/ticket_form/basics', general.basics_get);       // create ticket form. 
 router.post('/ticket_form/basics', general.basics_post);   // TODO: add send email middleware 
-
+router.get('/ticket_form/solutions', general.solutions_get);
 
 /*************** ADMIN ROUTES *****************/
 router.get('/tickets', whatRights);   // if user is not logged in, redirect to signup page, else admin/user tickets page

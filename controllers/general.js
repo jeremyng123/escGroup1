@@ -1,5 +1,10 @@
 const models = require('../models');
 
+// import zerorpc and connect to python process
+var zerorpc = require("zerorpc");
+var client = new zerorpc.Client();
+client.connect("tcp://127.0.0.1:4242");
+
 exports.get_welcome = function(req, res, next) {
     return res.render('welcome', { title: "Accenture's ACNAPI Portal" , user: req.user });
    // passport session will flood the request with 'user' when there is one in session
@@ -26,8 +31,15 @@ exports.basics_get = function(req, res, next) {
 }
 
 exports.basics_post = function(req, res, next) {
-    
+    client.invoke("hello", "RPC", function(error, result, more) {
+        return res.redirect('/ticket_form/solutions');
+    });
 }
+
+exports.solutions_get = function(req, res, next) {
+    return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: "this is my solution"});
+}
+
 /******************** SHOW TICKETS ***************************/
 exports.show_my_tickets_queued = function(req, res, next) {
     return models.user.findOne({
