@@ -12,20 +12,6 @@ exports.get_welcome = function(req, res, next) {
 
 
 /********************* TICKET CREATION **********************/
-exports.show_ticket_form = function(req, res, next) {
-    return res.render('ticket/ticket_form', { title: "ACNAPI Ticket Form", user: req.user });
-};
-
-exports.create_ticket = function(req, res, next) {
-    return models.ticket.create({
-        fk_userId: req.user.userId,
-        topic: req.body.topic,
-        description: req.body.content       // change name of key to content!
-    }).then(ticket=> {    // ticket is a variable sent to the /tickets/
-        res.redirect('/')  // redirect to a new webpage when we submit email
-    }).catch(err=>console.log("error again!" + err));
-};
-
 exports.basics_get = function(req, res, next) {
     return res.render('ticket/ticket_form/basics', {title: "Creation process: Ticket Basics", user: req.user});
 }
@@ -35,11 +21,26 @@ exports.basics_post = function(req, res, next) {
 }
 
 exports.solutions_get = function(req, res, next) {
-    
-    client.invoke('hello', req.query.q, function(error, result, more) {
+    client.invoke('smart_solution', req.query.q, function(error, result, more) {
         return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: result});
     });
 }
+
+
+exports.details_get = function(req, res, next) {
+    return res.render('ticket/ticket_form/details', { title: "ACNAPI Ticket Form", user: req.user });
+};
+
+exports.details_post = function(req, res, next) {
+    return models.ticket.create({
+        fk_userId: req.user.userId,
+        topic: req.body.topic,
+        description: req.body.content       // change name of key to content!
+    }).then(ticket=> {    // ticket is a variable sent to the /tickets/
+        res.redirect('/')  // redirect to a new webpage when we submit email
+    }).catch(err=>console.log("error again!" + err));
+};
+
 
 /******************** SHOW TICKETS ***************************/
 exports.show_my_tickets_queued = function(req, res, next) {

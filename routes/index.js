@@ -22,17 +22,11 @@ router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.show_edit_ticke
 router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);      
 
 /*************** TICKET CREATION ROUTES *****************/
-// router.get('/ticket/basics', isLoggedIn, general.basics_get);
-// router.post('/ticket_form/basics', isLoggedIn, general.basics_post);
-// router.get('ticket_form/solutions', isLoggedIn, general.solutions);
-// router.get('ticket_form/details', isLoggedIn, general.details);
-// router.post('ticket_form/details', isLoggedIn, general.create);
-
-// old functions
-// TODO: add isLoggedIn in all of these files.
-router.get('/ticket_form/basics', general.basics_get);       // create ticket form. 
-router.post('/ticket_form/basics', general.basics_post);   // TODO: add send email middleware 
-router.get('/ticket_form/solutions', general.solutions_get);
+router.get('/ticket_form/basics', isLoggedIn, general.basics_get);       // basics
+router.post('/ticket_form/basics', isLoggedIn, general.basics_post);   
+router.get('/ticket_form/solutions', isLoggedIn, general.solutions_get);
+router.get('ticket_form/details', isLoggedIn, general.details_get);
+router.post('ticket_form/details', isLoggedIn, send_email, general.details_post);
 
 /*************** ADMIN ROUTES *****************/
 router.get('/tickets', whatRights);   // if user is not logged in, redirect to signup page, else admin/user tickets page
