@@ -31,13 +31,14 @@ exports.basics_get = function(req, res, next) {
 }
 
 exports.basics_post = function(req, res, next) {
-    client.invoke("hello", "RPC", function(error, result, more) {
-        return res.redirect('/ticket_form/solutions');
-    });
+    return res.redirect('/ticket_form/solutions?q=' + req.body.q_content);
 }
 
 exports.solutions_get = function(req, res, next) {
-    return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: "this is my solution"});
+    
+    client.invoke('hello', req.query.q, function(error, result, more) {
+        return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: result});
+    });
 }
 
 /******************** SHOW TICKETS ***************************/

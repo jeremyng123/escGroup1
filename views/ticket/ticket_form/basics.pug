@@ -29,8 +29,8 @@ html(lang='en')
                 each topic in topics
                   option#topic.form-control(value=topic) #{topic}
               div.form-group
-                label(for='description') Description:
-                textarea#editor.form-control(name='content',type='text', placeholder='In a few words, describe your issue',maxlength="4000", wrap="soft", row="10")
+                label(for='q') Description:
+                textarea#editor.form-control(name='q_content',type='text', placeholder='In a few words, describe your issue',maxlength="4000", wrap="soft", row="10")
                 
               button.btn.btn-primary(type='submit') Solutions
 
