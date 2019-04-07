@@ -79,3 +79,7 @@ exports.edit_ticket = function(req, res, next) {
     });
 };
 
+/********************** REAL TIME CHAT ROUTES ****************/
+exports.chat_get = function(req, res, next) {
+    return res.render('chat/chat');
+}

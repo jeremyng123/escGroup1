@@ -36,4 +36,11 @@ router.post('/ticket/:user_id/:ticket_id/respond', isLoggedIn, hasAuth, admins.r
 router.post('/ticket/:ticket_id/delete', isLoggedIn, hasAuth, admins.delete_ticket);       // using post and different route
 router.post('/ticket/:ticket_id/delete-json',isLoggedIn, hasAuth, admins.delete_ticket_json);  // using ajax
 
+/************** REAL TIME CHAT ROUTES ******************/
+router.get('/chat', general.chat_get);
+
+
+
+
+
 module.exports = router;
