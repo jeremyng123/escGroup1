@@ -35,7 +35,7 @@ html(lang='en')
                       input(placeholder='New Password',required=true, name='password', type='password',value='').form-control
                       if (errors && errors.password)
                         p.small.text-danger #{errors.password}
-                      button.mt-3.btn.btn-primary(type='submit') Sign up
+                      button.mt-3.btn.btn-primary(type='submit' data-toggle="tooltip" data-placement="bottom" title="Link me to Sign Up Page!") Sign up
                       p.mt-2.mb-0 
                         | Already have an account? #[a(href="/login") Log in here].
           

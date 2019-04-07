@@ -1,0 +1,19 @@
+//- carousel caption
+mixin article(title)
+    .article
+        .article-wrapper
+            h1= title
+                if block
+                block
+                else
+            p No content provided
+
+mixin link(href, name)
+//- attributes == {class: "btn"}
+a(class!=attributes.class href=href)= name
+
+//- Declaration
+mixin article(title='Default Title')
+    .article
+        .article-wrapper
+            h1= title  

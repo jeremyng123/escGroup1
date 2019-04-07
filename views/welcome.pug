@@ -1,19 +1,105 @@
+- var count =1
 doctype html
 html(lang='en')
-  include common/header.pug
-  +header("ACNAPI Portal")
-  body
-    header
-      include common/navbar.pug
-      +navbar(user)
-      .container
-        .row.align-items-center
-          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
-            a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
-              img(src="/images/homepage_Accenture.png")
-              br
-            h1 Welcome to ACNAPI Portal
-          
-    include common/footer.pug
-    +footer()
-    //- script(src="/javascripts/tickets.js")
+	include common/header.pug
+	+header(title)
+	body
+		header
+			include common/navbar.pug
+			+navbar(user)
+			
+		
+		.container-fluid(style={display:"flex", alignitems:"center", justifycontent:"center"})
+			#carouselExampleControls.carousel.slide(data-ride='carousel')
+			.carousel-inner
+				.carousel-item.active
+					img.d-block.w-100(src='images/slide1.jpg' alt='...')
+				.carousel-item
+					img.d-block.w-100(src='images/slide2.jpg' alt='...')
+				.carousel-item
+					img.d-block.w-100(src='images/slide3.jpg' alt='...')
+			a.carousel-control-prev(href='#carouselExampleControls', role='button', data-slide='prev', onclick="$('#carouselExampleControls').carousel('prev')")
+				span.carousel-control-prev-icon(aria-hidden='true')
+				span.sr-only Previous
+			a.carousel-control-next(href='#carouselExampleControls' role='button' data-slide='next' onclick="$('#carouselExampleControls').carousel('next')")
+				span.carousel-control-next-icon(aria-hidden='true')
+				span.sr-only Next
+
+				//- //- a.left.carousel-control(href='#myCarousel' data-slide='prev' onclick="$('#myCarousel').carousel('prev')") &lsaquo;
+				//- - a.right.carousel-control(href='#myCarousel' data-slide='next' onclick="$('#myCarousel').carousel('next')") &rsaquo;
+			script.
+				!function ($) {
+				$(function(){
+				// carousel demo
+				$('#myCarousel').carousel()
+				})
+				}(window.jQuery)
+
+			//- script.
+			//- 	$('#myCarousel').on('slide.bs.carousel', function () {
+			//- 		.carousel('cycle');
+			//- 		.carousel('next');
+			//- 		.carousel('prev');
+			//- 	})
+					
+		include common/footer.pug
+		+footer()
+		//- script(src="http://code.jquery.com/jquery-3.1.0.min.js")
+		//- $('#myCarousel').on('slide.bs.carousel', function () {
+		//-   .carousel('next');
+		//- })
+
+
+
+doctype html
+head
+  title Bootstrap Example
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css')
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js')
+  style.
+    .carousel-inner > .item > img,
+    .carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+    }
+.container
+  br
+  #myCarousel.carousel.slide(data-ride='carousel')
+    // Indicators
+    ol.carousel-indicators
+      li.active(data-target='#myCarousel' data-slide-to='0')
+      li(data-target='#myCarousel' data-slide-to='1')
+      li(data-target='#myCarousel' data-slide-to='2')
+      li(data-target='#myCarousel' data-slide-to='3')
+    // Wrapper for slides
+    .carousel-inner(role='listbox')
+      .item.active
+        img(src='images/slide1.jpg' alt='Chania' width='460' height='345')
+        .carousel-caption
+          h3 Chania
+          p The atmosphere in Chania has a touch of Florence and Venice.
+      .item
+        img(src='images/slide2.jpg' alt='Chania' width='460' height='345')
+        .carousel-caption
+          h3 Chania
+          p The atmosphere in Chania has a touch of Florence and Venice.
+      .item
+        img(src='images/slide3.jpg' alt='Flower' width='460' height='345')
+        .carousel-caption
+          h3 Flowers
+          p Beautiful flowers in Kolymbari, Crete.
+      .item
+        img(src='images/slide1.jpg' alt='Flower' width='460' height='345')
+        .carousel-caption
+          h3 Flowers
+          p Beautiful flowers in Kolymbari, Crete.
+    // Left and right controls
+    a.left.carousel-control(href='#myCarousel' role='button' data-slide='prev')
+      span.glyphicon.glyphicon-chevron-left(aria-hidden='true')
+      span.sr-only Previous
+    a.right.carousel-control(href='#myCarousel' role='button' data-slide='next')
+      span.glyphicon.glyphicon-chevron-right(aria-hidden='true')
+      span.sr-only Next
