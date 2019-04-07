@@ -25,8 +25,8 @@ router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);
 router.get('/ticket_form/basics', isLoggedIn, general.basics_get);       // basics
 router.post('/ticket_form/basics', isLoggedIn, general.basics_post);   
 router.get('/ticket_form/solutions', isLoggedIn, general.solutions_get);
-router.get('ticket_form/details', isLoggedIn, general.details_get);
-router.post('ticket_form/details', isLoggedIn, send_email, general.details_post);
+router.get('/ticket_form/details', isLoggedIn, general.details_get);
+router.post('/ticket_form/details', isLoggedIn, send_email, general.details_post);
 
 /*************** ADMIN ROUTES *****************/
 router.get('/tickets', whatRights);   // if user is not logged in, redirect to signup page, else admin/user tickets page
