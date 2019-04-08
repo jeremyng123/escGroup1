@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
   var message = sequelize.define('message', {
     content: {
-      type: DataTypes.STRING(65535),
+      type: DataTypes.TEXT("65535"),
       allowNull: false
     }
   });

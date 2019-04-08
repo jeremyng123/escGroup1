@@ -1,6 +1,5 @@
 /* jshint indent: 2 */
 'use strict';
-const ticket = require('./ticket');
 module.exports = (sequelize, DataTypes) => {
   var user = sequelize.define('user', {
     userId: {
