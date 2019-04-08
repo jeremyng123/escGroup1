@@ -34,6 +34,10 @@ script.
             e.preventDefault(); // prevent the page from reloading
             socket.emit('send message', $message.val());
             $message.val(''); // clean up the message value
-        })
+        });
+
+        socket.on('new message', function(data) {
+            $chat.append('<div class="well">' + data.msg + '</div>');
+        });
     });
   
