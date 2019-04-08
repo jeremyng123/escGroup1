@@ -1,25 +1,25 @@
 
 mixin navbar(user)
-		nav.navbar.navbar-expand.navbar-light.bg-light
+		nav.navbar.sticky-top.navbar-expand-lg.navbar-dark.bg-dark
 			a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
-				img(src="/images/accenture.png", width="36", height="36")
-			
+				img(src="/images/accenture.png", width="30", height="30")
 			
 			.collapse.navbar-collapse
 				ul.navbar-nav.mr-auto
-					li.nav-item
-						a.nav-link(href="/" data-toggle="tooltip" data-placement="bottom" title="Home")   
-							img(src='../images/home.svg', width="30", heigh="30")
+					li.nav-item.active
+						a.nav-link(href="/" data-toggle="tooltip" data-placement="bottom" title="Home") 
+							img(src='../images/homewhite.png', width="30", heigh="30")
 							
 					li.nav-item
 						a.nav-link(href="/tickets" data-toggle="tooltip" data-placement="bottom" title="Tickets")   
-							img(src='../images/tickets.svg', width="30", heigh="30")
+							img(src='../images/ticketswhite.png', width="30", heigh="30")
 
 					li.nav-item
 						a.nav-link(href="/ticket/form" data-toggle="tooltip" data-placement="bottom" title="Ask questions" )   
-							img(src='../images/question.svg', width="30", heigh="30")
+							img(src='../images/questionswhite.png', width="30", heigh="30")
 			.navbar-right
 				if user
+					.navbar-right
 					ul.navbar-nav.mr-auto
 						span.navbar-text Hello #{user.firstName}!
 						li.nav-item
