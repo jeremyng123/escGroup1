@@ -25,6 +25,15 @@ html(lang='en')
 script(src='/socket.io/socket.io.js')
 script.
     $(function() {
-        var socket = io();
+        var socket = io.connect();
+        var $messageForm = $('#messageForm');
+        var $message = $('#message');
+        var $chat = $('#chat');
+
+        $messageForm.submit(function(e) {
+            e.preventDefault(); // prevent the page from reloading
+            socket.emit('send message', $message.val());
+            $message.val(''); // clean up the message value
+        })
     });
   
