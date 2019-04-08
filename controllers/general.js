@@ -11,12 +11,18 @@ exports.show_ticket_form = function(req, res, next) {
 
 exports.create_ticket = function(req, res, next) {
     return models.ticket.create({
-        fk_userId: req.user.userId,
-        topic: req.body.topic,
-        description: req.body.content       // change name of key to content!
-    }).then(ticket=> {    // ticket is a variable sent to the /tickets/
-        res.redirect('/')  // redirect to a new webpage when we submit email
+        fk_userId           : req.user.userId,
+        topic               : req.body.topic
+    }).then(ticket=> {
+        return models.message.create({
+            fk_userId       : req.user.userId,
+            fk_ticketId     : ticket.ticketId,
+            content         : req.body.content
+        }).then(success => {
+            res.redirect('/')  // redirect to a new webpage as we submit email
+        })
     }).catch(err=>console.log("error again!" + err));
+        
 };
 
 exports.show_my_tickets_queued = function(req, res, next) {
