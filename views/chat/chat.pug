@@ -1,23 +1,26 @@
-head
-  title  IO Chat
-  link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.\
-  com/bootstrap/3.3.6/css/bootstrap.min.css')
-  script(src='http://code.jquery.com/jquery-latest.min.js')
-  script(src='/socket.io/socket.io.js')
-.container
-  .row
-    .col-md-4
-      .well
-        h3 Online users
-        ul#users.list-group
-    .col-md-8
-      #chat.chat
-      form#messageForm
-        .form-group
-          lable Enter message
-          textarea#message.form-control
-          br
-          input.btn.btn-primary(type='submit' value='Send Message')
+doctype html
+html(lang='en')
+    head
+        title  IO Chat
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.\
+        com/bootstrap/3.3.6/css/bootstrap.min.css')
+        script(src='http://code.jquery.com/jquery-latest.min.js')
+        script(src='/socket.io/socket.io.js')
+    body
+        .container
+            .row
+                .col-md-4
+                .well
+                    h3 Online users
+                    ul#users.list-group
+                .col-md-8
+                #chat.chat
+                form#messageForm
+                    .form-group
+                    lable Enter message
+                    textarea#message.form-control
+                    br
+                    input.btn.btn-primary(type='submit' value='Send Message')
 
 script(src='/socket.io/socket.io.js')
 script.
