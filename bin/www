@@ -24,6 +24,27 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+
+/************** real time chat **************/
+io = require('socket.io').listen(server);
+users = [];
+connections = [];
+
+io.sockets.on('connection', function(socket){
+  connections.push(socket);
+  console.log('Connected: %s users have connected', connections.length);
+
+  socket.on('disconnect', function(socket) {
+    connections.splice(connections.indexOf(socket), 1);
+    console.log("Disconnected: %s users are connecting", connections.length);
+  })
+});
+
+
+/************* real time chat end *************/
+
+
+
 /**
  * Listen on provided port, on all network interfaces.
  */
