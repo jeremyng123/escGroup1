@@ -4,14 +4,6 @@ html(lang='en')
   +header(title)
   body
     header
-
-      script(src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ld4nt2kua9tevpu1bdsjmargql8oksngzmeps4cqup50heof')
-      script.
-        ClassicEditor
-          .create( document.querySelector( '#editor' ) )
-          .catch( error => {
-              console.error( error );
-          } );
       include ../common/navbar.pug
       +navbar(user)
       .container
@@ -42,7 +34,8 @@ html(lang='en')
                   option#topic.form-control(value=topic) #{topic}
               div.form-group
                 label(for='content') Description:
-                textarea#content.form-control(name='content',type='text', placeholder='max 4000 chars',maxlength="4000", wrap="soft", row="10")
+                textarea#content.form-control(name='content')
+                  <p> some sample text </p>
                 
               button.btn.btn-primary(type='submit') Submit
 

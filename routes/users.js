@@ -4,8 +4,9 @@ var router = express.Router();
 let user = require('../controllers/user');
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
-  });
+});
   
+
 /* Login Page */
 router.get('/login', user.show_login);
 router.get('/signup', user.show_signup);

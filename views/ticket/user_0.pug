@@ -40,7 +40,7 @@ html(lang='en')
                       td
                         span #{ticket.description}
                       td
-                        span #{ticket.responses}
+                        span #{message.content}
                       td
                         a(href="/my_tickets/" + user.userId + '/' + ticket.ticketId) Edit
                       td

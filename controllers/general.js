@@ -26,36 +26,33 @@ exports.create_ticket = function(req, res, next) {
 };
 
 exports.show_my_tickets_queued = function(req, res, next) {
-    return models.user.findOne({
-        where : { userId : req.user.userId },
-        include: [{ 
-            model : models.ticket, 
-            where : { tag : 0 }
-        }]
+    return models.ticket.findOne({
+        where : {
+            fk_userId   : req.user.userId ,
+            tag         : 0
+        }
     }).then(tickets=> {
         res.render('ticket/user_0', { title: "ACNAPI Tickets - Queued", tickets: tickets, user: req.user , subtitle: "queued" });
     });
 };
 
 exports.show_my_tickets_inprogress = function(req, res, next) {
-    return models.user.findOne({
-        where : { userId : req.user.userId },
-        include: [{ 
-            model : models.ticket, 
-            where : { tag : 1 }
-        }]
+    return models.ticket.findOne({
+        where : {
+            fk_userId   : req.user.userId ,
+            tag         : 1
+        }
     }).then(tickets=> {
         res.render('ticket/user_1', { title: "ACNAPI Tickets - In Progress", tickets: tickets, user: req.user , subtitle: "in-progress" });
     });
 };
 
 exports.show_my_tickets_solved = function(req, res, next) {
-    return models.user.findOne({
-        where : { userId : req.user.userId },
-        include: [{ 
-            model : models.ticket, 
-            where : { tag : 2 }
-        }]
+    return models.ticket.findOne({
+        where : {
+            fk_userId   : req.user.userId ,
+            tag         : 2
+        }
     }).then(tickets=> {
         res.render('ticket/user_2', { title: "ACNAPI Tickets - Solved", tickets: tickets, user: req.user , subtitle: "solved" });
     });

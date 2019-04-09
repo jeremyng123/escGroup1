@@ -46,9 +46,7 @@ html(lang='en')
                       td
                         span #{ticket.topic}  
                       td
-                        span #{ticket.description}
-                      td
-                        span #{ticket.responses}
+                        span #{ticket.messages[0].content}
                       td
                         a(href="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond") Respond
                   

@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true
     },
+    ticketCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false
@@ -40,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   });
   user.associate = function(model) {
-    user.hasMany(model.ticket, { foreignKey: 'fk_userId'});
+    user.hasMany(model.ticket, { foreignKey: 'fk_userId' });
     user.hasMany(model.message, { foreignKey: 'fk_userId' })
   };
   return user;

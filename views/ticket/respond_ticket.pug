@@ -30,7 +30,7 @@ html(lang='en')
                   td
                     span #{ticket.topic}  
                   td
-                    span #{ticket.description}
+                    span #{ticket.messages[0].content}
                 tr
             
             form(action="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond", method="POST")
@@ -38,7 +38,7 @@ html(lang='en')
                 strong 
                   label(for='responses') Dev's Responses:
                   .input-group.mb-3
-                    textarea#responses.form-control(name='responses',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.responses}
+                    textarea#content.form-control(name='content',type='text', placeholder='max 4000 chars',maxlength=4000, wrap="soft") #{ticket.messages[0].content}
                     .input-group-append
                       button(type="submit").btn.btn-primary Submit
             

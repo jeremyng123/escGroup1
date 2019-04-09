@@ -8,6 +8,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true    // PrimaryKey meant that it must have a unique value
     },
+    messageCount:{
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     topic: {
       allowNull: false,
       type: DataTypes.STRING
@@ -23,8 +27,9 @@ module.exports = (sequelize, DataTypes) => {
     
   });
   ticket.associate = function(model) {
-    ticket.belongsTo(model.user, {foreignKey: 'fk_userId', targetKey: 'userId'}); // Adds fk_userId to ticket
+    ticket.belongsTo(model.user, {foreignKey: 'fk_userId', targetKey: 'userId' }); 
     ticket.hasMany(model.message, { foreignKey:'fk_ticketId' })
+    ticket.hasMany(model.message, { foreignKey:'fk_messageCount' })
   }
   return ticket;
 };
