@@ -1,5 +1,5 @@
 var express = require('express');
-var router = express.Router();
+
 
 /*************** CONTROLLER *****************/
 let general = require('../controllers/general');
@@ -63,7 +63,10 @@ function checkUploadPath(req, res, next) {
     })
 }
 
+
+
 module.exports = function(io) {
+  var router = express.Router();
   router.post('/upload', checkUploadPath, upload.single('file'), function(req, res) {
 
       res.json({
@@ -265,10 +268,8 @@ module.exports = function(io) {
 
 
 
-
-
-
-
+  // this is the key
+  return router;
 
 
 

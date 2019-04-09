@@ -1,17 +1,21 @@
-var createError = require('http-errors');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-let passport = require('passport');
-let session = require('express-session');
-let flash = require('connect-flash'); 
-let express = require('express');
-require('./passport_setup')(passport);
-
 
 module.exports = function(app, io) {
+
+  // import modules
+  var createError = require('http-errors');
+  var path = require('path');
+  var cookieParser = require('cookie-parser');
+  var logger = require('morgan');
+  let passport = require('passport');
+  let session = require('express-session');
+  let flash = require('connect-flash'); 
+  let express = require('express');
+  require('./passport_setup')(passport);
   var indexRouter = require('./routes/index')(io);
   var usersRouter = require('./routes/users');
+
+
+
   // view engine setup
   app.set('views', path.join(__dirname, 'views'));
   app.set('view engine', 'pug');
