@@ -17,6 +17,16 @@ html(lang='en')
 			br
 			include common/carousel.pug
 			+carousel(title)
+		
+		include common/chat.pug
+		+chat(user)
+
+	include common/footer.pug
+	+footer()
+
+
+
+
 		//- .container-fluid(style={display:"flex", alignitems:"center", justifycontent:"center"})
 		//- 	#carouselExampleControls.carousel.slide(data-ride='carousel')
 		//- 	.carousel-inner
