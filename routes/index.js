@@ -78,15 +78,20 @@ module.exports = function(io) {
   /*************** HOMEPAGE *****************/
   router.get('/', general.get_welcome);
 
-  /*************** GENERAL TICKET ROUTES *****************/
-  router.get('/ticket/form', isLoggedIn, general.show_ticket_form);       // create ticket form
-  router.post('/ticket/form', isLoggedIn, send_email, general.create_ticket);
+    /*************** GENERAL TICKET ROUTES *****************/
   router.get('/my_tickets/:user_id/0', isLoggedIn, general.show_my_tickets_queued);       // user page -- display all queued tickets
   router.get('/my_tickets/:user_id/1', isLoggedIn, general.show_my_tickets_inprogress);   // user page -- display all in-progress tickets
   router.get('/my_tickets/:user_id/2', isLoggedIn, general.show_my_tickets_solved);       // user page -- display all solved tickets
   router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.show_edit_ticket);  // user making edit to his/her tickets
   router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);      
 
+
+  /*************** TICKET CREATION ROUTES *****************/
+  router.get('/ticket_form/basics', isLoggedIn, general.basics_get);       // basics
+  router.post('/ticket_form/basics', isLoggedIn, general.basics_post);   
+  router.get('/ticket_form/solutions', isLoggedIn, general.solutions_get);
+  router.get('/ticket_form/details', isLoggedIn, general.details_get);
+  router.post('/ticket_form/details', isLoggedIn, send_email, general.details_post);
 
   /*************** ADMIN ROUTES *****************/
   router.get('/tickets', whatRights);   // if user is not logged in, redirect to signup page, else admin/user tickets page
@@ -99,6 +104,8 @@ module.exports = function(io) {
   /********* DELETE ROW FROM tickets TABLE *************/
   router.post('/ticket/:ticket_id/delete', isLoggedIn, hasAuth, admins.delete_ticket);       // using post and different route
   router.post('/ticket/:ticket_id/delete-json',isLoggedIn, hasAuth, admins.delete_ticket_json);  // using ajax
+
+
 
   /*************** UPLOAD IMAGES *****************/
   // var multer = require('multer');
@@ -267,9 +274,9 @@ module.exports = function(io) {
 
 
 
-
   // this is the key
   return router;
+
 
 
 

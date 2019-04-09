@@ -1,0 +1,34 @@
+doctype html
+html(lang='en')
+  include ../../common/header.pug
+  +header(title)
+  body
+    header
+
+      script(src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ld4nt2kua9tevpu1bdsjmargql8oksngzmeps4cqup50heof')
+      script.
+        ClassicEditor
+          .create( document.querySelector( '#editor' ) )
+          .catch( error => {
+              console.error( error );
+          } );
+      include ../../common/navbar.pug
+      +navbar(user)
+      .container
+        .row.align-items-center
+          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+            h1.display-4.m-b-2 Solutions
+            h2 Here are the questions that previous users have asked:
+
+            // register form
+            p #{solution}
+            
+            
+            a#btn_ticket-form.nav-link(href="/ticket_form/details") Next: details
+            a#btn_ticket-form.nav-link(href="/ticket_form/basics") previous: basics
+
+    include ../../common/footer.pug
+    +footer()
+    //- script(src="../javascripts/tickets.js")
+
+

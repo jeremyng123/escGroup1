@@ -1,3 +1,4 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "python.pythonPath": "/Users/emrys/anaconda3/envs/py27/bin/python"
 }
