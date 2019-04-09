@@ -138,7 +138,7 @@ module.exports = function(io) {
 
   router.get('/room', rtchat.room);
   router.get('/create', rtchat.create);
-  router.get('/chat', rtchat.chat);
+  router.get('/chat/:id', rtchat.chat);
 
 
   // Initialize a new socket.io application, named 'chat'

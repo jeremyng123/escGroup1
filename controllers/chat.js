@@ -7,8 +7,8 @@
 
 exports.room = function(req, res){
 
-	// Render views/home.html
-	res.render('home');
+	// choose a room
+	res.render('chat/room');
 };
 
 exports.create = function(req,res){
@@ -23,6 +23,6 @@ exports.create = function(req,res){
 exports.chat = function(req,res){
 
 	// Render the chant.html view
-	res.render('chat');
+	res.render('chat/chat');
 }
 
