@@ -5,7 +5,7 @@ var logger = require('morgan');
 let passport = require('passport');
 let session = require('express-session');
 let flash = require('connect-flash'); 
-
+let express = require('express');
 require('./passport_setup')(passport);
 
 

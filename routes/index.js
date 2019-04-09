@@ -5,7 +5,7 @@ var router = express.Router();
 let general = require('../controllers/general');
 let admins = require('../controllers/admins');
 let user = require('../controllers/user');      // to direct them to login page!
-
+let rtchat = require('../controllers/chat');
 
 /*************** MIDDLEWARE *****************/
 let {isLoggedIn,hasAuth,whatRights} = require('../middleware/hasAuth');
@@ -21,6 +21,11 @@ var path = require('path');
  */
 var fs = require('fs')
 
+/**
+ * Use the gravatar module, to turn email addresses into avatar images:  
+ * for REAL TIME CHAT
+ * */
+var gravatar = require('gravatar');
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb, res) {
@@ -128,9 +133,9 @@ module.exports = function(io) {
    * REAL TIME CHAT 
    * ****************/
 
-  router.get('/room', chat.room);
-  router.get('/create', chat.create);
-  router.get('/chat', chat.chat);
+  router.get('/room', rtchat.room);
+  router.get('/create', rtchat.create);
+  router.get('/chat', rtchat.chat);
 
 
   // Initialize a new socket.io application, named 'chat'
@@ -265,7 +270,7 @@ module.exports = function(io) {
 
 
 
-  
+
 
 
 
