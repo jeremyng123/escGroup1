@@ -2,3 +2,5 @@
 node_modules
 logfile
 POST/
+./DS_Store
+./views/.DS_Store
