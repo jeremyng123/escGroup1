@@ -16,6 +16,12 @@ let {send_email} = require('../middleware/email');
 var multer = require('multer');
 var path = require('path');
 
+/***
+ * import fs
+ */
+var fs = require('fs')
+
+
 var storage = multer.diskStorage({
   destination: function(req, file, cb, res) {
     cb(null, 'public/users/' + req.user.userId + "/tickets/" + req.user.ticketCount);
@@ -32,7 +38,7 @@ var upload = multer({
   storage: storage
 });
 
-var fs = require('fs')
+
 
 function checkUploadPath(req, res, next) {
     const uploadPath = 'public/users/' + req.user.userId + "/tickets/" + req.user.ticketCount;
@@ -52,73 +58,215 @@ function checkUploadPath(req, res, next) {
     })
 }
 
+module.exports = function(io) {
+  router.post('/upload', checkUploadPath, upload.single('file'), function(req, res) {
 
-router.post('/upload', checkUploadPath, upload.single('file'), function(req, res) {
+      res.json({
+          "location": '/users/' + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
+      });
+      
+  });
 
-    res.json({
-        "location": '/users/' + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
+  /*************** HOMEPAGE *****************/
+  router.get('/', general.get_welcome);
+
+  /*************** GENERAL TICKET ROUTES *****************/
+  router.get('/ticket/form', isLoggedIn, general.show_ticket_form);       // create ticket form
+  router.post('/ticket/form', isLoggedIn, send_email, general.create_ticket);
+  router.get('/my_tickets/:user_id/0', isLoggedIn, general.show_my_tickets_queued);       // user page -- display all queued tickets
+  router.get('/my_tickets/:user_id/1', isLoggedIn, general.show_my_tickets_inprogress);   // user page -- display all in-progress tickets
+  router.get('/my_tickets/:user_id/2', isLoggedIn, general.show_my_tickets_solved);       // user page -- display all solved tickets
+  router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.show_edit_ticket);  // user making edit to his/her tickets
+  router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);      
+
+
+  /*************** ADMIN ROUTES *****************/
+  router.get('/tickets', whatRights);   // if user is not logged in, redirect to signup page, else admin/user tickets page
+  router.get('/tickets/:user_id/0', isLoggedIn, hasAuth, admins.show_tickets_queued);             // admin page -- display all queued tickets
+  router.get('/tickets/:user_id/1', isLoggedIn, hasAuth, admins.show_tickets_inprogress);         // admin page -- display all in-progress tickets
+  router.get('/tickets/:user_id/2', isLoggedIn, hasAuth, admins.show_tickets_solved);             // admin page -- display all solved tickets
+  router.get('/ticket/:user_id/:ticket_id/respond', isLoggedIn, hasAuth, admins.show_respond_ticket);     // respond to ticket
+  router.post('/ticket/:user_id/:ticket_id/respond', isLoggedIn, hasAuth, admins.respond_ticket);
+
+  /********* DELETE ROW FROM tickets TABLE *************/
+  router.post('/ticket/:ticket_id/delete', isLoggedIn, hasAuth, admins.delete_ticket);       // using post and different route
+  router.post('/ticket/:ticket_id/delete-json',isLoggedIn, hasAuth, admins.delete_ticket_json);  // using ajax
+
+  /*************** UPLOAD IMAGES *****************/
+  // var multer = require('multer');
+  // var path = require('path');
+  // var mkdirp = require('mkdirp');
+
+  // var storage = multer.diskStorage({
+  //   destination: function(req, file, cb, res) {
+  //     cb(null, 'public/static/dist/uploads');
+  //   },
+
+  //   filename: function(req, file, cb, res) {
+  //     var name = file.fieldname + '-' + Date.now() + path.extname(file.originalname);
+  //     cb(null, name);
+  //     return name;
+  //   }
+  // });
+  // var upload = multer({
+  //   storage: storage
+  // });
+
+  // router.post('/upload', function(req,res,next){
+  //     mkdirp('./public/users/' + req.params.user_id + "/tickets/" + req.params.ticket_id, function(err){
+  //         if (err) console.log("Error in making directory! " + err.message);
+  //     }),
+          
+  //     upload.single('file'), function(req,res,next){
+  //         res.json({
+  //             "location": '/users/' + req.params.user_id + "/tickets/" + req.params.ticket_id + "/" + req.file.filename
+  //         });
+  //     }
+  // })
+
+  /***************** 
+   * REAL TIME CHAT 
+   * ****************/
+
+  router.get('/room', chat.room);
+  router.get('/create', chat.create);
+  router.get('/chat', chat.chat);
+
+
+  // Initialize a new socket.io application, named 'chat'
+  var chat = io.on('connection', function (socket) {
+
+    // When the client emits the 'load' event, reply with the 
+    // number of people in this chat room
+
+    socket.on('load',function(data){
+
+      var room = findClientsSocket(io,data);
+      if(room.length === 0 ) {
+
+        socket.emit('peopleinchat', {number: 0});
+      }
+      else if(room.length === 1) {
+
+        socket.emit('peopleinchat', {
+          number: 1,
+          user: room[0].username,
+          avatar: room[0].avatar,
+          id: data
+        });
+      }
+      else if(room.length >= 2) {
+
+        chat.emit('tooMany', {boolean: true});
+      }
     });
-    
-});
 
-/*************** HOMEPAGE *****************/
-router.get('/', general.get_welcome);
+    // When the client emits 'login', save his name and avatar,
+    // and add them to the room
+    socket.on('login', function(data) {
 
-/*************** GENERAL TICKET ROUTES *****************/
-router.get('/ticket/form', isLoggedIn, general.show_ticket_form);       // create ticket form
-router.post('/ticket/form', isLoggedIn, send_email, general.create_ticket);
-router.get('/my_tickets/:user_id/0', isLoggedIn, general.show_my_tickets_queued);       // user page -- display all queued tickets
-router.get('/my_tickets/:user_id/1', isLoggedIn, general.show_my_tickets_inprogress);   // user page -- display all in-progress tickets
-router.get('/my_tickets/:user_id/2', isLoggedIn, general.show_my_tickets_solved);       // user page -- display all solved tickets
-router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.show_edit_ticket);  // user making edit to his/her tickets
-router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);      
+      var room = findClientsSocket(io, data.id);
+      // Only two people per room are allowed
+      if (room.length < 2) {
 
+        // Use the socket object to store data. Each client gets
+        // their own unique socket object
 
-/*************** ADMIN ROUTES *****************/
-router.get('/tickets', whatRights);   // if user is not logged in, redirect to signup page, else admin/user tickets page
-router.get('/tickets/:user_id/0', isLoggedIn, hasAuth, admins.show_tickets_queued);             // admin page -- display all queued tickets
-router.get('/tickets/:user_id/1', isLoggedIn, hasAuth, admins.show_tickets_inprogress);         // admin page -- display all in-progress tickets
-router.get('/tickets/:user_id/2', isLoggedIn, hasAuth, admins.show_tickets_solved);             // admin page -- display all solved tickets
-router.get('/ticket/:user_id/:ticket_id/respond', isLoggedIn, hasAuth, admins.show_respond_ticket);     // respond to ticket
-router.post('/ticket/:user_id/:ticket_id/respond', isLoggedIn, hasAuth, admins.respond_ticket);
+        socket.username = data.user;
+        socket.room = data.id;
+        socket.avatar = gravatar.url(data.avatar, {s: '140', r: 'x', d: 'mm'});
 
-/********* DELETE ROW FROM tickets TABLE *************/
-router.post('/ticket/:ticket_id/delete', isLoggedIn, hasAuth, admins.delete_ticket);       // using post and different route
-router.post('/ticket/:ticket_id/delete-json',isLoggedIn, hasAuth, admins.delete_ticket_json);  // using ajax
-
-/*************** UPLOAD IMAGES *****************/
-// var multer = require('multer');
-// var path = require('path');
-// var mkdirp = require('mkdirp');
-
-// var storage = multer.diskStorage({
-//   destination: function(req, file, cb, res) {
-//     cb(null, 'public/static/dist/uploads');
-//   },
-
-//   filename: function(req, file, cb, res) {
-//     var name = file.fieldname + '-' + Date.now() + path.extname(file.originalname);
-//     cb(null, name);
-//     return name;
-//   }
-// });
-// var upload = multer({
-//   storage: storage
-// });
-
-// router.post('/upload', function(req,res,next){
-//     mkdirp('./public/users/' + req.params.user_id + "/tickets/" + req.params.ticket_id, function(err){
-//         if (err) console.log("Error in making directory! " + err.message);
-//     }),
-        
-//     upload.single('file'), function(req,res,next){
-//         res.json({
-//             "location": '/users/' + req.params.user_id + "/tickets/" + req.params.ticket_id + "/" + req.file.filename
-//         });
-//     }
-// })
-    
+        // Tell the person what he should use for an avatar
+        socket.emit('img', socket.avatar);
 
 
+        // Add the client to the room
+        socket.join(data.id);
 
-module.exports = router;
+        if (room.length == 1) {
+
+          var usernames = [],
+            avatars = [];
+
+          usernames.push(room[0].username);
+          usernames.push(socket.username);
+
+          avatars.push(room[0].avatar);
+          avatars.push(socket.avatar);
+
+          // Send the startChat event to all the people in the
+          // room, along with a list of people that are in it.
+
+          chat.in(data.id).emit('startChat', {
+            boolean: true,
+            id: data.id,
+            users: usernames,
+            avatars: avatars
+          });
+        }
+      }
+      else {
+        socket.emit('tooMany', {boolean: true});
+      }
+    });
+
+    // Somebody left the chat
+    socket.on('disconnect', function() {
+
+      // Notify the other person in the chat room
+      // that his partner has left
+
+      socket.broadcast.to(this.room).emit('leave', {
+        boolean: true,
+        room: this.room,
+        user: this.username,
+        avatar: this.avatar
+      });
+
+      // leave the room
+      socket.leave(socket.room);
+    });
+
+
+    // Handle the sending of messages
+    socket.on('msg', function(data){
+
+      // When the server receives a message, it sends it to the other person in the room.
+      socket.broadcast.to(socket.room).emit('receive', {msg: data.msg, user: data.user, img: data.img});
+    });
+  });
+
+  function findClientsSocket(io,roomId, namespace) {
+    var res = [],
+      ns = io.of(namespace ||"/");    // the default namespace is "/"
+
+    if (ns) {
+      for (var id in ns.connected) {
+        if(roomId) {
+          var index = ns.connected[id].rooms.indexOf(roomId) ;
+          if(index !== -1) {
+            res.push(ns.connected[id]);
+          }
+        }
+        else {
+          res.push(ns.connected[id]);
+        }
+      }
+    }
+    return res;
+  }
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+}
