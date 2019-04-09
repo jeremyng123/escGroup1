@@ -12,8 +12,54 @@ let {isLoggedIn,hasAuth,whatRights} = require('../middleware/hasAuth');
 let {send_email} = require('../middleware/email');
 
 /*************** UPLOAD IMAGES *****************/
-let {uploadImage} = require('../controllers/upload');
-router.post('/upload', uploadImage);
+// let {uploadImage} = require('../controllers/upload');
+var multer = require('multer');
+var path = require('path');
+
+var storage = multer.diskStorage({
+  destination: function(req, file, cb, res) {
+    cb(null, 'public/users/' + req.user.userId + "/tickets/" + req.user.ticketCount);
+  },
+
+  filename: function(req, file, cb, res) {
+    var name = file.fieldname + '-' + Date.now() + path.extname(file.originalname);
+    cb(null, name);
+
+    return name;
+  }
+});
+var upload = multer({
+  storage: storage
+});
+
+var fs = require('fs')
+
+function checkUploadPath(req, res, next) {
+    const uploadPath = 'public/users/' + req.user.userId + "/tickets/" + req.user.ticketCount;
+    fs.exists(uploadPath, function(exists) {
+        if(exists) {
+          return next();
+        }
+        else {
+            fs.mkdir(uploadPath, { recursive: true }, function(err) {
+            if(err) {
+                console.log('Error in folder creation: \n' + err);
+                return next(); 
+            }  
+                return next();
+            })
+        }
+    })
+}
+
+
+router.post('/upload', checkUploadPath, upload.single('file'), function(req, res) {
+
+    res.json({
+        "location": '/users/' + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
+    });
+    
+});
 
 /*************** HOMEPAGE *****************/
 router.get('/', general.get_welcome);
