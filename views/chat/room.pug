@@ -1,0 +1,25 @@
+doctype html
+//
+  This file is rendered by express.js, when the home url of the chat is opened in a browser.
+  It doesn't do much, except showing the create button for the chat.
+head
+  title Create a new chat room! | Tutorialzine Demo
+  link(type='text/css' rel='stylesheet' href='stylesheets/style.css')
+  link(href='http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700' rel='stylesheet' type='text/css')
+header.homebanner
+  h1.homebannertext
+    a#logo(href='http://tutorialzine.com/2014/03/nodejs-private-webchat/')
+      | Tutorial
+      span zine
+section
+  .homesection
+    .node
+      img#nodelogo(src='img/nodejslogo.png' alt='nodelogo')
+      h2#chat powered web chat
+    a#create(title='Create' href='/create')
+      #createbutton
+        #little Create a Private
+        #big CHAT ROOM!
+    .tutorial
+      a#tutorial(title='Download the source code.' href='http://tutorialzine.com/2014/03/nodejs-private-webchat/')
+        | or download a copy of the source code here
