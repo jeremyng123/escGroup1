@@ -55,4 +55,5 @@ module.exports = function(app, io) {
     res.render('error');
   });
 
+  return app;
 }
