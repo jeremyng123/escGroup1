@@ -76,7 +76,7 @@ module.exports = function(io) {
   });
 
   /*************** HOMEPAGE *****************/
-  router.get('/', general.get_welcome);
+  router.get('/',send_email, general.get_welcome);
 
     /*************** GENERAL TICKET ROUTES *****************/
   router.get('/my_tickets/:user_id/0', isLoggedIn, general.show_my_tickets_queued);       // user page -- display all queued tickets
