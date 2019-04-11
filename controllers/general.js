@@ -1,4 +1,5 @@
 const models = require('../models');
+var request = require('request');
 
 exports.get_welcome = function(req, res, next) {
     return res.render('welcome', { title: "Accenture's ACNAPI Portal" , user: req.user });
@@ -16,9 +17,26 @@ exports.basics_post = function(req, res, next) {
 }
 
 exports.solutions_get = function(req, res, next) {
-    client.invoke('smart_solution', req.query.q, function(error, result, more) {
-        return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: result});
-    });
+    var url = 'localhost';
+    var options = {
+        host: url + ':5000/smart_solution/' + req.query.q,
+        port: 80,
+        path: '/resource?id=foo&bar=baz',
+        method: 'POST'
+      };
+      
+    http.request(options, function(res) {
+        console.log('STATUS: ' + res.statusCode);
+        console.log('HEADERS: ' + JSON.stringify(res.headers));
+        res.setEncoding('utf8');
+        res.on('data', function (chunk) {
+            console.log('BODY: ' + chunk);
+        });
+    }).end();
+
+    return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: result});
+
+
 }
 
 
