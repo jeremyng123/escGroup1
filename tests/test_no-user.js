@@ -31,8 +31,6 @@ describe('Title pages for non-users', function() {
         done();
     });
 
-    
-
     describe('/', function(){
         it('should-open-acnapi-portal', async function() {
             try{
@@ -70,6 +68,7 @@ describe('Title pages for non-users', function() {
             await driver.findElement(By.name('password')).sendKeys('1234567', Key.ENTER);         // enter short password into `password` box
             try{
                 await driver.findElement(By.id('err_password')).then(err_pw => {
+                    console.log('invalid length of password: \n\n\n' + err_pw);
                     expect(err_pw).to.be.equal("Please ensure that your password has a minimum of 8 characters");
                 });
             } catch(err){
@@ -86,6 +85,8 @@ describe('Title pages for non-users', function() {
             await driver.findElement(By.name('password')).sendKeys('1234567我爱你', Key.ENTER);         // enter short password into `password` box
             try{
                 await driver.findElement(By.id('err_password')).then(err_pw => {
+                    console.log('invalid chars in password: \n\n\n' + err_pw);
+                    
                     expect(err_pw).to.be.equal("Invalid characters in password, please try another one!");
                 });
             } catch(err){

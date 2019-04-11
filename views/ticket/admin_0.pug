@@ -32,23 +32,21 @@ html(lang='en')
                 tr
                 tbody
                 for ticket in tickets
-                  if !ticket.tag
-                    //- display only if ticket status == 0 (queued)
-                    tr(id=ticket.ticketId)
-                      td
-                        span #{count++}
-                      td
-                        span #{ticket.user.firstName + " " + ticket.user.lastName}
-                      td
-                        span #{ticket.user.email}
-                      td
-                        span #{ticket.user.phoneNumber}
-                      td
-                        span #{ticket.topic}  
-                      td
-                        span #{ticket.messages[0].content}
-                      td
-                        a(href="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond") Respond
+                  tr(id=ticket.ticketId)
+                    td
+                      span #{count++}
+                    td
+                      span #{ticket.user.firstName + " " + ticket.user.lastName}
+                    td
+                      span #{ticket.user.email}
+                    td
+                      span #{ticket.user.phoneNumber}
+                    td
+                      span #{ticket.topic}  
+                    td
+                      span#desc!=ticket.messages[0].content
+                    td
+                      a(href="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond") Respond
                   
 
 
