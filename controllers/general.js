@@ -44,28 +44,28 @@ exports.details_post = function(req, res, next) {
             res.redirect('/')  // redirect to a new webpage as we submit email
         })
     }).catch(err=>console.log("error again!" + err));
-        
 };
 
 
 /******************** SHOW TICKETS ***************************/
 exports.show_my_tickets_queued = function(req, res, next) {
-    return models.ticket.findOne({
+    return models.ticket.findAll({
         where : {
             fk_userId   : req.user.userId ,
             tag         : 0
-        }
+        },include: [ models.message ]
     }).then(tickets=> {
+        console.log("USER SHOW TICKETS\n\n" + JSON.stringify(tickets));
         res.render('ticket/user_0', { title: "ACNAPI Tickets - Queued", tickets: tickets, user: req.user , subtitle: "queued" });
     });
 };
 
 exports.show_my_tickets_inprogress = function(req, res, next) {
-    return models.ticket.findOne({
+    return models.ticket.findAll({
         where : {
             fk_userId   : req.user.userId ,
             tag         : 1
-        }
+        },include: [ models.message ]
     }).then(tickets=> {
         res.render('ticket/user_1', { title: "ACNAPI Tickets - In Progress", tickets: tickets, user: req.user , subtitle: "in-progress" });
     });
@@ -76,7 +76,7 @@ exports.show_my_tickets_solved = function(req, res, next) {
         where : {
             fk_userId   : req.user.userId ,
             tag         : 2
-        }
+        },include: [ models.message ]
     }).then(tickets=> {
         res.render('ticket/user_2', { title: "ACNAPI Tickets - Solved", tickets: tickets, user: req.user , subtitle: "solved" });
     });

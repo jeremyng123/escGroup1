@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var express = require("express");
 
 /*************** CONTROLLER *****************/
@@ -110,6 +111,40 @@ module.exports = function(io) {
     isLoggedIn,
     general.edit_ticket
   );
+=======
+module.exports = function(io){
+  var express = require('express');
+  var router = express.Router();
+
+  /*************** CONTROLLER *****************/
+  let general = require('../controllers/general');
+  let admins = require('../controllers/admins');
+  let user = require('../controllers/user');      // to direct them to login page!
+
+
+  /*************** MIDDLEWARE *****************/
+  let {isLoggedIn,hasAuth,whatRights} = require('../middleware/hasAuth');
+  let {send_email} = require('../middleware/email');
+
+  /*************** REAL TIME CHAT DEPENDENCIES *****************/
+  /**
+   * Use the gravatar module, to turn email addresses into avatar images:  
+   * for REAL TIME CHAT
+   * */
+  let rtchat = require('../controllers/chat');
+  var gravatar = require('gravatar');
+
+  /*************** HOMEPAGE *****************/
+  router.get('/', general.get_welcome);
+
+    /*************** GENERAL TICKET ROUTES *****************/
+  router.get('/my_tickets/:user_id/0', isLoggedIn, general.show_my_tickets_queued);       // user page -- display all queued tickets
+  router.get('/my_tickets/:user_id/1', isLoggedIn, general.show_my_tickets_inprogress);   // user page -- display all in-progress tickets
+  router.get('/my_tickets/:user_id/2', isLoggedIn, general.show_my_tickets_solved);       // user page -- display all solved tickets
+  router.get('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.show_edit_ticket);  // user making edit to his/her tickets
+  router.post('/my_tickets/:user_id/:ticket_id',isLoggedIn, general.edit_ticket);      
+
+>>>>>>> f8be80e458a0b4d7c5aee4291154a1a080b0cb62
 
   /*************** TICKET CREATION ROUTES *****************/
   router.get("/ticket_form/basics", isLoggedIn, general.basics_get); // basics
@@ -157,6 +192,7 @@ module.exports = function(io) {
   );
 
   /********* DELETE ROW FROM tickets TABLE *************/
+<<<<<<< HEAD
   router.post(
     "/ticket/:ticket_id/delete",
     isLoggedIn,
@@ -201,15 +237,75 @@ module.exports = function(io) {
   //         });
   //     }
   // })
+=======
+  router.post('/ticket/:ticket_id/delete', isLoggedIn, hasAuth, admins.delete_ticket);       // using post and different route
+  router.post('/ticket/:ticket_id/delete-json',isLoggedIn, hasAuth, admins.delete_ticket_json);  // using ajax
+
+  /********* REAL TIME CHAT ROUTER *************/
+  router.get('/room', rtchat.room);
+  router.get('/create', rtchat.create);
+  router.get('/chat/:id', rtchat.chat);
+
+
+  /*************** UPLOAD IMAGES *****************/
+  var multer = require('multer');
+  var path = require('path');
+  var fs = require('fs')
+
+  var storage = multer.diskStorage({
+    destination: function(req, file, cb, res) {
+      cb(null, 'public/users/' + req.user.userId + "/tickets/" + req.user.ticketCount);
+    },
+
+    filename: function(req, file, cb, res) {
+      var name = file.fieldname + '-' + Date.now() + path.extname(file.originalname);
+      cb(null, name);
+
+      return name;
+    }
+  });
+  var upload = multer({
+    storage: storage
+  });
+
+  function checkUploadPath(req, res, next) {
+      const uploadPath = 'public/users/' + req.user.userId + "/tickets/" + req.user.ticketCount;
+      fs.exists(uploadPath, function(exists) {
+          if(exists) {
+            return next();
+          }
+          else {
+              fs.mkdir(uploadPath, { recursive: true }, function(err) {
+              if(err) {
+                  console.log('Error in folder creation: \n' + err);
+                  return next(); 
+              }  
+                  return next();
+              })
+          }
+      })
+  }
+
+  router.post('/upload', checkUploadPath, upload.single('file'), function(req, res) {
+      res.json({
+          "location": 'users/' + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
+      });
+  });
+
+>>>>>>> f8be80e458a0b4d7c5aee4291154a1a080b0cb62
 
   /*****************
    * REAL TIME CHAT
    * ****************/
 
+<<<<<<< HEAD
   router.get("/room", rtchat.room);
   router.get("/create", rtchat.create);
   router.get("/chat/:id", rtchat.chat);
+=======
+>>>>>>> f8be80e458a0b4d7c5aee4291154a1a080b0cb62
 
+  
   // Initialize a new socket.io application, named 'chat'
   var chat = io.on("connection", function(socket) {
     // When the client emits the 'load' event, reply with the
@@ -323,7 +419,12 @@ module.exports = function(io) {
     }
     return res;
   }
+<<<<<<< HEAD
 
   // this is the key
   return router;
 };
+=======
+  return router;
+}
+>>>>>>> f8be80e458a0b4d7c5aee4291154a1a080b0cb62

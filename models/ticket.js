@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
   ticket.associate = function(model) {
     ticket.belongsTo(model.user, {foreignKey: 'fk_userId', targetKey: 'userId' }); 
     ticket.hasMany(model.message, { foreignKey:'fk_ticketId' })
-    ticket.hasMany(model.message, { foreignKey:'fk_messageCount' })
   }
   return ticket;
 };

@@ -30,7 +30,7 @@ html(lang='en')
               tr
               tbody
               if tickets != NULL
-                for ticket in tickets.tickets
+                for ticket in tickets
                   if !ticket.tag
                     tr(id=ticket.id)
                       td
@@ -40,7 +40,7 @@ html(lang='en')
                       td
                         span #{ticket.description}
                       td
-                        span #{ticket.responses}
+                        span #{ticket.messages[0].content}
                       td
                         a(href="/my_tickets/" + user.userId + '/' + ticket.ticketId) Edit
                       td

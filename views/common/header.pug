@@ -19,16 +19,18 @@ mixin header(title)
             tinymce.init({
                 selector: '#content',
                 inline:  false,
-                toolbar: 'bold,italic,underline,|,undo,redo,|,justifyleft,justifycenter,justifyright|,image,table,|,fullscreen, codesample,|,alignleft aligncenter alignright alignjustify',
+                toolbar: 'bold,italic,underline,|,undo,redo,|,justifyleft,justifycenter,justifyright|,image,table,|,fullscreen, codesample, code,|,alignleft aligncenter alignright alignjustify',
                 a_plugin_option: false,
                 menubar: false,
                 height: 216,
                 branding: false,
-                plugins: "table link image codesample fullscreen charmap",
+                plugins: "table link image codesample code fullscreen charmap",
                 a_configuration_option: 400,
                 autosave_interval: "20s",
 
-                images_upload_url: '/upload'
+                images_upload_url: '/upload',
+                images_upload_base_path: 'https://escgroup1.herokuapp.com/'
+                //- document_base_url: 'http://escgroup1.herokuapp.com/'
             });
 
         

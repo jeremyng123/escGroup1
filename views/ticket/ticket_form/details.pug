@@ -13,7 +13,7 @@ html(lang='en')
             h1.display-4.m-b-2 Ticket Form
 
             // register form
-            form(action='/ticket/form',method='POST' )
+            form(action='/ticket_form/details',method='POST' )
               div.form-group
                 label(for='name') First Name:
                 input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly="readonly")
