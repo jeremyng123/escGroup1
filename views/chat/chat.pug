@@ -5,15 +5,15 @@ doctype html
   and a few more JavaScript files that you should check out.
 head
   title Private chat room | Demo
-  link(type='text/css' rel='stylesheet' href='../stylesheets/style.css')
+  link(type='text/css' rel='stylesheet' href='../stylesheets/stylesheet.css')
   //- link(type='text/css' rel='stylesheet' href='/public/stylesheets/style.css')
   link(href='http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700' rel='stylesheet' type='text/css')
 header.banner
   h1.bannertext
     a#logo(href='http://tutorialzine.com/2014/03/nodejs-private-webchat/')
-      | Tutorial
-      span zine
-      | : NODE.JS CHAT TUTORIAL
+      | ESC 
+      span Group 1
+      |  REAL TIME CHAT
 section.section
   // These elements are displayed as white info cards in the middle of the screen
   .connected
@@ -69,10 +69,11 @@ section.section
   .chatscreen
     ul.chats
       // The chat messages will go here
-footer
+
   form#chatform
     textarea#message(placeholder='Write something..')
     input#submit(type='submit' value='SEND')
+footer
 script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js')
 script(src='../javascripts/moment.min.js')
 script(src='/socket.io/socket.io.js')
