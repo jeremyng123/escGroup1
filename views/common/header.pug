@@ -28,8 +28,10 @@ mixin header(title)
                 a_configuration_option: 400,
                 autosave_interval: "20s",
 
+                relative_urls: false,
+                remove_script_host: false,
                 images_upload_url: '/upload',
-                images_upload_base_path: 'https://escgroup1.herokuapp.com/'
+                images_upload_base_path: "http://" + window.location.host
                 //- document_base_url: 'http://escgroup1.herokuapp.com/'
             });
 
