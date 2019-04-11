@@ -21,11 +21,10 @@ exports.basics_post = function(req, res, next) {
 exports.solutions_get = function(req, res, next) {
     var url = 'localhost';
 
-    answer = request({ uri: url+ ':5000/smart_solution/' + req.query.q}, function (err, response, body) {
+    request(url+ ':5000/smart_solution/' + req.query.q, {json:true}, (err, response, body) => {
         console.log(response);
+        console.log(body)
     });
-
-    console.log(answer);
     return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: "this is result" });//result});
 
 
