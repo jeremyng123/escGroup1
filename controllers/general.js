@@ -21,8 +21,7 @@ exports.solutions_get = function(req, res, next) {
     var options = {
         host: url + ':5000/smart_solution/' + req.query.q,
         port: 80,
-        path: '/resource?id=foo&bar=baz',
-        method: 'POST'
+        method: 'GET'
       };
       
     http.request(options, function(res) {
@@ -34,7 +33,7 @@ exports.solutions_get = function(req, res, next) {
         });
     }).end();
 
-    return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: result});
+    return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: "this is result" });//result});
 
 
 }
