@@ -111,6 +111,7 @@ $(function() {
   // Other useful
 
   socket.on("startChat", function(data) {
+    console.log(data);
     if (data.boolean && data.id == id) {
       chats.empty();
 
