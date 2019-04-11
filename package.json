@@ -2,7 +2,7 @@
   "name": "myapp",
   "version": "0.0.0",
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "test": "mocha ./mocha-tests/*.js"
   },
   "dependencies": {
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "mocha": "^6.1.2",
-    "nodemon": "^1.18.10",
+    "nodemon": "^1.18.11",
     "pg": "^7.9.0"
   }
 }

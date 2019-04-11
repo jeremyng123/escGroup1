@@ -8,6 +8,13 @@ mixin header(title)
         meta(name='description',content='')
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous")
         script(src="/tinymce/js/tinymce/tinymce.min.js")
+
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+        //this causes navbar to fk up
+        link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css')
+        script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js')
+
         script.
             tinymce.init({
                 selector: '#content',
@@ -40,5 +47,4 @@ mixin header(title)
         //<base href="/">
         meta(name='viewport', content='width=device-width,initial-scale=1,maximum-scale=1')
         meta(name='description',content='')
-    
     
