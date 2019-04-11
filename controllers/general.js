@@ -1,10 +1,5 @@
 const models = require('../models');
 
-// import zerorpc and connect to python process
-var zerorpc = require("zerorpc");
-var client = new zerorpc.Client();
-client.connect("tcp://127.0.0.1:4242");
-
 exports.get_welcome = function(req, res, next) {
     return res.render('welcome', { title: "Accenture's ACNAPI Portal" , user: req.user });
    // passport session will flood the request with 'user' when there is one in session
