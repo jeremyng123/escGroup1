@@ -1,5 +1,5 @@
 const models = require('../models');
-var request = require('request');
+var http = require('http');
 
 exports.get_welcome = function(req, res, next) {
     return res.render('welcome', { title: "Accenture's ACNAPI Portal" , user: req.user });
