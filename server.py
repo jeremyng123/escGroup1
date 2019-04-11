@@ -3,6 +3,7 @@ import pandas as pd
 import re, math
 from collections import Counter
 import numpy as np
+from flask import jsonify
 
 
 WORD = re.compile(r'\w+')
@@ -29,8 +30,10 @@ def smart_solution(question):
     title_string = '|'.join(questions['Title'][replace])
     questions_string = '|'.join(questions['questions'][replace])
     answers_string = '|'.join(questions['answers'][replace])
-    toReturn = 'TITLE\n' + title_string + '\n' + 'QUESTIONS\n' + questions_string + '\n' + 'ANSWERS\n' + answers_string
-    return toReturn
+
+    toReturn = {'TITLE' : title_string , 'QUESTIONS': questions_string , 'ANSWERS' : answers_string}
+    
+    return jsonify(toReturn)
 
 def smart_suggestion(list1, string2):
     return len(set(list1)&set(string2.split()))
