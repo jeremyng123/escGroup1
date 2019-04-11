@@ -1,6 +1,6 @@
 const models = require('../models');
 
-var request = require('request');
+var https = require('https');
 
 
 exports.get_welcome = function(req, res, next) {
@@ -21,13 +21,29 @@ exports.basics_post = function(req, res, next) {
 exports.solutions_get = function(req, res, next) {
     var url = 'localhost';
 
-    request(url+ ':5000/smart_solution/' + req.query.q, {json:true}, (err, response, body) => {
-        console.log(response);
-        console.log(body)
+    // request(url+ ':5000/smart_solution/' + req.query.q, {json:true}, (err, response, body) => {
+    //     console.log(response);
+    //     console.log(body)
+    // });
+
+    https.get(url+ ':5000/smart_solution/' + req.query.q, (resp) => {
+        let data = '';
+
+        // A chunk of data has been recieved.
+        resp.on('data', (chunk) => {
+            data += chunk;
+        });
+
+        // The whole response has been received. Print out the result.
+        resp.on('end', () => {
+            console.log(JSON.parse(data).explanation);
+        });
+
+        }).on("error", (err) => {
+        console.log("Error: " + err.message);
     });
+
     return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: "this is result" });//result});
-
-
 }
 
 
