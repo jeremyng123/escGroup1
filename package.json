@@ -2,8 +2,8 @@
   "name": "myapp",
   "version": "0.0.0",
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "test": "mocha ./mocha-tests/*.js"
+    "start": "node ./bin/www",
+    "test": "mocha ./tests/*.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.5",
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "mocha": "^6.1.2",
-    "nodemon": "^1.18.11",
     "pg": "^7.9.0"
   }
 }
