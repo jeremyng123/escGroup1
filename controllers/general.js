@@ -1,9 +1,7 @@
 const models = require('../models');
 
-// import zerorpc and connect to python process
-var zerorpc = require("zerorpc");
-var client = new zerorpc.Client();
-client.connect("tcp://127.0.0.1:4242");
+var http = require('http');
+
 
 exports.get_welcome = function(req, res, next) {
     return res.render('welcome', { title: "Accenture's ACNAPI Portal" , user: req.user });
@@ -21,9 +19,69 @@ exports.basics_post = function(req, res, next) {
 }
 
 exports.solutions_get = function(req, res, next) {
-    client.invoke('smart_solution', req.query.q, function(error, result, more) {
-        return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: result});
+    var url = 'localhost';
+
+    var options = {
+        host: url,
+        port: 5000,
+        path: '/smart_solution/' + req.query.q,
+        method: "GET"
+    };
+
+    var req = http.request(options, function (result) {
+        console.log("statusCode: ", result.statusCode);
+        var responseString = "";
+        result.on("data", function (data) {
+            responseString += data;
+            // save all the data from response
+        });
+
+        result.on("end", function () {
+            var solutions = JSON.parse(responseString);
+            return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: solutions});
+        });
     });
+
+
+    // this part is crucial
+    req.end();
+    req.on('error', function(e) {
+        console.error(e);
+    });
+}
+
+
+exports.solution_detail = function(req, res, next) {
+    var url = 'localhost';
+
+    var options = {
+        host: url,
+        port: 5000,
+        path: '/get_detail/' + req.query.id,
+        method: "GET"
+    };
+
+    var req = http.request(options, function (result) {
+        console.log("statusCode: ", result.statusCode);
+        var responseString = "";
+        result.on("data", function (data) {
+            responseString += data;
+            // save all the data from response
+        });
+
+        result.on("end", function () {
+            var detail = JSON.parse(responseString);
+            return res.render('ticket/ticket_form/solution_detail', {title: "Detailed Solution", question: detail.question, answer: detail.answer});
+        });
+    });
+
+
+    // this part is crucial
+    req.end();
+    req.on('error', function(e) {
+        console.error(e);
+    });
+    
 }
 
 
