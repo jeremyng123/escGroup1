@@ -77,7 +77,6 @@ $(function() {
         }
       });
     } else if (data.number === 1) {
-      console.log('Emrys: testing')
       showMessage("personinchat", data);
 
       loginForm.on("submit", function(e) {
