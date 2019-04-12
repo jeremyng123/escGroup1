@@ -130,7 +130,7 @@ exports.show_my_tickets_inprogress = function(req, res, next) {
 };
 
 exports.show_my_tickets_solved = function(req, res, next) {
-    return models.ticket.findOne({
+    return models.ticket.findAll({
         where : {
             fk_userId   : req.user.userId ,
             tag         : 2
