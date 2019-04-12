@@ -8,9 +8,9 @@ html(lang='en')
       +navbar(user)
       .container
         .row.align-items-center
-          .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
+          .col-md-8.order-md-1.text-center.text-md-left.pr-md-5
             - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
-            h1.display-4.m-b-2 Ticket Form
+            h1.display-7.m-b-2 Ticket Form
 
             // register form
             form(action='/ticket_form/details',method='POST' )
@@ -35,9 +35,9 @@ html(lang='en')
               div.form-group
                 label(for='content') Description:
                 textarea#content.form-control(name='content')
-                  <p> some sample text </p>
+                 |some sample text
                 
-              button.btn.btn-primary(type='submit') Submit
+              button.btn.btn-outline-dark(type='submit') Submit
 
 
 
