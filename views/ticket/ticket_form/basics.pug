@@ -18,13 +18,13 @@ html(lang='en')
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
             - let topics = ["Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
-            h1.display-4.m-b-2 Ticket Form
-
+            br
+            h1.display-8.m-b-2 Ticket Form
+            br
             // register form
             form(action='/ticket_form/basics', method='POST')
               div.form-group
                 label(for='topic') Issue Type:
-              br
               select(name='topic')
                 each topic in topics
                   option#topic.form-control(value=topic) #{topic}
