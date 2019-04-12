@@ -23,6 +23,6 @@ exports.create = function(req,res){
 exports.chat = function(req,res){
 
 	// Render the chant.html view
-	res.render('chat/chat');
+	res.render('chat/chat2');
 }
 

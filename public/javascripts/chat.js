@@ -1,5 +1,3 @@
-// This file is executed in the browser, when people visit /chat/<random id>
-
 $(function() {
   // getting the id of the room from the url
   var id = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
@@ -79,6 +77,7 @@ $(function() {
         }
       });
     } else if (data.number === 1) {
+      console.log('Emrys: testing')
       showMessage("personinchat", data);
 
       loginForm.on("submit", function(e) {

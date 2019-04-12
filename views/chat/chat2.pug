@@ -5,7 +5,7 @@ doctype html
   and a few more JavaScript files that you should check out.
 head
   title Private chat room | Tutorialzine Demo
-  link(type='text/css' rel='stylesheet' href='../css/stylesheet.css')
+  link(type='text/css' rel='stylesheet' href='../stylesheets/stylesheet.css')
   link(href='http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700' rel='stylesheet' type='text/css')
 header.banner
   h1.bannertext
@@ -16,7 +16,7 @@ header.banner
 section.section
   // These elements are displayed as white info cards in the middle of the screen
   .connected
-    img#creatorImage(src='../img/unnamed.jpg')
+    img#creatorImage(src='../images/unnamed.jpg')
     .infoConnected
       h2 Who are you?
       br
@@ -27,7 +27,7 @@ section.section
         br
         input#yourEnter(type='submit' value='ENTER')
   .personinside
-    img#ownerImage(src='../img/unnamed.jpg')
+    img#ownerImage(src='../images/unnamed.jpg')
     .infoInside
       h2
         | Chat with 
@@ -45,7 +45,7 @@ section.section
     .link
       a#link(title='Invite a friend' href='')
   .left
-    img#leftImage(src='../img/unnamed.jpg')
+    img#leftImage(src='../images/unnamed.jpg')
     .info
       h2
         span.nickname-left
@@ -58,7 +58,7 @@ section.section
       a#room(title='New Room' href='/create') new room
       | ?
   .nomessages
-    img#noMessagesImage(src='../img/unnamed.jpg')
+    img#noMessagesImage(src='../images/unnamed.jpg')
     .info
       h2
         | You are chatting with 
@@ -73,6 +73,6 @@ footer
     textarea#message(placeholder='Write something..')
     input#submit(type='submit' value='SEND')
 script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js')
-script(src='../js/moment.min.js')
+script(src='../javascripts/moment.min.js')
 script(src='/socket.io/socket.io.js')
-script(src='../js/chat.js')
+script(src='../javascripts/chat.js')
