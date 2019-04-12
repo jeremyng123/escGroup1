@@ -21,8 +21,15 @@ html(lang='en')
             h2 Here are the questions that previous users have asked:
 
             // register form
-            a(href="/solutions/" + ) #{solution.first.title}
-            
+            a(href="/solution_detail?id=" + solution.first.id) #{solution.first.title}
+            | 
+            a(href="/solution_detail?id=" + solution.second.id) #{solution.second.title}
+            | 
+            a(href="/solution_detail?id=" + solution.third.id) #{solution.third.title}
+            | 
+            a(href="/solution_detail?id=" + solution.fourth.id) #{solution.fourthtitle}
+            | 
+            a(href="/solution_detail?id=" + solution.fifth.id) #{solution.fifth.title}
             
             
             a#btn_ticket-form.nav-link(href="/ticket_form/details") Next: details
