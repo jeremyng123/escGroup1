@@ -66,6 +66,7 @@ describe('Title pages for non-users', function() {
             await driver.findElement(By.name('lastName')).sendKeys('Ng');         // enter default user last name into `lastName` box
             await driver.findElement(By.name('phoneNumber')).sendKeys(phoneNumber);         // enter default user phonenumber into `phoneNumber` box
             await driver.findElement(By.name('password')).sendKeys('1234567', Key.ENTER);         // enter short password into `password` box
+            await driver.wait(until.elementLocated(By.id('err_password')));
             try{
                 await driver.findElement(By.id('err_password')).then(err_pw => {
                     console.log('invalid length of password: \n\n\n' + err_pw);
