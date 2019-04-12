@@ -3,8 +3,7 @@ html(lang='en')
   include ../../common/header.pug
   +header(title)
   body
-    header
-
+    head
       script(src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=ld4nt2kua9tevpu1bdsjmargql8oksngzmeps4cqup50heof')
       script.
         ClassicEditor
@@ -14,6 +13,16 @@ html(lang='en')
           } );
       include ../../common/navbar.pug
       +navbar(user)
+
+      .container
+        ul.progressbar
+          li.active login
+          li choose interest
+          li add friends
+          li View map
+
+
+      
       .container
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
