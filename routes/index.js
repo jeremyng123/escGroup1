@@ -21,7 +21,7 @@ module.exports = function(io) {
 
   /*************** HOMEPAGE *****************/
   router.get("/", general.get_welcome);
-
+  router.get("/consultant", general.get_consultantpage);
   /*************** GENERAL TICKET ROUTES *****************/
   router.get(
     "/my_tickets/:user_id/0",
@@ -60,8 +60,8 @@ module.exports = function(io) {
     send_email,
     general.details_post
   );
-  router.get('/solution_detail', isLoggedIn, general.solution_detail);
-  
+  router.get("/solution_detail", isLoggedIn, general.solution_detail);
+
   /*************** ADMIN ROUTES *****************/
   router.get("/tickets", whatRights); // if user is not logged in, redirect to signup page, else admin/user tickets page
   router.get(

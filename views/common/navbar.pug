@@ -1,22 +1,27 @@
 mixin navbar(user)
-    nav.navbar.navbar-expand.navbar-light.bg-light
+    nav.navbar.navbar-expand.navbar-dark.bg-dark
       
       a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
-        img(src="/images/accenture.png", width="36", height="36")
+        img(src="/images/accenture.png", width="40", height="40" style=" padding: 0px 00px 0px 0px")
       .collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item
+
+          li.nav-item
             a#btn_home.nav-link(href="/" data-toggle="tooltip" data-placement="bottom" title="Home Page") 
-              img(src='../images/home.svg', width="30", height="30")
+              img(src='../images/homewhite.png', width="30", height="30" style="padding: 0 0 0 0")
           li.nav-item
             a#btn_tickets.nav-link(href="/tickets" data-toggle="tooltip" data-placement="bottom" title="Your Tickets") 
-              img(src='../images/collections.svg', width="30", height="30")
+              img(src='../images/bookwhite.png', width="30", height="30")
           li.nav-item
             a#btn_ticket-form.nav-link(href="/ticket_form/basics" data-toggle="tooltip" data-placement="bottom" title="Questions") 
-              img(src='../images/assignment.svg', width="30", height="30")
+              img(src='../images/helpwhite.png', width="30", height="30")
           li.nav-item
             a#btn_chat.nav-link(href='/room' target="_blank" ata-toggle="tooltip" data-placement="bottom" title="Chat with Admin now!") 
-              img(src='../images/questionanswer.svg', width="30", height="30")
+              img(src='../images/chatwhite.png', width="30", height="30")
+          li.nav-item
+            a#btn_consultant.nav-link(href='/consultant' data-toggle="tooltip" data-placement="bottom" title="Meet The Consultants") 
+              img(src='../images/consultantwhite.png', width="30", height="30")
       
       .navbar-right
         if user
