@@ -15,15 +15,6 @@ html(lang='en')
       +navbar(user)
 
       .container
-        ul.progressbar
-          li.active login
-          li choose interest
-          li add friends
-          li View map
-
-
-      
-      .container
         .row.align-items-center
           .col-md-6.order-md-1.text-center.text-md-left.pr-md-5
             - let topics = ["Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
@@ -41,7 +32,7 @@ html(lang='en')
                 label(for='q') Description:
                 textarea#editor.form-control(name='q_content',type='text', placeholder='In a few words, describe your issue',maxlength="4000", wrap="soft", row="10")
                 
-              button.btn.btn-primary(type='submit') Solutions
+              button.btn.btn-outline-dark(type='submit') Solutions
 
     include ../../common/footer.pug
     +footer()
