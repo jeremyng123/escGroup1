@@ -60,7 +60,8 @@ module.exports = function(io) {
     send_email,
     general.details_post
   );
-
+  router.get('/solution_detail', isLoggedIn, general.solution_detail);
+  
   /*************** ADMIN ROUTES *****************/
   router.get("/tickets", whatRights); // if user is not logged in, redirect to signup page, else admin/user tickets page
   router.get(
