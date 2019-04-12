@@ -38,8 +38,7 @@ exports.solutions_get = function(req, res, next) {
 
         result.on("end", function () {
             var solutions = JSON.parse(responseString);
-            console.log( solutions.TITLE );
-            return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: solutions });
+            return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: solutions});
         });
     });
 
