@@ -33,11 +33,21 @@ exports.solutions_get = function(req, res, next) {
         var responseString = "";
         result.on("data", function (data) {
             responseString += data;
+            // save all the data from response
         });
 
         result.on("end", function () {
-            return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: responseString });//result});
+            var solutions = JSON.parse(responseString);
+            console.log( solutions.TITLE );
+            return res.render('ticket/ticket_form/solutions', {title: "Suggested Solutions", user: req.user, solution: solutions });
         });
+    });
+
+
+    // this part is crucial
+    req.end();
+    req.on('error', function(e) {
+        console.error(e);
     });
 }
 
