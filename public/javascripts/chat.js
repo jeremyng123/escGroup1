@@ -239,20 +239,25 @@ $(function() {
       // Set the invite link content
       $("#link").text(window.location.href);
 
+      section.children().css("display", "none");//emrys add
       onConnect.fadeOut(1200, function() {
         inviteSomebody.fadeIn(1200);
       });
     } else if (status === "personinchat") {
       onConnect.css("display", "none");
+      chatForm.css('display', 'none'); // emrys added
       personInside.fadeIn(1200);
 
       chatNickname.text(data.user);
       ownerImage.attr("src", data.avatar);
     } else if (status === "youStartedChatWithNoMessages") {
+      chatForm.css('display', 'true'); // emrys added
+      chatForm.css.children('display', 'true'); // emrys added
       left.fadeOut(1200, function() {
         inviteSomebody.fadeOut(1200, function() {
           noMessages.fadeIn(1200);
           footer.fadeIn(1200);
+          chatForm.fadeIn(1200); // emrys added
         });
       });
 

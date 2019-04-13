@@ -19,7 +19,7 @@ module.exports = function(io) {
   let rtchat = require("../controllers/chat");
 
   /*************** HOMEPAGE *****************/
-  router.get("/", general.get_welcome);
+  // router.get("/", general.get_welcome);
 
   /*************** GENERAL TICKET ROUTES *****************/
   router.get(
@@ -109,7 +109,8 @@ module.exports = function(io) {
   ); // using ajax
 
   /********* REAL TIME CHAT ROUTER *************/
-  router.get("/room", rtchat.room);
+  // this is changed
+  router.get("/", rtchat.room);
   router.get("/create", rtchat.create);
   router.get("/chat/:id", rtchat.chat);
 
