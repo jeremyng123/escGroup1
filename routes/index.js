@@ -109,6 +109,7 @@ module.exports = function(io) {
   ); // using ajax
 
   /********* REAL TIME CHAT ROUTER *************/
+  // this is changed
   router.get("/room", rtchat.room);
   router.get("/create", rtchat.create);
   router.get("/chat/:id", rtchat.chat);

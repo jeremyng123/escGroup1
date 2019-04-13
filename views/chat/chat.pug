@@ -69,11 +69,11 @@ section.section
   .chatscreen
     ul.chats
       // The chat messages will go here
-
-  form#chatform
-    textarea#message(placeholder='Write something..')
-    input#submit(type='submit' value='SEND')
-footer
+  footer
+    form#chatform
+      textarea#message(placeholder='Write something..')
+      input#submit(type='submit' value='SEND')
+//- footer
 script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js')
 script(src='../javascripts/moment.min.js')
 script(src='/socket.io/socket.io.js')
