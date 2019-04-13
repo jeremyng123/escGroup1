@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
   // getting the id of the room from the url
   var id = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
 
@@ -41,21 +41,21 @@ $(function() {
     noMessagesImage = $("#noMessagesImage");
 
   // on connection to server get the id of person's room
-  socket.on("connect", function() {
+  socket.on("connect", function () {
     socket.emit("load", id);
   });
 
   // save the gravatar url
-  socket.on("img", function(data) {
+  socket.on("img", function (data) {
     img = data;
   });
 
   // receive the names and avatars of all people in the chat room
-  socket.on("peopleinchat", function(data) {
+  socket.on("peopleinchat", function (data) {
     if (data.number === 0) {
       showMessage("connected");
 
-      loginForm.on("submit", function(e) {
+      loginForm.on("submit", function (e) {
         e.preventDefault();
 
         name = $.trim(yourName.val());
@@ -79,7 +79,7 @@ $(function() {
     } else if (data.number === 1) {
       showMessage("personinchat", data);
 
-      loginForm.on("submit", function(e) {
+      loginForm.on("submit", function (e) {
         e.preventDefault();
 
         name = $.trim(hisName.val());
@@ -108,7 +108,7 @@ $(function() {
 
   // Other useful
 
-  socket.on("startChat", function(data) {
+  socket.on("startChat", function (data) {
     console.log(data);
     if (data.boolean && data.id == id) {
       chats.empty();
@@ -123,20 +123,20 @@ $(function() {
     }
   });
 
-  socket.on("leave", function(data) {
+  socket.on("leave", function (data) {
     if (data.boolean && id == data.room) {
       showMessage("somebodyLeft", data);
       chats.empty();
     }
   });
 
-  socket.on("tooMany", function(data) {
+  socket.on("tooMany", function (data) {
     if (data.boolean && name.length === 0) {
       showMessage("tooManyPeople");
     }
   });
 
-  socket.on("receive", function(data) {
+  socket.on("receive", function (data) {
     showMessage("chatStarted");
 
     if (data.msg.trim().length) {
@@ -145,7 +145,7 @@ $(function() {
     }
   });
 
-  textarea.keypress(function(e) {
+  textarea.keypress(function (e) {
     // Submit the form on enter
 
     if (e.which == 13) {
@@ -154,7 +154,7 @@ $(function() {
     }
   });
 
-  chatForm.on("submit", function(e) {
+  chatForm.on("submit", function (e) {
     e.preventDefault();
 
     // Create a new chat message and display it directly
@@ -174,8 +174,8 @@ $(function() {
 
   // Update the relative time stamps on the chat messages every minute
 
-  setInterval(function() {
-    messageTimeSent.each(function() {
+  setInterval(function () {
+    messageTimeSent.each(function () {
       var each = moment($(this).data("time"));
       $(this).text(each.fromNow());
     });
@@ -194,19 +194,19 @@ $(function() {
 
     var li = $(
       "<li class=" +
-        who +
-        ">" +
-        '<div class="image">' +
-        "<img src=" +
-        imgg +
-        " />" +
-        "<b></b>" +
-        '<i class="timesent" data-time=' +
-        now +
-        "></i> " +
-        "</div>" +
-        "<p></p>" +
-        "</li>"
+      who +
+      ">" +
+      '<div class="image">' +
+      "<img src=" +
+      imgg +
+      " />" +
+      "<b></b>" +
+      '<i class="timesent" data-time=' +
+      now +
+      "></i> " +
+      "</div>" +
+      "<p></p>" +
+      "</li>"
     );
 
     // use the 'text' method to escape malicious user input
@@ -235,51 +235,67 @@ $(function() {
     if (status === "connected") {
       section.children().css("display", "none");
       onConnect.fadeIn(1200);
-    } else if (status === "inviteSomebody") {
+    } 
+    
+    else if (status === "inviteSomebody") {
       // Set the invite link content
       $("#link").text(window.location.href);
-      onConnect.fadeOut(1200, function() {
+      onConnect.fadeOut(1200, function () {
         inviteSomebody.fadeIn(1200);
       });
-    } else if (status === "personinchat") {
-      onConnect.css("display", "none");
+    } 
+    
+    else if (status === "personinchat") {
+      onConnect.css("display", "none"); // emrys
       // chatForm.css('display', 'none'); // emrys added
       // chatForm.css('visibility', 'hidden');
       personInside.fadeIn(1200);
       chatNickname.text(data.user);
       ownerImage.attr("src", data.avatar);
-      $('#chatForm').fadeOut(1200);
-    } else if (status === "youStartedChatWithNoMessages") {
-      chatForm.css('visibility', ''); // emrys added
-      left.fadeOut(1200, function() {
-        inviteSomebody.fadeOut(1200, function() {
+    } 
+    
+    else if (status === "youStartedChatWithNoMessages") {
+      chatForm.parent().css('display', 'block'); // emrys this works
+      // chatForm.css('display', 'block');// emrys
+
+      left.fadeOut(1200, function () {
+        inviteSomebody.fadeOut(1200, function () {
           noMessages.fadeIn(1200);
-          // footer.fadeIn(1200);
+          footer.fadeIn(1200);
         });
       });
 
       friend = data.users[1];
       noMessagesImage.attr("src", data.avatars[1]);
-    } else if (status === "heStartedChatWithNoMessages") {
-      personInside.fadeOut(1200, function() {
+    } 
+    
+    else if (status === "heStartedChatWithNoMessages") {
+      chatForm.parent().css('display', 'block'); // emrys this works
+      personInside.fadeOut(1200, function () {
         noMessages.fadeIn(1200);
-        // footer.fadeIn(1200);
+        footer.fadeIn(1200);
       });
 
       friend = data.users[0];
       noMessagesImage.attr("src", data.avatars[0]);
-    } else if (status === "chatStarted") {
+    }
+
+    else if (status === "chatStarted") {
       section.children().css("display", "none");
-      chatForm.css('display', 'block');// emrys
+      chatForm.parent().css('display', 'block');// emrys
       chatScreen.css("display", "block");
-    } else if (status === "somebodyLeft") {
+    }
+
+    else if (status === "somebodyLeft") {
       leftImage.attr("src", data.avatar);
       leftNickname.text(data.user);
 
       section.children().css("display", "none");
-      // footer.css("display", "none");
+      footer.css("display", "none");
       left.fadeIn(1200);
-    } else if (status === "tooManyPeople") {
+    }
+
+    else if (status === "tooManyPeople") {
       section.children().css("display", "none");
       tooManyPeople.fadeIn(1200);
     }
