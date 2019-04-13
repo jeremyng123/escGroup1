@@ -86,7 +86,6 @@ module.exports = function(io) {
 
         // Notify the other person in the chat room
         // that his partner has left
-
         socket.broadcast.to(this.room).emit('leave', {
         boolean: true,
         room: this.room,

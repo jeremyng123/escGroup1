@@ -13,7 +13,7 @@ $(function () {
 
   // cache some jQuery objects
   var section = $(".section"),
-    // footer = $("footer"),
+    footer = $("footer"),
     onConnect = $(".connected"),
     inviteSomebody = $(".invite-textfield"),
     personInside = $(".personinside"),
@@ -124,10 +124,11 @@ $(function () {
   });
 
   socket.on("leave", function (data) {
+    console.log('emrys:data', data);
     if (data.boolean && id == data.room) {
       showMessage("somebodyLeft", data);
       chats.empty();
-    }
+    } 
   });
 
   socket.on("tooMany", function (data) {
@@ -292,7 +293,9 @@ $(function () {
 
       section.children().css("display", "none");
       footer.css("display", "none");
+      left.parent().css('display', 'block'); // emrys
       left.fadeIn(1200);
+      left.parent().css('display', 'block'); // emrys
     }
 
     else if (status === "tooManyPeople") {
