@@ -125,7 +125,7 @@ module.exports = function(io) {
                     res.push(ns.connected[id]);
                 }
             }
-        return res;
         }
+        return res;
     }
 }

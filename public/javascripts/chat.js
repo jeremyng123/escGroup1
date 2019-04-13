@@ -13,7 +13,7 @@ $(function() {
 
   // cache some jQuery objects
   var section = $(".section"),
-    footer = $("footer"),
+    // footer = $("footer"),
     onConnect = $(".connected"),
     inviteSomebody = $(".invite-textfield"),
     personInside = $(".personinside"),
@@ -238,26 +238,23 @@ $(function() {
     } else if (status === "inviteSomebody") {
       // Set the invite link content
       $("#link").text(window.location.href);
-
-      section.children().css("display", "none");//emrys add
       onConnect.fadeOut(1200, function() {
         inviteSomebody.fadeIn(1200);
       });
     } else if (status === "personinchat") {
       onConnect.css("display", "none");
-      chatForm.css('display', 'none'); // emrys added
+      // chatForm.css('display', 'none'); // emrys added
+      // chatForm.css('visibility', 'hidden');
       personInside.fadeIn(1200);
-
       chatNickname.text(data.user);
       ownerImage.attr("src", data.avatar);
+      $('#chatForm').fadeOut(1200);
     } else if (status === "youStartedChatWithNoMessages") {
-      chatForm.css('display', 'true'); // emrys added
-      chatForm.css.children('display', 'true'); // emrys added
+      chatForm.css('visibility', ''); // emrys added
       left.fadeOut(1200, function() {
         inviteSomebody.fadeOut(1200, function() {
           noMessages.fadeIn(1200);
-          footer.fadeIn(1200);
-          chatForm.fadeIn(1200); // emrys added
+          // footer.fadeIn(1200);
         });
       });
 
@@ -266,20 +263,21 @@ $(function() {
     } else if (status === "heStartedChatWithNoMessages") {
       personInside.fadeOut(1200, function() {
         noMessages.fadeIn(1200);
-        footer.fadeIn(1200);
+        // footer.fadeIn(1200);
       });
 
       friend = data.users[0];
       noMessagesImage.attr("src", data.avatars[0]);
     } else if (status === "chatStarted") {
       section.children().css("display", "none");
+      chatForm.css('display', 'block');// emrys
       chatScreen.css("display", "block");
     } else if (status === "somebodyLeft") {
       leftImage.attr("src", data.avatar);
       leftNickname.text(data.user);
 
       section.children().css("display", "none");
-      footer.css("display", "none");
+      // footer.css("display", "none");
       left.fadeIn(1200);
     } else if (status === "tooManyPeople") {
       section.children().css("display", "none");
