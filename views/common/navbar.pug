@@ -1,27 +1,26 @@
 mixin navbar(user)
+  - let hostDomain = "localhost:3000";
+  
     nav.navbar.navbar-expand.navbar-dark.bg-dark
-      
       a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
-        img(src="/images/accenture.png", width="40", height="40" style=" padding: 0px 00px 0px 0px")
+        img(src="http://" + hostDomain + "/images/accenture.png", width="40", height="40" style=" padding: 0px 00px 0px 0px")
       .collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item
-
-          li.nav-item
             a#btn_home.nav-link(href="/" data-toggle="tooltip" data-placement="bottom" title="Home Page") 
-              img(src='http://' + window.location.host + '/images/homewhite.png', width="30", height="30" style="padding: 0 0 0 0")
+              img(src='http://' + hostDomain + '/images/homewhite.png', width="30", height="30" style="padding: 0 0 0 0")
           li.nav-item
             a#btn_tickets.nav-link(href="/tickets" data-toggle="tooltip" data-placement="bottom" title="Your Tickets") 
-              img(src='http://' + window.location.host + '/images/bookwhite.png', width="30", height="30")
+              img(src='http://' + hostDomain + '/images/bookwhite.png', width="30", height="30")
           li.nav-item
             a#btn_ticket-form.nav-link(href="/ticket_form/basics" data-toggle="tooltip" data-placement="bottom" title="Questions") 
-              img(src='http://' + window.location.host + '/images/helpwhite.png', width="30", height="30")
+              img(src='http://' + hostDomain + '/images/helpwhite.png', width="30", height="30")
           li.nav-item
             a#btn_chat.nav-link(href='/room' target="_blank" ata-toggle="tooltip" data-placement="bottom" title="Chat with Admin now!") 
-              img(src='http://' + window.location.host + '/images/chatwhite.png', width="30", height="30")
+              img(src='http://' + hostDomain + '/images/chatwhite.png', width="30", height="30")
           li.nav-item
             a#btn_consultant.nav-link(href='/consultant' data-toggle="tooltip" data-placement="bottom" title="Meet The Consultants") 
-              img(src='http://' + window.location.host + '/images/consultantwhite.png', width="30", height="30")
+              img(src='http://' + hostDomain + '/images/consultantwhite.png', width="30", height="30")
       
       .navbar-right
         if user
