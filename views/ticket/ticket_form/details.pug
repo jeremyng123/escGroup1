@@ -9,7 +9,7 @@ html(lang='en')
       .container
         .row.align-items-center
           .col-md-8.order-md-1.text-center.text-md-left.pr-md-5
-            - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
+            - let topics = ["Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
             h1.display-7.m-b-2 Ticket Form
 
             // register form
@@ -26,6 +26,9 @@ html(lang='en')
               div.form-group
                 label(for='phoneNumber') Phone Number:
                 input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly="readonly")
+              div.form-group
+                label(for='priority') Bugs in ACNAPI found?:
+                input#priority.form-control(type='checkbox', name='priority')
               div.form-group
                 label(for='topic') Topics:
               br

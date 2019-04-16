@@ -1,4 +1,6 @@
 const models = require('../models');
+var os = require("os");
+var hostname = os.hostname();
 
 exports.show_tickets_queued = function(req, res, next) {
     return models.ticket.findAll({
@@ -6,7 +8,7 @@ exports.show_tickets_queued = function(req, res, next) {
         include: [ models.user , models.message]
     }).then(tickets => {
         console.log("JSON ARRAY!:" + JSON.stringify(tickets));
-        res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" });
+        res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
         })
 };
 
@@ -15,7 +17,7 @@ exports.show_tickets_inprogress = function(req, res, next) {
         where : { tag : 1 },
         include: [ models.user , models.message ]
     }).then(tickets => {
-            res.render('ticket/admin_1', { title: 'Tickets - In Progress', tickets: tickets, user: req.user  , subtitle: "in-progress"});
+            res.render('ticket/admin_1', { title: 'Tickets - In Progress', tickets: tickets, user: req.user  , subtitle: "in-progress" , hostname: hostname });
         })
 };
 
@@ -24,7 +26,7 @@ exports.show_tickets_solved = function(req, res, next) {
         where : { tag : 2 },
         include: [ models.user , models.message ]
     }).then(tickets => {
-            res.render('ticket/admin_2', { title: 'Tickets - Solved', tickets: tickets, user: req.user  , subtitle: "solved"});
+            res.render('ticket/admin_2', { title: 'Tickets - Solved', tickets: tickets, user: req.user  , subtitle: "solved" , hostname: hostname });
         })
 };
 
@@ -35,7 +37,7 @@ exports.show_respond_ticket = function(req, res, next) {
         },
         include: [ models.user , models.message ]
     }).then(ticket => {
-        res.render('ticket/respond_ticket', { title: 'Responding Tickets', ticket : ticket, user: req.user });
+        res.render('ticket/respond_ticket', { title: 'Responding Tickets', ticket : ticket, user: req.user  , hostname: hostname });
     }).catch(err=>console.log("No ticket found: " + err));
 };
 

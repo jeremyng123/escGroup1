@@ -21,7 +21,7 @@ html(lang='en')
               table.table
                 thread
                 tr
-                  th(scope="col") #
+                  th(scope="col").mce-arrow-down #
                   th(scope="col") Name
                   th(scope="col") Email
                   th(scope="col") Phone Number
@@ -32,21 +32,26 @@ html(lang='en')
                 tr
                 tbody
                 for ticket in tickets
-                  tr(id=ticket.ticketId)
-                    td
-                      span #{count++}
-                    td
-                      span #{ticket.user.firstName + " " + ticket.user.lastName}
-                    td
-                      span #{ticket.user.email}
-                    td
-                      span #{ticket.user.phoneNumber}
-                    td
-                      span #{ticket.topic}  
-                    td
-                      span#desc!=ticket.messages[0].content
-                    td
-                      a(href="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond") Respond
+                  - var ticketPriority;
+                  if ticket.priority
+                    - ticketPriority = "ticket_priority";
+                  else
+                    - ticketPriority = "ticket";
+                    tr(class=ticketPriority, id=ticket.ticketId)
+                      td
+                        span #{count++}
+                      td
+                        span #{ticket.user.firstName + " " + ticket.user.lastName}
+                      td
+                        span #{ticket.user.email}
+                      td
+                        span #{ticket.user.phoneNumber}
+                      td
+                        span #{ticket.topic}  
+                      td
+                        span#desc!=ticket.messages[0].content
+                      td
+                        a(href="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond") Respond
                   
 
 
