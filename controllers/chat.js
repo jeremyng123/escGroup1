@@ -4,6 +4,7 @@
 
 // Export a function, so that we can pass 
 // the app and io instances from the app.js file:
+const models = require('../models');
 
 exports.room = function(req, res){
 
@@ -26,3 +27,13 @@ exports.chat = function(req,res){
 	res.render('chat/chat');
 }
 
+exports.select = function(req, res) {
+	return models.user.findAll({
+        where : {
+            is_admin         : true
+        }
+    }).then(users=> {
+        res.render('chat/select', {users: users});
+    });
+	
+}

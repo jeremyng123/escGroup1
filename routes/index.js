@@ -108,11 +108,16 @@ module.exports = function(io) {
     admins.delete_ticket_json
   ); // using ajax
 
-  /********* REAL TIME CHAT ROUTER *************/
+  /***************************
+   * REAL TIME CHAT ROUTE
+   *  ************************/
   // this is changed
   router.get("/room", rtchat.room);
   router.get("/create", rtchat.create);
   router.get("/chat/:id", rtchat.chat);
+  router.get('/select', rtchat.select);
+
+
 
   /*************** UPLOAD IMAGES *****************/
   var multer = require("multer");
