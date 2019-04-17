@@ -35,10 +35,12 @@ exports.basics_post = function(req, res, next) {
 exports.solutions_get = function(req, res, next) {
   var url = "localhost";
 
+  var questionList = req.query.q.split(" ");
+  var questionString = questionList.join('-');
   var options = {
     host: url,
     port: 5000,
-    path: "/smart_solution/" + req.query.q,
+    path: "/smart_solution/" + questionString,
     method: "GET"
   };
 
