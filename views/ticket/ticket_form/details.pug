@@ -1,3 +1,54 @@
+//- doctype html
+//- html(lang='en')
+//-   include ../../common/header.pug
+//-   +header(title)
+//-   body
+//-     header
+//-       include ../../common/navbar.pug
+//-       +navbar(user)
+//-       .container
+//-         .row.align-items-center
+//-           .col-md-8.order-md-1.text-center.text-md-left.pr-md-5
+//-             - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
+//-             br
+//-             .progress
+//-               .progress-bar.bg-warning.progress-bar-striped.progress-bar-animated(role='progressbar' style='width: 100%;' aria-valuenow='90' aria-valuemin='0' aria-valuemax='90') Step 3
+//-             br
+//-             h1.display-7.m-b-2 Ticket Form
+
+//-             // register form
+//-             form(action='/ticket_form/details',method='POST' )
+//-               div.form-group
+//-                 label(for='name') First Name:
+//-                 input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly="readonly")
+//-               div.form-group
+//-                 label(for='name') Last Name:
+//-                 input#name.form-control(type='text', placeholder='e.g. Beckham', name='lastName', value=user.lastName, readonly="readonly")
+//-               div.form-group
+//-                 label(for='email') Email:
+//-                 input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly="readonly")
+//-               div.form-group
+//-                 label(for='phoneNumber') Phone Number:
+//-                 input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly="readonly")
+//-               div.form-group
+//-                 label(for='topic') Topics:
+//-               br
+//-               select(name='topic')
+//-                 each topic in topics
+//-                   option#topic.form-control(value=topic) #{topic}
+//-               div.form-group
+//-                 label(for='content') Description:
+//-                 textarea#content.form-control(name='content')
+//-                  |some sample text
+                
+//-               button.btn.btn-outline-dark(type='submit') Submit
+
+
+
+//-     include ../../common/footer.pug
+//-     +footer()
+//-     //- script(src="../javascripts/tickets.js")
+
 doctype html
 html(lang='en')
   include ../../common/header.pug
@@ -6,47 +57,398 @@ html(lang='en')
     header
       include ../../common/navbar.pug
       +navbar(user)
-      .container
-        .row.align-items-center
-          .col-md-8.order-md-1.text-center.text-md-left.pr-md-5
-            - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
-            br
-            .progress
-              .progress-bar.bg-warning.progress-bar-striped.progress-bar-animated(role='progressbar' style='width: 100%;' aria-valuenow='90' aria-valuemin='0' aria-valuemax='90') Step 3
-            br
-            h1.display-7.m-b-2 Ticket Form
-
-            // register form
-            form(action='/ticket_form/details',method='POST' )
-              div.form-group
-                label(for='name') First Name:
-                input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly="readonly")
-              div.form-group
-                label(for='name') Last Name:
-                input#name.form-control(type='text', placeholder='e.g. Beckham', name='lastName', value=user.lastName, readonly="readonly")
-              div.form-group
-                label(for='email') Email:
-                input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly="readonly")
-              div.form-group
-                label(for='phoneNumber') Phone Number:
-                input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly="readonly")
-              div.form-group
-                label(for='topic') Topics:
+      head
+        title Ticket Form
+        meta(charset='UTF-8')
+        meta(name='viewport' content='width=device-width, initial-scale=1')
+        style.
+          
+          * {
+          margin: 0px;
+          padding: 0px;
+          box-sizing: border-box;
+          }
+          body,
+          html {
+          height: 100%;
+          font-family: Montserrat-Regular, sans-serif;
+          }
+          /*---------------------------------------------*/
+          a {
+          font-family: Montserrat-Regular;
+          font-size: 14px;
+          line-height: 1.7;
+          color: #666666;
+          margin: 0px;
+          transition: all 0.4s;
+          -webkit-transition: all 0.4s;
+          -o-transition: all 0.4s;
+          -moz-transition: all 0.4s;
+          }
+          a:focus {
+          outline: none !important;
+          }
+          a:hover {
+          text-decoration: none;
+          color: #57b846;
+          }
+          /*---------------------------------------------*/
+          h1,
+          h2,
+          h3,
+          h4,
+          h5,
+          h6 {
+          margin: 0px;
+          }
+          p {
+          font-size: 14px;
+          line-height: 1.7;
+          color: #666666;
+          margin: 0px;
+          }
+          ul,
+          li {
+          margin: 0px;
+          list-style-type: none;
+          }
+          /*---------------------------------------------*/
+          input {
+          outline: none;
+          border: none;
+          }
+          textarea {
+          outline: none;
+          border: none;
+          }
+          textarea:focus,
+          input:focus {
+          border-color: transparent !important;
+          }
+          input::-webkit-input-placeholder {
+          color: #999999;
+          }
+          input:-moz-placeholder {
+          color: #413030;
+          }
+          input::-moz-placeholder {
+          color: #999999;
+          }
+          input:-ms-input-placeholder {
+          color: #999999;
+          }
+          textarea::-webkit-input-placeholder {
+          color: #999999;
+          }
+          textarea:-moz-placeholder {
+          color: #999999;
+          }
+          textarea::-moz-placeholder {
+          color: #999999;
+          }
+          textarea:-ms-input-placeholder {
+          color: #999999;
+          }
+          /*---------------------------------------------*/
+          button {
+          outline: none !important;
+          border: none;
+          background: transparent;
+          }
+          button:hover {
+          cursor: pointer;
+          }
+          iframe {
+          border: none !important;
+          }
+          /*//////////////////////////////////////////////////////////////////
+          [ Contact 1 ]*/
+          .contact1 {
+          min-height: 100px;
+          height: 92vh;
+          min-width: 100vw;
+          padding: 15px;
+          background: #696969;
+          background: -webkit-linear-gradient(left, #696969, #ff8c00);
+          background: -o-linear-gradient(left, #696969, #ff8c00);
+          background: -moz-linear-gradient(left, #696969, #ff8c00);
+          background: linear-gradient(left, #696969, #ff8c00);
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          align-items: center;
+          }
+          .container-contact1 {
+          width: 1163px;
+          background: #fff;
+          border-radius: 10px;
+          overflow: hidden;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+          align-items: center;
+          padding: 20px 130px 20px 148px;
+          }
+          /*------------------------------------------------------------------
+          [  ]*/
+          .contact1-pic {
+          width: 296px;
+          }
+          .contact1-pic img {
+          max-width: 100%;
+          }
+          /*------------------------------------------------------------------
+          [  ]*/
+          .contact1-form {
+          width: 390px;
+          }
+          .contact1-form-title1 {
+          display: block;
+          font-size: 24px;
+          color: #333333;
+          line-height: 1.2;
+          text-align: center;
+          padding-bottom: 44px;
+          }
+          input.input1 {
+          height: 50px;
+          border-radius: 25px;
+          padding: 0 30px;
+          }
+          input.input1 + .shadow-input1 {
+          border-radius: 25px;
+          }
+          textarea.input1 {
+          min-height: 150px;
+          border-radius: 25px;
+          padding: 12px 30px;
+          }
+          textarea.input1 + .shadow-input1 {
+          border-radius: 25px;
+          }
+          /*---------------------------------------------*/
+          .wrap-input1 {
+          position: relative;
+          width: 100%;
+          z-index: 1;
+          margin-bottom: 20px;
+          }
+          .input1 {
+          display: block;
+          width: 100%;
+          background: #e6e6e6;
+          font-size: 15px;
+          line-height: 1.5;
+          color: #666666;
+          }
+          .shadow-input1 {
+          content: "";
+          display: block;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          z-index: -1;
+          width: 100%;
+          height: 100%;
+          box-shadow: 0px 0px 0px 0px;
+          color: rgba(87, 184, 70, 0.5);
+          }
+          .input1:focus + .shadow-input1 {
+          -webkit-animation: anim-shadow 0.5s ease-in-out forwards;
+          animation: anim-shadow 0.5s ease-in-out forwards;
+          }
+          @-webkit-keyframes anim-shadow {
+          to {
+          box-shadow: 0px 0px 80px 30px;
+          opacity: 0;
+          }
+          }
+          @keyframes anim-shadow {
+          to {
+          box-shadow: 0px 0px 80px 30px;
+          opacity: 0;
+          }
+          }
+          /*---------------------------------------------*/
+          .container-contact1-form-btn {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          }
+          .contact1-form-btn {
+          min-width: 193px;
+          height: 50px;
+          border-radius: 25px;
+          background: #ff8c00;
+          font-size: 15px;
+          line-height: 1.5;
+          color: #fff;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -moz-box;
+          display: -ms-flexbox;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 0 25px;
+          -webkit-transition: all 0.4s;
+          -o-transition: all 0.4s;
+          -moz-transition: all 0.4s;
+          transition: all 0.4s;
+          }
+          .contact1-form-btn i {
+          margin-left: 7px;
+          -webkit-transition: all 0.4s;
+          -o-transition: all 0.4s;
+          -moz-transition: all 0.4s;
+          transition: all 0.4s;
+          }
+          .contact1-form-btn:hover {
+          background: #333333;
+          }
+          .contact1-form-btn:hover i {
+          -webkit-transform: translateX(10px);
+          -moz-transform: translateX(10px);
+          -ms-transform: translateX(10px);
+          -o-transform: translateX(10px);
+          transform: translateX(10px);
+          }
+          /*------------------------------------------------------------------
+          [ Responsive ]*/
+          @media (max-width: 1200px) {
+          .contact1-pic {
+          width: 33.5%;
+          }
+          .contact1-form {
+          width: 44%;
+          }
+          }
+          @media (max-width: 992px) {
+          .container-contact1 {
+          padding: 90px 80px 88px 90px;
+          }
+          .contact1-pic {
+          width: 35%;
+          }
+          .contact1-form {
+          width: 0%;
+          }
+          }
+          @media (max-width: 768px) {
+          .container-contact1 {
+          padding: 10px 80px 88px 80px;
+          }
+          .contact1-pic {
+          display: none;
+          }
+          .contact1-form {
+          width: 100%;
+          }
+          }
+          @media (max-width: 576px) {
+          .container-contact1 {
+          padding: 90px 15px 88px 15px;
+          }
+          }
+          /*------------------------------------------------------------------
+          [ Alert validate ]*/
+          .validate-input {
+          position: relative;
+          }
+          .alert-validate::before {
+          content: attr(data-validate);
+          position: absolute;
+          max-width: 70%;
+          background-color: white;
+          border: 1px solid #c80000;
+          border-radius: 13px;
+          padding: 4px 25px 4px 10px;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+          right: 8px;
+          pointer-events: none;f
+          color: #c80000;
+          font-size: 13px;
+          line-height: 1.4;
+          text-align: left;
+          visibility: hidden;
+          opacity: 0;
+          -webkit-transition: opacity 0.4s;
+          -o-transition: opacity 0.4s;
+          -moz-transition: opacity 0.4s;
+          transition: opacity 0.4s;
+          }
+          .alert-validate::after {
+          content: "\f06a";
+          display: block;
+          position: absolute;
+          color: #c80000;
+          font-size: 15px;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+          -ms-transform: translateY(-50%);
+          -o-transform: translateY(-50%);
+          transform: translateY(-50%);
+          right: 13px;
+          }
+          .alert-validate:hover:before {
+          visibility: visible;
+          opacity: 1;
+          }
+          @media (max-width: 992px) {
+          .alert-validate::before {
+          visibility: visible;
+          opacity: 1;
+          }
+          }
+      container
+       - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
+        .contact1
+          .container-contact1
+            .contact1-pic.js-tilt(data-tilt='')
+              img(src='../images/accentureOrange.png' alt='IMG')
+            form.contact1-form.validate-form(action='/ticket_form/details',method='POST' ) 
               br
-              select(name='topic')
-                each topic in topics
-                  option#topic.form-control(value=topic) #{topic}
-              div.form-group
-                label(for='content') Description:
-                textarea#content.form-control(name='content')
-                 |some sample text
-                
-              button.btn.btn-outline-dark(type='submit') Submit
-
-
-
-    include ../../common/footer.pug
-    +footer()
-    //- script(src="../javascripts/tickets.js")
-
+              .progress 
+                .progress-bar.bg-warning.progress-bar-striped.progress-bar-animated(role='progressbar' style='width: 100%;' aria-valuenow='90' aria-valuemin='0' aria-valuemax='90') Step 3
+              br
+              span.contact1-form-title
+                | Fill in Ticket Details!
+              .wrap-input1.validate-input(data-validate='First Name is required')
+                input#name.form-control.input1(type='text' name='firstName' placeholder='First Name' value=user.firstName readonly="readonly")
+                span.shadow-input1
+              .wrap-input1.validate-input(data-validate='Name is required')
+                input#name.form-control.input1(type='text' name='lastName' placeholder='Last Name' value=user.lastName readonly="readonly")
+                span.shadow-input1
+              .wrap-input1.validate-input(data-validate='Valid email is required: ex@abc.xyz')
+                input.input1(type='text' name='email' placeholder='Email' value=user.email readonly="readonly")
+                span.shadow-input1
+              .wrap-input1.validate-input(data-validate='Subject is required')
+                input.input1(type='text' name='subject' placeholder='Subject')
+                span.shadow-input1
+              .wrap-input1.validate-input(data-validate='Message is required')
+                textarea.input1(name='message' placeholder='Ticket Details')
+                span.shadow-input1
+              .container-contact1-form-btn
+                button.contact1-form-btn
+                  span
+                    | Send Ticket
+                    i.fa.fa-long-arrow-right(aria-hidden='true')
 

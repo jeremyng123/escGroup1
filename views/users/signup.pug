@@ -6,6 +6,7 @@ html(lang='en')
     header
       include ../common/navbar.pug
       +navbar()
+      br
       .container
         .row
           .col-sm-12.offset-md-2.col-md-8
@@ -35,9 +36,9 @@ html(lang='en')
                       input(placeholder='New Password',required=true, name='password', type='password',value='').form-control
                       if (errors && errors.password)
                         p#err_password.small.text-danger #{errors.password}
-                      button.mt-3.btn.btn-primary(type='submit') Sign up
+                      button.mt-3.btn.btn-warning(type='submit') Sign up
                       p.mt-2.mb-0 
-                        | Already have an account? #[a(href="/users/login") Log in here].
+                        | Already have an account? #[a(href="/users/login" class="text-warning") Log in here].
           
     include ../common/footer.pug
     +footer()
