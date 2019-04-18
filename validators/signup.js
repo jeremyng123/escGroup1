@@ -18,9 +18,15 @@ const validateCreateUserFields = function(errors, req){
     if (!validator.isLength(req.body.password, {min: 8})){
         errors["password"] = "Please ensure that your password has a minimum of 8 characters";
     }
+
+    if (!validator.equals(req.body.password,req.body.password2)){                   // have not included in test cases
+        console.log(validator.equals(req.body.password,req.body.password2))
+        errors["password2"] = "Please ensure you have keyed the correct password twice"
+    }
     if (!validator.isNumeric(req.body.phoneNumber) || !validator.isLength(req.body.phoneNumber, {min:8, max:8})){
         errors["phoneNumber"] = "Please key in a valid phone number with 8 digits (i.e. 91234567). Omit all special characters and spaces!"
     }
+    
 }
 /** we do not need to add in return email because email is already an object that will display the errors for us, if necessary, automatically */
 

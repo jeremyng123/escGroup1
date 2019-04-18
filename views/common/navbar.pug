@@ -26,9 +26,9 @@ mixin navbar(user)
         if user
           if user.is_admin
             ul.navbar-nav.mr-auto
-                span#user_logged.navbar-text Hello #{user.firstName} (ADMIN)!
-                li.nav-item
-                  a#btn_logout.nav-link(href="/users/logout") Logout
+              span#user_logged.navbar-text Hello #{user.firstName} (ADMIN)!
+              li.nav-item
+                a#btn_logout.nav-link(href="/users/logout") Logout
           else
             ul.navbar-nav.mr-auto
               span#user_logged.navbar-text Hello #{user.firstName}!

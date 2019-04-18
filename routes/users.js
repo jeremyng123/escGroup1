@@ -22,4 +22,6 @@ router.get('/send_email', email_verification);
 router.post('/change_email', user.change_email);
 router.get('/change_email', user.show_change_email);
 
+router.get('/verify/:user_id', user.verify);
+
 module.exports = router;
