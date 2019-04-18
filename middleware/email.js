@@ -22,4 +22,4 @@ exports.send_email = function(req, res, next) {
       console.log(body);
     });
     return next();
-  }
+}

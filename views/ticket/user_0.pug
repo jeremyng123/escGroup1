@@ -33,22 +33,23 @@ html(lang='en')
                 for ticket in tickets
                   - var ticketPriority;
                   if ticket.priority
-                    - ticketPriority = "ticket_priority";
+                    //- this thing is not working....
+                    - ticketPriority = "ticket_priority";       
                   else
                     - ticketPriority = "ticket";
-                    tr(class=ticketPriority id=ticket.id)
-                      td
-                        span #{count++}
-                      td
-                        span #{ticket.topic}  
-                      td
-                        span #{ticket.description}
-                      td
-                        span#desc!=ticket.messages[0].content
-                      td
-                        a(href="/my_tickets/" + user.userId + '/' + ticket.ticketId) Edit
-                      td
-                        button(onclick=`deleteticket('${ticket.id}')`).btn.btn-primary Delete
+                  tr(class=ticketPriority id=ticket.id)
+                    td
+                      span #{count++}
+                    td
+                      span #{ticket.topic}  
+                    td
+                      span #{ticket.description}
+                    td
+                      span#desc!=ticket.messages[0].content
+                    td
+                      a(href="/my_tickets/" + user.userId + '/' + ticket.ticketId) Edit
+                    td
+                      button(onclick=`deleteticket('${ticket.id}')`).btn.btn-primary Delete
 
     include ../common/footer.pug
     +footer()

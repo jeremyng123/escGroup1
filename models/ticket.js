@@ -16,6 +16,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
+    title: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
     tag:{
       type: DataTypes.INTEGER,
       defaultValue: 0   // 0 = Queued, 1 = in-progress, 2 = solved
