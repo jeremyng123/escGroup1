@@ -23,7 +23,7 @@ html(lang='en')
                     input(placeholder='Enter your password',required=true, name='password', type='password',value='').form-control
                     button.mt-3.btn.btn-primary(type='submit') Log in
                     p.mt-2.mb-0
-                      | Forgot your password? #[a(href="#") Reset here].
+                      | Forgot your password? #[a(href="/users/forgot_password") Reset here].
                     p.m-0
                       | Don't have an account? #[a(href="/users/signup") Sign up here].
     include ../common/footer.pug

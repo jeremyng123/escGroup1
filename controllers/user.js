@@ -10,6 +10,7 @@ const { validateUser } = require('../validators/signup');
 var os = require("os");
 var hostname = os.hostname();
 
+/* Verify User accounts */
 exports.show_verify = function(req,res,next) {
 	res.render('users/verify', { title: "ACNAPI Login" , hostname: hostname, user: req.user })
 }
@@ -39,8 +40,62 @@ exports.change_email = function(req, res, next) {
 		res.redirect("/");    // redirect homepage
 	}).catch(err => console.log("error again!" + err));
 };
+
+/* Forgot Password */
+exports.show_forgot_password = function(req, res, next) {
+	if (req.user != null) res.redirect("/");
+	else
+		res.render('users/forgot_password', { title: "ACNAPI Login" , user: req.user })
+};
+
+/**
+ * randomized string and return random combination
+ * @param {*} length 
+ */
+function makeid(length) {
+	var text = "";
+	var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()][';/.,|}{:?><`~";
+  
+	for (var i = 0; i < length; i++)
+	  text += possible.charAt(Math.floor(Math.random() * possible.length));
+  
+	return text;
+  }
+  
+
+exports.forgot_password = function(req, res, next) {
+	
+	return models.user.findOne({
+		where: { 
+			email			: req.body.email, 
+			phoneNumber		: req.body.phoneNumber
+		}
+	}).then(user => {
+		if (user != null) {
+			var newPW = makeid(12);		// make a new password with 12 characters
+			var forgotPassword = require('../middleware/forgotPassword')(req,res,next,newPW);
+			console.log(newPW);
+			return models.user.update({
+				password	: generateHash(newPW)
+			}, { 
+				where : {
+					email		: user.email,
+					phoneNumber	: user.phoneNumber
+				}
+			}).then(async function(){
+				console.log(newPW);
+				await forgotPassword
+				return res.redirect("/");
+				
+				
+			})
+		}
+		else return res.redirect("/");
+	})
+};
 	
 
+/* Login + Signup user credentials */
 /**formData is basically the values keyed in by the user in the form fields */
 exports.show_login = function(req, res, next){
 	res.render('users/login', { title: "ACNAPI Login" , formData: {}, hostname: hostname });
