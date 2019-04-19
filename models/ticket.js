@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       primaryKey: true    // PrimaryKey meant that it must have a unique value
     },
-    messageCount:{
+    messageCount:{        // supposed to use to count the number of messages done in a ticket
       type: DataTypes.INTEGER,
       defaultValue: 0
     },

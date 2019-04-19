@@ -7,16 +7,19 @@ let flash = require('connect-flash');       // this allow us to display an error
 const { isEmpty } = require('lodash');
 const { validateUser } = require('../validators/signup');
 
+var os = require("os");
+var hostname = os.hostname();
+
 /**formData is basically the values keyed in by the user in the form fields */
 exports.show_login = function(req, res, next){
-    res.render('users/login', { title: "ACNAPI Login", formData: {}, errors: {} });
+    res.render('users/login', { title: "ACNAPI Login" , hostname: hostname });
 }
 exports.show_signup = function(req, res, next){
-    res.render('users/signup', { title: "ACNAPI Register", formData: {}, errors: {} });
+    res.render('users/signup', { title: "ACNAPI Register", formData: {}, errors: {} , hostname: hostname });
 }
 /** we use const for functions that are local (i.e. other files do not need to use this particular functions) */
 const rerender_signup = function(errors, req, res, next){
-    res.render('users/signup', { title: "ACNAPI Register", formData: req.body, errors: errors });
+    res.render('users/signup', { title: "ACNAPI Register", formData: req.body, errors: errors , hostname: hostname });
 }
 
 const generateHash = function(password){

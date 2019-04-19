@@ -4,11 +4,13 @@
 
 // Export a function, so that we can pass 
 // the app and io instances from the app.js file:
+var os = require("os");
+var hostname = os.hostname();
 
 exports.room = function(req, res){
 
 	// choose a room
-	res.render('chat/room');
+	res.render('chat/room' , { hostname: hostname });
 };
 
 exports.create = function(req,res){
@@ -23,6 +25,6 @@ exports.create = function(req,res){
 exports.chat = function(req,res){
 
 	// Render the chant.html view
-	res.render('chat/chat');
+	res.render('chat/chat', { hostname: hostname });
 }
 

@@ -57,6 +57,7 @@ html(lang='en')
     header
       include ../../common/navbar.pug
       +navbar(user)
+<<<<<<< HEAD
       head
         title Ticket Form
         meta(charset='UTF-8')
@@ -425,6 +426,33 @@ html(lang='en')
             .contact1-pic.js-tilt(data-tilt='')
               img(src='../images/accentureOrange.png' alt='IMG')
             form.contact1-form.validate-form(action='/ticket_form/details',method='POST' ) 
+=======
+      .container
+        .row.align-items-center
+          .col-md-8.order-md-1.text-center.text-md-left.pr-md-5
+            - let topics = ["Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
+            h1.display-7.m-b-2 Ticket Form
+
+            // register form
+            form(action='/ticket_form/details',method='POST' )
+              div.form-group
+                label(for='name') First Name:
+                input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly="readonly")
+              div.form-group
+                label(for='name') Last Name:
+                input#name.form-control(type='text', placeholder='e.g. Beckham', name='lastName', value=user.lastName, readonly="readonly")
+              div.form-group
+                label(for='email') Email:
+                input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly="readonly")
+              div.form-group
+                label(for='phoneNumber') Phone Number:
+                input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly="readonly")
+              div.form-group
+                label(for='priority') Bugs in ACNAPI found?:
+                input#priority.form-control(type='checkbox', name='priority')
+              div.form-group
+                label(for='topic') Topics:
+>>>>>>> c4b54de6f624e963e90d06b6d8936684eca2e5ea
               br
               .progress 
                 .progress-bar.bg-warning.progress-bar-striped.progress-bar-animated(role='progressbar' style='width: 100%;' aria-valuenow='90' aria-valuemin='0' aria-valuemax='90') Step 3

@@ -17,7 +17,7 @@ html(lang='en')
 								form(action='/users/login', method='POST')
 									div.formgroup
 										label.small.mb-1.mt-3 Email:
-										input(placeholder='Enter your email',required=true, name='email',type='email',value=formData.email).form-control
+										input(placeholder='Enter your email',required=true, name='email',type='email',value='').form-control
 										label.small.mb-1.mt-3 Password:
 										input(placeholder='Enter your password',required=true, name='password', type='password',value='').form-control
 										button.mt-3.btn.btn-warning(type='submit') Log in
@@ -26,6 +26,7 @@ html(lang='en')
 										p.m-0
 											| Don't have an account? #[a(href="/users/signup" class="text-warning") Sign up here].
 		include ../common/footer.pug
+<<<<<<< HEAD
 		+footer()
 		//- script(src="/javascripts/leads.js")
 
@@ -384,3 +385,6 @@ html(lang='en')
 //- script(src='https://cdn.jsdelivr.net/velocity/1.2.2/velocity.min.js')
 //- script(src='https://cdn.jsdelivr.net/velocity/1.2.2/velocity.ui.min.js')
 //- script(src='js/index.js')
+=======
+		+footer()
+>>>>>>> c4b54de6f624e963e90d06b6d8936684eca2e5ea

@@ -1,6 +1,8 @@
 const models = require("../models");
 
 var http = require("http");
+var os = require('os');
+var hostname = os.hostname;
 
 exports.get_welcome = function(req, res, next) {
   return res.render("welcome", {
@@ -33,10 +35,12 @@ exports.basics_post = function(req, res, next) {
 exports.solutions_get = function(req, res, next) {
   var url = "localhost";
 
+  var questionList = req.query.q.split(" ");
+  var questionString = questionList.join('-');
   var options = {
     host: url,
     port: 5000,
-    path: "/smart_solution/" + req.query.q,
+    path: "/smart_solution/" + questionString,
     method: "GET"
   };
 
@@ -108,10 +112,16 @@ exports.details_get = function(req, res, next) {
 };
 
 exports.details_post = function(req, res, next) {
+  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + req.body.priority);
+  var pLevel = 0;
+  if (req.body.priority === "on") {
+    pLevel = 1;
+  }
   return models.ticket
     .create({
       fk_userId: req.user.userId,
-      topic: req.body.topic
+      topic: req.body.topic,
+      priority: pLevel
     })
     .then(ticket => {
       return models.message
@@ -181,7 +191,8 @@ exports.show_my_tickets_solved = function(req, res, next) {
         title: "ACNAPI Tickets - Solved",
         tickets: tickets,
         user: req.user,
-        subtitle: "solved"
+        subtitle: "solved",
+        hostname: hostname 
       });
     });
 };
@@ -197,7 +208,8 @@ exports.show_edit_ticket = function(req, res, next) {
       res.render("ticket/edit_ticket", {
         title: "ACNAPI Ticket - Edit",
         ticket: ticket,
-        user: req.user
+        user: req.user,
+        hostname: hostname 
       });
     });
 };
