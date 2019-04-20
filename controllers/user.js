@@ -93,6 +93,38 @@ exports.forgot_password = function(req, res, next) {
 		else return res.redirect("/");
 	})
 };
+let validator = require('validator');
+
+const rerender_change_password = function(errors, req, res, next){
+	res.render('users/change_password', { title: "ACNAPI Change Password", formData: req.body, errors: errors , hostname: hostname });
+}
+
+exports.show_change_password = function(req, res, next) {
+	return res.render('users/change_password', { title: "ACNAPI Change Password", formData: {}, user: req.user , errors: {} })
+  };
+  
+exports.change_password = async function(req, res, next) {
+	const oldPW = generateHash(req.body.password);
+	let errors = {};
+	console.log("oldPW input: " + oldPW);
+	console.log("oldPW: " + req.user.password);
+	if (await !validator.equals(oldPW,req.user.password)) errors['wrong'] = "Wrong password input";
+	else{
+		if (await !validator.isEmpty(req.body.newPW) || !validator.isEmpty(req.body.newPW2)) errors['inputs'] = "Missing fields";
+		if (await !validator.equals(req.body.newPW,req.body.newPW2)){                   // have not included in test cases
+			errors["password2"] = "Those passwords didn't match. Try again."
+		}
+	}
+	
+	if (await !isEmpty(errors)) rerender_change_password(errors,req,res,next);
+	else 
+		return models.user.update({
+			password   : req.body.newPW
+		}, { where: { userId: req.user.userId }
+		}).then(update => {
+		res.redirect("/");    // redirect homepage
+		}).catch(err => console.log("error again!" + err));
+};
 	
 
 /* Login + Signup user credentials */

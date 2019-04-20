@@ -235,3 +235,22 @@ exports.edit_ticket = function(req, res, next) {
       res.redirect("/my_tickets/" + req.user.userId);
     });
 };
+
+/******************** PROFILE PAGE ***************************/
+exports.show_profile = function(req, res, next) {
+  return res.render('users/profile', { title: "ACNAPI Profile", user: req.user , errors: {} })
+};
+
+exports.profile_change = function(req, res, next) {
+    return models.user.update({
+      firstName   : req.body.firstName,
+      lastName    : req.body.lastName,
+      phoneNumber : req.body.phoneNumber
+    }, { where: {
+      userId: req.user.userId
+      }
+    }).then(update => {
+      res.redirect("/");    // redirect homepage
+    }).catch(err => console.log("error again!" + err));
+};
+

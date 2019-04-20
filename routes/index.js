@@ -21,6 +21,11 @@ module.exports = function(io) {
   /*************** HOMEPAGE *****************/
   router.get("/", general.get_welcome);
   router.get("/consultant", general.get_consultantpage);
+
+  /*************** PROFILE *****************/
+  router.get('/profile', general.show_profile);
+  router.post('/profile_change', general.profile_change);
+
   /*************** GENERAL TICKET ROUTES *****************/
   router.get(
     "/my_tickets/:user_id/0",

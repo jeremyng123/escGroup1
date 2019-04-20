@@ -34,6 +34,8 @@ mixin navbar(user)
                 | #{user.firstName} (ADMIN)
                 span.caret
               .dropdown-menu(aria-labelledby="navbarDropdownMenuLink") 
+                a#btn_logout.dropdown-item(href="/profile") Profile
+                .dropdown-divider
                 a#btn_logout.dropdown-item(href="/users/logout") Logout
         else
           ul.navbar-nav.mr-auto  
