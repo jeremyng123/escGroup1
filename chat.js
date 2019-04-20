@@ -13,6 +13,8 @@ module.exports = function(io) {
     socket.on('load',function(user, data){
 
         var room = findClientsSocket(io,data);
+        console.log(room);
+
         if(room.length === 0 ) {
 
         socket.emit('peopleinchat', {number: 0});
@@ -69,10 +71,10 @@ module.exports = function(io) {
             // room, along with a list of people that are in it.
 
             chat.in(data.id).emit('startChat', {
-            boolean: true,
-            id: data.id,
-            users: usernames,
-            avatars: avatars
+                boolean: true,
+                id: data.id,
+                users: usernames,
+                avatars: avatars
             });
         }
         }
