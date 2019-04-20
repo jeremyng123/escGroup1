@@ -1,10 +1,10 @@
 $(function () {
   // getting the id of the room from the url
-  console.log(window.location.pathname)
   if (window.location.pathname.includes('/chat/admin'))
-    var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
+    // var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
+    var id = window.location.pathname.split('/')[3];
   else
-    var id = Number(window.location.pathname.match(/\/chat\/user\/(\d+)$/)[1]);
+    var id = window.location.pathname.split('/')[3];
   // connect to the socket
   var socket = io();
 
@@ -45,7 +45,7 @@ $(function () {
 
   // on connection to server get the id of person's room
   socket.on("connect", function () {
-    socket.emit("load", user, id);
+    socket.emit("load", '#{user}', id);
   });
 
   // save the gravatar url
