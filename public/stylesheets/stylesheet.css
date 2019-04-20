@@ -127,20 +127,7 @@ body {
 
 /* ------ Connected ------*/
 
-.connected {
-  text-align: center;
-  display: block;
-  margin: 0px auto;
-  width: 700px;
-  height: 400px;
-  background-color: #ffffff;
-  border-radius: 3px;
-  box-shadow: 0px 3px 3px #e3e4e6;
-  color: #637277;
-}
-.connected h2 {
-  padding-top: 20px;
-}
+
 .infoConnected {
   text-align: left;
   float: right;
@@ -292,7 +279,7 @@ body {
   font-weight: normal;
   margin: 10px 0 35px;
 }
-.invite-textfield .link {
+.selectadmin .link {
   width: 600px;
   height: 35px;
   text-align: center;
@@ -303,7 +290,7 @@ body {
   border-radius: 4px;
   background-color: #f0f1f3;
 }
-.invite-textfield #link {
+.link #link {
   text-decoration: none;
   color: #637277;
 }
@@ -604,4 +591,20 @@ footer {
   width: 700px;
   margin: 0 auto 200px;
   overflow: hidden;
+}
+
+/* ----------------- select admin ---------------*/
+.selectadmin {
+  text-align: center;
+  display: block;
+  margin: 0px auto;
+  width: 700px;
+  height: 400px;
+  background-color: #ffffff;
+  border-radius: 3px;
+  box-shadow: 0px 3px 3px #e3e4e6;
+  color: #637277;
+}
+.selectadmin h2 {
+  padding-top: 20px;
 }
