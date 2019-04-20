@@ -26,14 +26,9 @@ html(lang='en')
               div.form-group
                 label(for='phoneNumber') Phone Number:
                 input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly)
-              div.form-group
-                label(for='priority') Bugs in ACNAPI found?:
-                  input#priority.form-control.move-left(type='checkbox', name='priority')
-                  style.
-                    .move-left {
-                      width: auto;
-                      box-shadow: none;
-                    }
+              div.form-check
+                input#priority.form-check-input(type='checkbox', name='priority')
+                label(for='priority') <em>Bugs found?</em>
               div.form-group
                 label(for='topic') Topics:
                 select(class = 'form-control' name='topic')
