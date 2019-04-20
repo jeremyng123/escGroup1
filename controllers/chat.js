@@ -32,8 +32,8 @@ exports.select = function(req, res) {
         where : {
             is_admin         : true
         }
-    }).then(users=> {
-        res.render('chat/select', {users: users});
+    }).then(admins=> {
+        res.render('chat/select', {admins: admins, user: req.user});
     });
 	
 }
