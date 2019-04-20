@@ -35,10 +35,6 @@ html(lang='en')
                       input(placeholder='New Password',required=true, name='password', type='password',value='').form-control
                       if (errors && errors.password)
                         p#err_password.small.text-danger #{errors.password}
-                      label.small.mb-1.mt-3 Confirm Password:
-                      input(placeholder='Confirm password',required=true, name='password2', type='password',value='').form-control
-                      if (errors && errors.password2)
-                        p#err_password2.small.text-danger #{errors.password2}
                       button.mt-3.btn.btn-primary(type='submit') Sign up
                       p.mt-2.mb-0 
                         | Already have an account? #[a(href="/users/login") Log in here].
