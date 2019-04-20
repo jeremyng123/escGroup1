@@ -22,13 +22,13 @@ section.section
     |
     for admin in admins
       // use the id of the admin as the real time chat website address
-      a(href='/chat/' + admin.id) #{admin.name}
+      a(href='/chat/' + admin.userId) #{admin.firstName}
         img(src='../images/unnamed.jpg')
     | 
     h2 if you dont know any admin
     .link
       // TODO: add these routes
-      a#link(title='Chat with all the admin' href='/chat/all_admin' + user.id) Chat with all the admin
+      a#link(title='Chat with all the admin' href='/chat/all_admin/' + user.userId) Chat with all the admin
   footer
 //- footer
 script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js')

@@ -1,7 +1,8 @@
 $(function () {
   // getting the id of the room from the url
-  var id = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
-
+  var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
+  if (id)
+    var id = Number(window.location.pathname.match(/\/chat\/user\/(\d+)$/)[1]);
   // connect to the socket
   var socket = io();
 
@@ -42,7 +43,7 @@ $(function () {
 
   // on connection to server get the id of person's room
   socket.on("connect", function () {
-    socket.emit("load", id);
+    socket.emit("load", user, id);
   });
 
   // save the gravatar url
@@ -84,15 +85,6 @@ $(function () {
 
         name = $.trim(hisName.val());
 
-        if (name.length < 1) {
-          alert("Please enter a nick name longer than 1 character!");
-          return;
-        }
-
-        if (name == data.user) {
-          alert('There already is a "' + name + '" in this room!');
-          return;
-        }
         email = hisEmail.val();
 
         if (!isValid(email)) {

@@ -10,7 +10,7 @@ module.exports = function(io) {
     // When the client emits the 'load' event, reply with the 
     // number of people in this chat room
 
-    socket.on('load',function(data){
+    socket.on('load',function(user, data){
 
         var room = findClientsSocket(io,data);
         if(room.length === 0 ) {
@@ -21,10 +21,10 @@ module.exports = function(io) {
 
         socket.emit('peopleinchat', {
             number: 1,
-            user: room[0].username,
-            avatar: room[0].avatar,
+            user: user.firstName,
+            avatar: room[0].avatar, // change the avatar later
             id: data
-        });
+            });
         }
         else if(room.length >= 2) {
 
@@ -106,7 +106,7 @@ module.exports = function(io) {
     });
     });
 
-    function findClientsSocket(io,roomId, namespace) {
+    function findClientsSocket(io,roomId) {
         var res = [],
         ns = io.of("/");    // the default namespace is "/"
 

@@ -16,35 +16,6 @@ header.banner
       |  REAL TIME CHAT
 section.section
   // These elements are displayed as white info cards in the middle of the screen
-  .connected
-    img#creatorImage(src='../images/unnamed.jpg')
-    .selectadmin
-      h2 Please select an person to serve you
-      br
-      form.loginForm
-        input#yourName(type='text' placeholder='Your nick name')
-        br
-        input#yourEmail(type='text' placeholder='Your email address')
-        br
-        input#yourEnter(type='submit' value='ENTER')
-  //- .personinside
-  //-   img#ownerImage(src='../images/unnamed.jpg')
-  //-   .infoInside
-  //-     h2
-  //-       | Chat with 
-  //-       span.nickname-chat
-  //-     br
-  //-     form.loginForm
-  //-       input#hisName(type='text' placeholder='Your nick name')
-  //-       br
-  //-       input#hisEmail(type='text' placeholder='Your email address')
-  //-       br
-  //-       input#hisEnter(type='submit' value='CHAT')
-  //- .invite-textfield
-  //-   h2 Oops, there are no other people in this chat!
-  //-   h5 Invite a friend by sending them this URL
-  //-   .link
-  //-     a#link(title='Invite a friend' href='')
   .left
     img#leftImage(src='../images/unnamed.jpg')
     .info
@@ -52,17 +23,15 @@ section.section
         span.nickname-left
         |  has left this chat.
       h5 Invite somebody else by sending them this page.
-  //- .toomanypeople
-  //-   h2 Oops, you can not join this chat!
-  //-   h5
-  //-     | There are already two people in it. Would you like to create a 
-  //-     a#room(title='New Room' href='/create') new room
-  //-     | ?
+  .toomanypeople
+    h2 Oops, you can not join this chat!
+    h5
+      | There are already two people in it. Would you like to create a
   .nomessages
     img#noMessagesImage(src='../images/unnamed.jpg')
     .info
       h2
-        | Please wait a while for our staff, we will be with you shortly
+        | An email reminder has been sent to admin, we will be with you shortly
         span.nickname-chat
         | .
       h5 keep the website open, we will remind you when an admin enters
