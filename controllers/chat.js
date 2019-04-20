@@ -4,8 +4,9 @@
 
 // Export a function, so that we can pass 
 // the app and io instances from the app.js file:
-var os = require("os");
-var hostname = os.hostname();
+
+const models = require('../models');
+
 
 exports.room = function(req, res){
 
@@ -28,3 +29,28 @@ exports.chat = function(req,res){
 	res.render('chat/chat', { hostname: hostname });
 }
 
+exports.select = function(req, res) {
+	return models.user.findAll({
+        where : {
+            is_admin         : true
+        }
+    }).then(admins=> {
+        res.render('chat/select', {admins: admins, user: req.user});
+    });
+	
+}
+
+exports.chat_with_specific_admin = function(req, res) {
+	res.render('chat/chat', {user: req.user, admin_id: req.params.admin_id})
+}
+
+/*******************
+ * these functions are for chat with any admin
+ */
+exports.all_admin_redirect = function(req, res) {
+	res.redirect('/chat/user/' + req.params.user_id);
+}
+
+exports.chat_with_any_admin = function(req, res) {
+	res.render('chat/chat', {user:req.user});
+}

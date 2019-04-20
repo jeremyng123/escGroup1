@@ -1,7 +1,10 @@
-$(function () {
+$(function (user) {
   // getting the id of the room from the url
-  var id = Number(window.location.pathname.match(/\/chat\/(\d+)$/)[1]);
-
+  if (window.location.pathname.includes('/chat/admin'))
+    // var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
+    var id = window.location.pathname.split('/')[3];
+  else
+    var id = window.location.pathname.split('/')[3];
   // connect to the socket
   var socket = io();
 
@@ -42,7 +45,7 @@ $(function () {
 
   // on connection to server get the id of person's room
   socket.on("connect", function () {
-    socket.emit("load", id);
+    socket.emit("load", '#{user}', id);
   });
 
   // save the gravatar url
@@ -52,62 +55,26 @@ $(function () {
 
   // receive the names and avatars of all people in the chat room
   socket.on("peopleinchat", function (data) {
+
+    
+    console.log('emrys: user.firstName', user.firstName);
+
+
     if (data.number === 0) {
-      showMessage("connected");
-
-      loginForm.on("submit", function (e) {
-        e.preventDefault();
-
-        name = $.trim(yourName.val());
-
-        if (name.length < 1) {
-          alert("Please enter a nick name longer than 1 character!");
-          return;
-        }
-
-        email = yourEmail.val();
-
-        if (!isValid(email)) {
-          alert("Please enter a valid email!");
-        } else {
-          showMessage("inviteSomebody");
-
-          // call the server-side function 'login' and send user's parameters
-          socket.emit("login", { user: name, avatar: email, id: id });
-        }
-      });
+      name = user.firstName;
+      email = user.email;
+      showMessage("inviteSomebody");
+      socket.emit("login", { user: name, avatar: email, id: id });
     } else if (data.number === 1) {
-      showMessage("personinchat", data);
-
-      loginForm.on("submit", function (e) {
-        e.preventDefault();
-
-        name = $.trim(hisName.val());
-
-        if (name.length < 1) {
-          alert("Please enter a nick name longer than 1 character!");
-          return;
-        }
-
-        if (name == data.user) {
-          alert('There already is a "' + name + '" in this room!');
-          return;
-        }
-        email = hisEmail.val();
-
-        if (!isValid(email)) {
-          alert("Wrong e-mail format!");
-        } else {
-          socket.emit("login", { user: name, avatar: email, id: id });
-        }
-      });
+      name = user.firstName;
+      email = user.email;
+      socket.emit("login", { user: name, avatar: email, id: id });
     } else {
       showMessage("tooManyPeople");
     }
   });
 
   // Other useful
-
   socket.on("startChat", function (data) {
     console.log(data);
     if (data.boolean && data.id == id) {
@@ -124,7 +91,6 @@ $(function () {
   });
 
   socket.on("leave", function (data) {
-    console.log('emrys:data', data);
     if (data.boolean && id == data.room) {
       showMessage("somebodyLeft", data);
       chats.empty();
@@ -227,11 +193,6 @@ $(function () {
     );
   }
 
-  function isValid(thatemail) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(thatemail);
-  }
-
   function showMessage(status, data) {
     if (status === "connected") {
       section.children().css("display", "none");
@@ -240,7 +201,9 @@ $(function () {
     
     else if (status === "inviteSomebody") {
       // Set the invite link content
-      $("#link").text(window.location.href);
+      inviteSomebody.css('display', 'block');
+      inviteSomebody.parent().css('display', 'block');
+      
       onConnect.fadeOut(1200, function () {
         inviteSomebody.fadeIn(1200);
       });
@@ -256,9 +219,11 @@ $(function () {
     } 
     
     else if (status === "youStartedChatWithNoMessages") {
-      chatForm.parent().css('display', 'block'); // emrys this works
-      // chatForm.css('display', 'block');// emrys
-
+      chatForm.parent().css('display', 'block'); 
+      inviteSomebody.css('display', 'none');
+      inviteSomebody.parent().css('display', 'none');
+      noMessages.css('display', 'block');
+      noMessages.parent().css('display', 'block');
       left.fadeOut(1200, function () {
         inviteSomebody.fadeOut(1200, function () {
           noMessages.fadeIn(1200);
@@ -271,7 +236,11 @@ $(function () {
     } 
     
     else if (status === "heStartedChatWithNoMessages") {
-      chatForm.parent().css('display', 'block'); // emrys this works
+      chatForm.parent().css('display', 'block'); 
+      inviteSomebody.css('display', 'none');
+      inviteSomebody.parent().css('display', 'none');
+      noMessages.css('display', 'block');
+      noMessages.parent().css('display', 'block');
       personInside.fadeOut(1200, function () {
         noMessages.fadeIn(1200);
         footer.fadeIn(1200);
