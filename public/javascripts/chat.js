@@ -1,7 +1,9 @@
 $(function () {
   // getting the id of the room from the url
-  var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
-  if (id)
+  console.log(window.location.pathname)
+  if (window.location.pathname.includes('/chat/admin'))
+    var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
+  else
     var id = Number(window.location.pathname.match(/\/chat\/user\/(\d+)$/)[1]);
   // connect to the socket
   var socket = io();
@@ -54,7 +56,7 @@ $(function () {
   // receive the names and avatars of all people in the chat room
   socket.on("peopleinchat", function (data) {
     if (data.number === 0) {
-      showMessage("connected");
+      showMessage("youStartedChatWithNoMessages");
 
       loginForm.on("submit", function (e) {
         e.preventDefault();
