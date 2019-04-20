@@ -10,7 +10,8 @@ module.exports = function(io) {
   /*************** MIDDLEWARE *****************/
   let { isLoggedIn, hasAuth, whatRights } = require("../middleware/hasAuth");
   let { send_email } = require("../middleware/email");
-
+  let { any_admin_rtchat } = require("../middleware/any_admin_rtchat");
+  let { specific_admin_rtchat} = require("../middleware/specific_admin_rtchat");
   /*************** REAL TIME CHAT DEPENDENCIES *****************/
   /**
    * Use the gravatar module, to turn email addresses into avatar images:
@@ -116,8 +117,8 @@ module.exports = function(io) {
   router.get("/create", rtchat.create);
   router.get("/chat/:id", rtchat.chat);
   router.get('/select', rtchat.select);
-  router.get('/chat/admin/:admin_id', rtchat.chat_with_specific_admin);
-  router.get('/chat/all_admin/:user_id', rtchat.all_admin_redirect); // todo: add middle ware to send email here
+  router.get('/chat/admin/:admin_id', specific_admin_rtchat, rtchat.chat_with_specific_admin);
+  router.get('/chat/all_admin/:user_id', any_admin_rtchat, rtchat.all_admin_redirect); // todo: add middle ware to send email here
   router.get('/chat/user/:user_id', rtchat.chat_with_any_admin);
 
 
