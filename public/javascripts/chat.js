@@ -63,6 +63,7 @@ $(function (user) {
     if (data.number === 0) {
       name = user.firstName;
       email = user.email;
+      showMessage("inviteSomebody");
       socket.emit("login", { user: name, avatar: email, id: id });
     } else if (data.number === 1) {
       name = user.firstName;
@@ -192,11 +193,6 @@ $(function (user) {
     );
   }
 
-  function isValid(thatemail) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(thatemail);
-  }
-
   function showMessage(status, data) {
     if (status === "connected") {
       section.children().css("display", "none");
@@ -205,7 +201,9 @@ $(function (user) {
     
     else if (status === "inviteSomebody") {
       // Set the invite link content
-      $("#link").text(window.location.href);
+      inviteSomebody.css('display', 'block');
+      inviteSomebody.parent().css('display', 'block');
+      
       onConnect.fadeOut(1200, function () {
         inviteSomebody.fadeIn(1200);
       });

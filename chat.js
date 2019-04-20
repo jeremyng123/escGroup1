@@ -51,7 +51,8 @@ module.exports = function(io) {
         // Add the client to the room
         socket.join(data.id);
 
-        // if (room.length == 1) {
+
+        if (room.length == 1) {
 
             var usernames = [],
             avatars = [];
@@ -71,7 +72,7 @@ module.exports = function(io) {
                 users: usernames,
                 avatars: avatars
             });
-        // }
+        }
         
     });
 

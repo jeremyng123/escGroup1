@@ -23,13 +23,19 @@ section.section
     h2 Oops, you can not join this chat!
     h5
       | There are already two people in it.
+
+  .invite-textfield
+    h2 | An email reminder has been sent to admin, we will be with you shortly
+       | .
+    h5 keep the website open, we will remind you when an admin enters
   .nomessages
     img#noMessagesImage(src='/images/unnamed.jpg')
     .info
       h2
-        | An email reminder has been sent to admin, we will be with you shortly
+        | You are chatting with 
+        span.nickname-chat
         | .
-      h5 keep the website open, we will remind you when an admin enters
+      h5 Send them a message from the form below!
   .chatscreen
     ul.chats
       // The chat messages will go here
