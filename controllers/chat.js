@@ -39,16 +39,16 @@ exports.select = function(req, res) {
 }
 
 exports.chat_with_specific_admin = function(req, res) {
-	res.render('chat/chat', {user: req.user, admin_id: req.param.admin_id})
+	res.render('chat/chat', {user: req.user, admin_id: req.params.admin_id})
 }
 
 /*******************
  * these functions are for chat with any admin
  */
 exports.all_admin_redirect = function(req, res) {
-	// res.redirect('/chat/user/' + req.param.user_id);
+	res.redirect('/chat/user/' + req.params.user_id);
 }
 
 exports.chat_with_any_admin = function(req, res) {
-	// res.render('chat/chat');
+	res.render('chat/chat', {user:req.user});
 }
