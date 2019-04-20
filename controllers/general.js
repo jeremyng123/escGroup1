@@ -112,13 +112,11 @@ exports.details_get = function(req, res, next) {
 };
 
 exports.details_post = function(req, res, next) {
-  console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n" + req.body.priority);
   var pLevel = 0;
-  if (req.body.priority === "on") {
+  if (req.body.priority === "on") { 
     pLevel = 1;
   }
-  return models.ticket
-    .create({
+  return models.ticket.create({
       fk_userId: req.user.userId,
       topic: req.body.topic,
       priority: pLevel
@@ -215,8 +213,7 @@ exports.show_edit_ticket = function(req, res, next) {
 };
 
 exports.edit_ticket = function(req, res, next) {
-  return models.ticket
-    .update(
+  return models.ticket.update(
       {
         topic: req.body.topic,
         description: req.body.description

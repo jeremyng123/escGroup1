@@ -5,13 +5,17 @@ exports.isLoggedIn = function(req,res,next){
         return next();
     }
     else
-        console.log('Currently at:', "some route");
         return res.redirect('/users/signup');  // need to do something here, so that users go to login/register page first!
 }
 
-/**
- * if you pass anything to the next() function (except the string 'route'), Express regards the current request as being an error and will skip any remaining non-error handling routing and middleware functions
- */
+exports.isVerified = function(req,res,next){
+    if (req.user.is_verified){
+        return next();
+    }
+    else
+        console.log('Currently at:', "USER NOT VERIFIED");
+        return res.redirect('/users/not_verified');  
+}
 
  exports.hasAuth = function(req,res,next){
     if (req.user.is_admin == true)
