@@ -12,28 +12,31 @@ html(lang='en')
           .col-md-10.order-md-1.text-center.text-md-left
             h1 tickets #{subtitle}
             p
+              script(src="/javascripts/ticket_table.js")
               span
-                a(href="/tickets/" + user.userId + "/0") Queued #{pre}
+                a#tickets0(href="/tickets/" + user.userId + "/0") Queued #{pre}
                 |          |
-                a(href="/tickets/" + user.userId + "/1") In-Progress #{pre}
+                a#tickets1(href="/tickets/" + user.userId + "/1") In-Progress #{pre}
                 |          |
-                a(href="/tickets/" + user.userId + "/2") Solved
-            table.table
-              thread
-              tr
-                th(scope="col") #
-                th(scope="col") Name
-                th(scope="col") Email
-                th(scope="col") Phone Number
-                th(scope="col") Topic
-                th(scope="col") Description
-                th(scope="col") Dev Responses
-                th(scope="col") Respond
-              tr
-              tbody
-              for ticket in tickets
-                if ticket.priority
-                  tr#ticket_priority(id=ticket.ticketId)
+                a#tickets2(href="/tickets/" + user.userId + "/2") Solved
+              table.table.table-hover
+                thead.thead-dark
+                  tr
+                    th(scope="col") #
+                    th(scope="col") Name
+                    th(scope="col") Email
+                    th(scope="col") Phone Number
+                    th(scope="col") Topic
+                    th(scope="col") Subject
+                  tr
+                tbody
+                for ticket in tickets
+                  - var ticketPriority;
+                  if ticket.priority
+                    - ticketPriority = "table-danger";
+                  else
+                    - ticketPriority = "tickets";
+                  tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
                     td
                       span #{count++}
                     td
@@ -45,25 +48,7 @@ html(lang='en')
                     td
                       span #{ticket.topic}  
                     td
-                      span#desc!=ticket.messages[0].content
-                    td
-                      a(href="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond") Respond
-                else
-                  tr#ticket(id=ticket.ticketId)
-                    td
-                      span #{count++}
-                    td
-                      span #{ticket.user.firstName + " " + ticket.user.lastName}
-                    td
-                      span #{ticket.user.email}
-                    td
-                      span #{ticket.user.phoneNumber}
-                    td
-                      span #{ticket.topic}  
-                    td
-                      span#desc!=ticket.messages[0].content
-                    td
-                      a(href="/ticket/" + user.userId + "/" + ticket.ticketId + "/respond") Respond
+                      span #{ticket.title}
                   
 
 

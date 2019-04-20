@@ -59,60 +59,20 @@ module.exports = function(io) {
   router.post("/ticket_form/basics", isLoggedIn, isVerified, general.basics_post);
   router.get("/ticket_form/solutions", isLoggedIn, isVerified, general.solutions_get);
   router.get("/ticket_form/details", isLoggedIn, isVerified, general.details_get);
-  router.post(
-    "/ticket_form/details",
-    isLoggedIn,
-    isVerified,
-    send_email,
-    general.details_post
-  );
+  router.post("/ticket_form/details", isLoggedIn, isVerified, send_email, general.details_post);
   router.get("/solution_detail", isLoggedIn, isVerified, general.solution_detail);
 
   /*************** ADMIN ROUTES *****************/
   router.get("/tickets", whatRights); // if user is not logged in, redirect to signup page, else admin/user tickets page
-  router.get(
-    "/tickets/:user_id/0",
-    isLoggedIn,
-    isVerified,
-    hasAuth,
-    admins.show_tickets_queued
-  ); // admin page -- display all queued tickets
-  router.get(
-    "/tickets/:user_id/1",
-    isLoggedIn,
-    isVerified,
-    hasAuth,
-    admins.show_tickets_inprogress
-  ); // admin page -- display all in-progress tickets
-  router.get(
-    "/tickets/:user_id/2",
-    isLoggedIn,
-    isVerified,
-    hasAuth,
-    admins.show_tickets_solved
-  ); // admin page -- display all solved tickets
-  router.get(
-    "/ticket/:user_id/:ticket_id/respond",
-    isLoggedIn,
-    isVerified,
-    hasAuth,
-    admins.show_respond_ticket
-  ); // respond to ticket
-  router.post(
-    "/ticket/:user_id/:ticket_id/respond",
-    isLoggedIn,
-    isVerified,
-    hasAuth,
-    admins.respond_ticket
-  );
+  router.get("/tickets/:user_id/0",isLoggedIn, isVerified, hasAuth, admins.show_tickets_queued); // admin page -- display all queued tickets
+  router.get("/tickets/:user_id/1", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
+  router.get("/tickets/:user_id/2", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
+  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.show_ticket_messages ); // respond to ticket
+  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.post_message );
 
   /********* DELETE ROW FROM tickets TABLE *************/
-  router.post(
-    "/ticket/:ticket_id/delete", admins.delete_ticket
-  ); // using post and different route
-  router.post(
-    "/ticket/:ticket_id/delete-json", admins.delete_ticket_json
-  ); // using ajax
+  router.post("/ticket/:ticket_id/delete", admins.delete_ticket); // using post and different route
+  router.post("/ticket/:ticket_id/delete-json", admins.delete_ticket_json); // using ajax
 
   /********* REAL TIME CHAT ROUTER *************/
   // this is changed

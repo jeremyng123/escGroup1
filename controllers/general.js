@@ -119,14 +119,19 @@ exports.details_post = function(req, res, next) {
   return models.ticket.create({
       fk_userId: req.user.userId,
       topic: req.body.topic,
-      priority: pLevel
+      priority: pLevel,
+      title: req.body.title
     })
     .then(ticket => {
       return models.message
         .create({
-          fk_userId: req.user.userId,
-          fk_ticketId: ticket.ticketId,
-          content: req.body.content
+          fk_userId   : req.user.userId,
+          fk_ticketId : ticket.ticketId,
+          content     : req.body.content,
+          is_admin    : req.user.is_admin,
+          fullName    : req.user.firstName + " " + req.user.lastName,
+          email       : req.user.email,
+          phoneNumber : req.user.phoneNumber
         })
         .then(success => {
           res.redirect("/"); // redirect to a new webpage as we submit email

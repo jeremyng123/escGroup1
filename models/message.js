@@ -4,6 +4,24 @@ module.exports = (sequelize, DataTypes) => {
     content: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    is_admin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true
+    },
+    phoneNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: false
     }
   });
   message.associate = function(model) {

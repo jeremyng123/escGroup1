@@ -1,7 +1,6 @@
 mixin navbar(user)
   - let hostDomain = "localhost:3000";
-  
-    nav.navbar.navbar-expand.navbar-dark.bg-dark
+    nav.navbar.navbar-expand.navbar-dark.bg-dark(data-spy="affix")
       a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
         img(src="http://" + hostDomain + "/images/navbar/accenture.png", width="40", height="40" style=" padding: 0px 00px 0px 0px")
       .collapse.navbar-collapse
