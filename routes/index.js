@@ -116,7 +116,9 @@ module.exports = function(io) {
   router.get("/create", rtchat.create);
   router.get("/chat/:id", rtchat.chat);
   router.get('/select', rtchat.select);
-
+  router.get('/chat/admin/:id', rtchat.chat_with_specific_admin);
+  router.get('/chat/all_admin/:user_id', rtchat.all_admin_redirect); // todo: add middle ware to send email here
+  router.get('/chat/user/:user_id', rtchat.chat_with_any_admin);
 
 
   /*************** UPLOAD IMAGES *****************/
