@@ -112,6 +112,8 @@ exports.details_get = function(req, res, next) {
 };
 
 exports.details_post = function(req, res, next) {
+  const FULLNAME = req.user.firstName + " " + req.user.lastName;
+
   var pLevel = 0;
   if (req.body.priority === "on") { 
     pLevel = 1;
@@ -129,13 +131,13 @@ exports.details_post = function(req, res, next) {
           fk_ticketId : ticket.ticketId,
           content     : req.body.content,
           is_admin    : req.user.is_admin,
-          fullName    : req.user.firstName + " " + req.user.lastName,
+          fullName    : FULLNAME,
           email       : req.user.email,
           phoneNumber : req.user.phoneNumber
         })
         .then(success => {
           res.redirect("/"); // redirect to a new webpage as we submit email
-        });
+        }).catch(err => console.log("error again!" + err));
     })
     .catch(err => console.log("error again!" + err));
 };
