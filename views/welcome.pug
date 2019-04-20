@@ -31,12 +31,58 @@ html(lang='en')
   +header(title)
   body
   head
+    style.
+        .carousel{
+          min-height: 100px;
+          height: 50vh;
+          min-width: 100vw;
+          background-position: center;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          background-size: cover;
+          -o-background-size: cover;
+        
+        }
+        .carousel-img-width {
+          min-height: 60vh;
+          min-width:100vw;
+        }
+        .carousel .item {
+          height: 300px;
+        }
+
+        .item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-height: 30px;
+        }
+        .carousel-inner{
+            height:100%;
+            object-fit: contain;
+        }
+        .jumbotron {
+          padding: 2rem 1rem;
+          margin-bottom: 2rem;
+          border-radius: 0.3rem;
+
+          background: #000000;  
+          background: -webkit-linear-gradient(to right, #ffffff, #ffffff); 
+          background: linear-gradient(to right, #ffffff, #ffffff); }
+
+      
     include common/navbar.pug
     +navbar(user)
     .container-fluid
       .bd-example
         include common/carousel.pug
         +carousel()
+        .jumbotron
+          .container
+            h1.display-4 Welcome to ACNAPI's Helpdesk
+            p Log in to send us a ticket and our technical consultants will get back to you within 3 working days.
+            p: a.btn.btn-primary.btn-warning(href="/users/login" role="button") Log In &raquo;
+
     include common/footer.pug
     +footer()
     
