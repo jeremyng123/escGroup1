@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha ./mocha-tests/*.js"
+    "test": "mocha ./tests/*.js"
   },
   "dependencies": {
     "bcrypt": "^3.0.5",
+    "bs-stepper": "^1.5.0",
     "chai": "^4.2.0",
     "chromedriver": "^2.46.0",
     "connect-flash": "^0.1.1",
@@ -36,7 +37,7 @@
     "validator": "^10.11.0"
   },
   "devDependencies": {
-    "mocha": "^6.1.2",
+    "mocha": "^6.1.4",
     "pg": "^7.9.0"
   }
 }

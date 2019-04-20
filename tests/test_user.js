@@ -2,7 +2,7 @@ var assert = require('chai').assert,
     username = process.env.ESC_USER_USERNAME,
     password = process.env.ESC_USER_PASSWORD,
     /* Change the baseURL to your application URL */
-    baseURL = "https://escgroup1.herokuapp.com",
+    baseURL = "https://escgroup-1.herokuapp.com",
     driver;
 
 
@@ -86,6 +86,7 @@ describe('Title pages for Users', function() {
         describe('/ (after logout)', function(){
             it('should-be-able-to-log-out', async function() {
                 await driver.findElement(By.id('btn_logout')).click();     // enter queue page for the first time
+                await driver.wait(until.titleMatches("Accenture's ACNAPI Portal"));
                 try{
                     await driver.getTitle().then(title => {
                         expect(title).to.be.equal("Accenture's ACNAPI Portal");

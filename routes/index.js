@@ -8,7 +8,7 @@ module.exports = function(io) {
   let user = require("../controllers/user"); // to direct them to login page!
 
   /*************** MIDDLEWARE *****************/
-  let { isLoggedIn, hasAuth, whatRights } = require("../middleware/hasAuth");
+  let { isLoggedIn, isVerified, hasAuth, whatRights } = require("../middleware/hasAuth");
   let { send_email } = require("../middleware/email");
   let { any_admin_rtchat } = require("../middleware/any_admin_rtchat");
   let { specific_admin_rtchat} = require("../middleware/specific_admin_rtchat");
@@ -21,93 +21,59 @@ module.exports = function(io) {
 
   /*************** HOMEPAGE *****************/
   router.get("/", general.get_welcome);
-
+  router.get("/consultant", general.get_consultantpage);
   /*************** GENERAL TICKET ROUTES *****************/
   router.get(
     "/my_tickets/:user_id/0",
     isLoggedIn,
+    isVerified,
     general.show_my_tickets_queued
   ); // user page -- display all queued tickets
   router.get(
     "/my_tickets/:user_id/1",
     isLoggedIn,
+    isVerified,
     general.show_my_tickets_inprogress
   ); // user page -- display all in-progress tickets
   router.get(
     "/my_tickets/:user_id/2",
     isLoggedIn,
+    isVerified,
     general.show_my_tickets_solved
   ); // user page -- display all solved tickets
   router.get(
     "/my_tickets/:user_id/:ticket_id",
     isLoggedIn,
+    isVerified,
     general.show_edit_ticket
   ); // user making edit to his/her tickets
   router.post(
     "/my_tickets/:user_id/:ticket_id",
     isLoggedIn,
+    isVerified,
     general.edit_ticket
   );
+  
 
   /*************** TICKET CREATION ROUTES *****************/
-  router.get("/ticket_form/basics", isLoggedIn, general.basics_get); // basics
-  router.post("/ticket_form/basics", isLoggedIn, general.basics_post);
-  router.get("/ticket_form/solutions", isLoggedIn, general.solutions_get);
-  router.get("/ticket_form/details", isLoggedIn, general.details_get);
-  router.post(
-    "/ticket_form/details",
-    isLoggedIn,
-    send_email,
-    general.details_post
-  );
-  router.get('/solution_detail', isLoggedIn, general.solution_detail);
-  
+  router.get("/ticket_form/basics", isLoggedIn, isVerified, general.basics_get); // basics
+  router.post("/ticket_form/basics", isLoggedIn, isVerified, general.basics_post);
+  router.get("/ticket_form/solutions", isLoggedIn, isVerified, general.solutions_get);
+  router.get("/ticket_form/details", isLoggedIn, isVerified, general.details_get);
+  router.post("/ticket_form/details", isLoggedIn, isVerified, send_email, general.details_post);
+  router.get("/solution_detail", isLoggedIn, isVerified, general.solution_detail);
+
   /*************** ADMIN ROUTES *****************/
   router.get("/tickets", whatRights); // if user is not logged in, redirect to signup page, else admin/user tickets page
-  router.get(
-    "/tickets/:user_id/0",
-    isLoggedIn,
-    hasAuth,
-    admins.show_tickets_queued
-  ); // admin page -- display all queued tickets
-  router.get(
-    "/tickets/:user_id/1",
-    isLoggedIn,
-    hasAuth,
-    admins.show_tickets_inprogress
-  ); // admin page -- display all in-progress tickets
-  router.get(
-    "/tickets/:user_id/2",
-    isLoggedIn,
-    hasAuth,
-    admins.show_tickets_solved
-  ); // admin page -- display all solved tickets
-  router.get(
-    "/ticket/:user_id/:ticket_id/respond",
-    isLoggedIn,
-    hasAuth,
-    admins.show_respond_ticket
-  ); // respond to ticket
-  router.post(
-    "/ticket/:user_id/:ticket_id/respond",
-    isLoggedIn,
-    hasAuth,
-    admins.respond_ticket
-  );
+  router.get("/tickets/:user_id/0",isLoggedIn, isVerified, hasAuth, admins.show_tickets_queued); // admin page -- display all queued tickets
+  router.get("/tickets/:user_id/1", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
+  router.get("/tickets/:user_id/2", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
+  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.show_ticket_messages ); // respond to ticket
+  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.post_message );
 
   /********* DELETE ROW FROM tickets TABLE *************/
-  router.post(
-    "/ticket/:ticket_id/delete",
-    isLoggedIn,
-    hasAuth,
-    admins.delete_ticket
-  ); // using post and different route
-  router.post(
-    "/ticket/:ticket_id/delete-json",
-    isLoggedIn,
-    hasAuth,
-    admins.delete_ticket_json
-  ); // using ajax
+  router.post("/ticket/:ticket_id/delete", admins.delete_ticket); // using post and different route
+  router.post("/ticket/:ticket_id/delete-json", admins.delete_ticket_json); // using ajax
 
   /***************************
    * REAL TIME CHAT ROUTE
@@ -165,18 +131,10 @@ module.exports = function(io) {
     });
   }
 
-  router.post("/upload", checkUploadPath, upload.single("file"), function(
-    req,
-    res
-  ) {
+  router.post("/upload", checkUploadPath, upload.single("file"), function(req, res) {
     res.json({
       location:
-        "users/" +
-        req.user.userId +
-        "/tickets/" +
-        req.user.ticketCount +
-        "/" +
-        req.file.filename
+        "users/" + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
     });
   });
 

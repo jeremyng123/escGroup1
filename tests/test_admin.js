@@ -2,7 +2,7 @@ var assert = require('chai').assert,
     username = process.env.ESC_ADMIN_USERNAME,
     password = process.env.ESC_ADMIN_PASSWORD,
     /* Change the baseURL to your application URL */
-    baseURL = "https://escgroup1.herokuapp.com",
+    baseURL = "https://escgroup-1.herokuapp.com",
     driver;
 
 

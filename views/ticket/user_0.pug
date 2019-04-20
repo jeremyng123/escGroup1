@@ -31,7 +31,13 @@ html(lang='en')
               tbody
               if tickets != NULL
                 for ticket in tickets
-                  tr(id=ticket.id)
+                  - var ticketPriority;
+                  if ticket.priority
+                    //- this thing is not working....
+                    - ticketPriority = "ticket_priority";       
+                  else
+                    - ticketPriority = "ticket";
+                  tr(class=ticketPriority id=ticket.id)
                     td
                       span #{count++}
                     td
