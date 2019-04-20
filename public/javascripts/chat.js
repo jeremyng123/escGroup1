@@ -1,4 +1,4 @@
-$(function () {
+$(function (user) {
   // getting the id of the room from the url
   if (window.location.pathname.includes('/chat/admin'))
     // var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
@@ -55,13 +55,18 @@ $(function () {
 
   // receive the names and avatars of all people in the chat room
   socket.on("peopleinchat", function (data) {
+
+    
+    console.log('emrys: user.firstName', user.firstName);
+
+
     if (data.number === 0) {
-      name = '#{user.firstName}';
-      email = '#{user.email}';
+      name = user.firstName;
+      email = user.email;
       socket.emit("login", { user: name, avatar: email, id: id });
     } else if (data.number === 1) {
-      name = '#{user.firstName}';
-      email = '#{user.email}';
+      name = user.firstName;
+      email = user.email;
       socket.emit("login", { user: name, avatar: email, id: id });
     } else {
       showMessage("tooManyPeople");

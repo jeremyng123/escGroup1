@@ -46,9 +46,9 @@ exports.chat_with_specific_admin = function(req, res) {
  * these functions are for chat with any admin
  */
 exports.all_admin_redirect = function(req, res) {
-	res.redirect('/chat/user/' + req.param.user_id);
+	// res.redirect('/chat/user/' + req.param.user_id);
 }
 
 exports.chat_with_any_admin = function(req, res) {
-	res.render('chat/chat');
+	// res.render('chat/chat');
 }
