@@ -1,54 +1,3 @@
-//- doctype html
-//- html(lang='en')
-//-   include ../../common/header.pug
-//-   +header(title)
-//-   body
-//-     header
-//-       include ../../common/navbar.pug
-//-       +navbar(user)
-//-       .container
-//-         .row.align-items-center
-//-           .col-md-8.order-md-1.text-center.text-md-left.pr-md-5
-//-             - let topics = ["API Dev Ops", "Chat as a service", "recruitment Platform", "Aesop", "Travel market space", "Banking App", "AR car visualizer"];
-//-             br
-//-             .progress
-//-               .progress-bar.bg-warning.progress-bar-striped.progress-bar-animated(role='progressbar' style='width: 100%;' aria-valuenow='90' aria-valuemin='0' aria-valuemax='90') Step 3
-//-             br
-//-             h1.display-7.m-b-2 Ticket Form
-
-//-             // register form
-//-             form(action='/ticket_form/details',method='POST' )
-//-               div.form-group
-//-                 label(for='name') First Name:
-//-                 input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly="readonly")
-//-               div.form-group
-//-                 label(for='name') Last Name:
-//-                 input#name.form-control(type='text', placeholder='e.g. Beckham', name='lastName', value=user.lastName, readonly="readonly")
-//-               div.form-group
-//-                 label(for='email') Email:
-//-                 input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly="readonly")
-//-               div.form-group
-//-                 label(for='phoneNumber') Phone Number:
-//-                 input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly="readonly")
-//-               div.form-group
-//-                 label(for='topic') Topics:
-//-               br
-//-               select(name='topic')
-//-                 each topic in topics
-//-                   option#topic.form-control(value=topic) #{topic}
-//-               div.form-group
-//-                 label(for='content') Description:
-//-                 textarea#content.form-control(name='content')
-//-                  |some sample text
-                
-//-               button.btn.btn-outline-dark(type='submit') Submit
-
-
-
-//-     include ../../common/footer.pug
-//-     +footer()
-//-     //- script(src="../javascripts/tickets.js")
-
 doctype html
 html(lang='en')
   include ../../common/header.pug
@@ -462,28 +411,22 @@ html(lang='en')
               .progress 
                 .progress-bar.bg-warning.progress-bar-striped.progress-bar-animated(role='progressbar' style='width: 100%;' aria-valuenow='90' aria-valuemin='0' aria-valuemax='90') Step 3
               br
-              span.contact1-form-title
-                | Fill in Ticket Details!
-              .wrap-input1.validate-input(data-validate='First Name is required')
-                input#name.form-control.input1(type='text' name='firstName' placeholder='First Name' value=user.firstName readonly="readonly")
-                span.shadow-input1
-              .wrap-input1.validate-input(data-validate='Name is required')
-                input#name.form-control.input1(type='text' name='lastName' placeholder='Last Name' value=user.lastName readonly="readonly")
-                span.shadow-input1
-              .wrap-input1.validate-input(data-validate='Valid email is required: ex@abc.xyz')
-                input.input1(type='text' name='email' placeholder='Email' value=user.email readonly="readonly")
-                span.shadow-input1
-              .wrap-input1.validate-input(data-validate='Subject is required')
-                input.input1(type='text' name='subject' placeholder='Subject')
-                span.shadow-input1
-              .wrap-input1.validate-input(data-validate='Message is required')
-                textarea.input1(name='message' placeholder='Ticket Details')
-                span.shadow-input1
-              .container-contact1-form-btn
-                button.contact1-form-btn
-                  span
-                    | Send Ticket
-                    i.fa.fa-long-arrow-right(aria-hidden='true')
+              select(name='topic')
+                each topic in topics
+                  option#topic.form-control(value=topic) #{topic}
+              div.form-group
+                label(for='content') Description:
+                textarea#content.form-control(name='content')
+                 |some sample text
+                
+              button.btn.btn-outline-dark(type='submit') Submit
+
+
+
+    include ../../common/footer.pug
+    +footer()
+    //- script(src="../javascripts/tickets.js")
+
 
                 label(for='topic') Topics:  &nbsp
                 select(multiple class = 'form-control' name='topic')
