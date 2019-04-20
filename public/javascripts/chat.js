@@ -69,7 +69,6 @@ $(function () {
   });
 
   // Other useful
-
   socket.on("startChat", function (data) {
     console.log(data);
     if (data.boolean && data.id == id) {
@@ -86,7 +85,6 @@ $(function () {
   });
 
   socket.on("leave", function (data) {
-    console.log('emrys:data', data);
     if (data.boolean && id == data.room) {
       showMessage("somebodyLeft", data);
       chats.empty();
@@ -220,7 +218,8 @@ $(function () {
     else if (status === "youStartedChatWithNoMessages") {
       chatForm.parent().css('display', 'block'); // emrys this works
       // chatForm.css('display', 'block');// emrys
-
+      noMessages.css('display', 'block');
+      noMessages.parent().css('display', 'block');
       left.fadeOut(1200, function () {
         inviteSomebody.fadeOut(1200, function () {
           noMessages.fadeIn(1200);
