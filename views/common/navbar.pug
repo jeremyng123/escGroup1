@@ -2,33 +2,12 @@ mixin navbar(user)
   - let hostDomain = "localhost:3000";
   
     nav.navbar.navbar-expand.navbar-dark.bg-dark
-<<<<<<< HEAD
-      
-      a(href="https://beta.acnapi.io/#!/#home", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
-        img(src="/images/acnapi_logo.png", width="auto", height="30" style=" padding: 0px 00px 0px 0px")
-=======
       a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
         img(src="http://" + hostDomain + "/images/navbar/accenture.png", width="40", height="40" style=" padding: 0px 00px 0px 0px")
->>>>>>> c4b54de6f624e963e90d06b6d8936684eca2e5ea
       .collapse.navbar-collapse
         ul.navbar-nav.mr-auto
           li.nav-item
             a#btn_home.nav-link(href="/" data-toggle="tooltip" data-placement="bottom" title="Home Page") 
-<<<<<<< HEAD
-              img(src='/images/homewhite.png', width="30", height="30" style="padding: 0 0 0 0")
-          li.nav-item
-            a#btn_tickets.nav-link(href="/tickets" data-toggle="tooltip" data-placement="bottom" title="Your Tickets") 
-              img(src='/images/bookwhite.png', width="30", height="30")
-          li.nav-item
-            a#btn_ticket-form.nav-link(href="/ticket_form/basics" data-toggle="tooltip" data-placement="bottom" title="Questions") 
-              img(src='/images/helpwhite.png', width="30", height="30")
-          li.nav-item
-            a#btn_chat.nav-link(href='/room' target="_blank" ata-toggle="tooltip" data-placement="bottom" title="Chat with Admin now!") 
-              img(src='/images/chatwhite.png', width="30", height="30")
-          li.nav-item
-            a#btn_consultant.nav-link(href='/consultant' data-toggle="tooltip" data-placement="bottom" title="Meet The Consultants") 
-              img(src='/images/consultantwhite.png', width="30", height="30")
-=======
               img(src='/images/navbar/homewhite.png', width="30", height="30" style="padding: 0 0 0 0")
           li.nav-item
             a#btn_tickets.nav-link(href="/tickets" data-toggle="tooltip" data-placement="bottom" title="Your Tickets") 
@@ -42,15 +21,14 @@ mixin navbar(user)
           li.nav-item
             a#btn_consultant.nav-link(href='/consultant' data-toggle="tooltip" data-placement="bottom" title="Meet The Consultants") 
               img(src='/images/navbar/consultantwhite.png', width="30", height="30")
->>>>>>> c4b54de6f624e963e90d06b6d8936684eca2e5ea
       
       .navbar-right
         if user
           if user.is_admin
             ul.navbar-nav.mr-auto
-              span#user_logged.navbar-text Hello #{user.firstName} (ADMIN)!
-              li.nav-item
-                a#btn_logout.nav-link(href="/users/logout") Logout
+                span#user_logged.navbar-text Hello #{user.firstName} (ADMIN)!
+                li.nav-item
+                  a#btn_logout.nav-link(href="/users/logout") Logout
           else
             ul.navbar-nav.mr-auto
               span#user_logged.navbar-text Hello #{user.firstName}!
