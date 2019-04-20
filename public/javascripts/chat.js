@@ -219,8 +219,9 @@ $(function (user) {
     } 
     
     else if (status === "youStartedChatWithNoMessages") {
-      chatForm.parent().css('display', 'block'); // emrys this works
-      // chatForm.css('display', 'block');// emrys
+      chatForm.parent().css('display', 'block'); 
+      inviteSomebody.css('display', 'none');
+      inviteSomebody.parent().css('display', 'none');
       noMessages.css('display', 'block');
       noMessages.parent().css('display', 'block');
       left.fadeOut(1200, function () {
@@ -235,7 +236,11 @@ $(function (user) {
     } 
     
     else if (status === "heStartedChatWithNoMessages") {
-      chatForm.parent().css('display', 'block'); // emrys this works
+      chatForm.parent().css('display', 'block'); 
+      inviteSomebody.css('display', 'none');
+      inviteSomebody.parent().css('display', 'none');
+      noMessages.css('display', 'block');
+      noMessages.parent().css('display', 'block');
       personInside.fadeOut(1200, function () {
         noMessages.fadeIn(1200);
         footer.fadeIn(1200);

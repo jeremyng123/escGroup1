@@ -13,7 +13,6 @@ module.exports = function(io) {
     socket.on('load',function(user, data){
 
         var room = findClientsSocket(io,data);
-        // console.log('emrys: room to be printed', room);
 
         if(room.length === 0 ) {
 
@@ -107,17 +106,13 @@ module.exports = function(io) {
 
         if (ns) {
             for (var id in ns.connected) {
-                // console.log('emrys: id', id);
-                // console.log('emrys: roomId', roomId);
-                // console.log('emrys: ns.connected[id].rooms', ns.connected[id].rooms);
-                console.log("emrys: ns.connected[id].connected", ns.connected[id].connected);
                 if(roomId) {
                     var keys = Object.keys(ns.connected[id].rooms);
                     var values = keys.map((v)=>{return ns.connected[id].rooms[v];})
                     var index = values.indexOf(roomId) ;
-                    
-                    res.push(ns.connected[id]);
-                    
+
+                    // add this later
+                    if (index != -1) {res.push(ns.connected[id]);}
                 }
                 else {
                     res.push(ns.connected[id]);
