@@ -21,6 +21,7 @@ module.exports = function(io) {
 
   /*************** HOMEPAGE *****************/
   router.get("/", general.get_welcome);
+  router.get("/welcomeAdmin", general.get_welcome_admin);
   router.get("/consultant", general.get_consultantpage);
 
   /*************** PROFILE *****************/
