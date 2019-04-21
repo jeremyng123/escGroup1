@@ -11,7 +11,7 @@ const models = require('../models');
 exports.room = function(req, res){
 
 	// choose a room
-	res.render('chat/room' , { hostname: hostname });
+	res.render('chat/room');
 };
 
 exports.create = function(req,res){
@@ -26,7 +26,7 @@ exports.create = function(req,res){
 exports.chat = function(req,res){
 
 	// Render the chant.html view
-	res.render('chat/chat', { hostname: hostname });
+	res.render('chat/chat');
 }
 
 exports.select = function(req, res) {
