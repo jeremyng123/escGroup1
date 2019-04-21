@@ -219,7 +219,7 @@ script.
       ">" +
       '<div class="image">' +
       "<img src=" +
-      imgg +
+      '/images/aboutConsultant/JemPortrait.png' +
       " />" +
       "<b></b>" +
       '<i class="timesent" data-time=' +
@@ -286,7 +286,8 @@ script.
       });
 
       friend = data.users[1];
-      noMessagesImage.attr("src", data.avatars[1]);
+      //- noMessagesImage.attr("src", data.avatars[1]);
+      noMessagesImage.attr("src", '/images/aboutConsultant/JemPortrait.png');
     } 
     
     else if (status === "heStartedChatWithNoMessages") {
@@ -302,12 +303,14 @@ script.
 
       friend = data.users[0];
       noMessagesImage.attr("src", data.avatars[0]);
+      
     }
 
     else if (status === "chatStarted") {
       section.children().css("display", "none");
       chatForm.parent().css('display', 'block');// emrys
       chatScreen.css("display", "block");
+      
     }
 
     else if (status === "somebodyLeft") {

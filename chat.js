@@ -36,9 +36,8 @@ module.exports = function(io) {
       socket.username = data.user;
       socket.room = data.id;
       //   socket.avatar = gravatar.url(data.avatar, { s: "140", r: "x", d: "mm" });
-      socket.avatar = new Image();
-
-      socket.avatar.src = "/images/aboutConsultant/JemPortrait.png";
+      // socket.avatar = new Image();
+      // socket.avatar.src = "/images/aboutConsultant/JemPortrait.png";
 
       // Tell the person what he should use for an avatar
       socket.emit("img", socket.avatar);
