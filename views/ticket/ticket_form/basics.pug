@@ -288,11 +288,11 @@ html(lang='en')
                 label(for='topic') Issue Type:
               select(class='form-control' name='topic')
                 each topic in topics
-                  option#topic.input-line.full-width(value=topic) #{topic}
+                  option#topic.form-control(value=topic) #{topic}
               div.form-group
                 br
                 label(for='q') Description:
-                input#editor.input-line.full-width(name='q_content',type='text', placeholder='In a few words, describe your issue',maxlength="4000", wrap="soft", row="10")
+                input#editor.form-control(name='q_content',type='text', placeholder='In a few words, describe your issue',maxlength="4000", wrap="soft", row="10")
                 
               button.ghost-round.full-width Solutions
 
