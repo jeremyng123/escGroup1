@@ -19,6 +19,7 @@ router.get('/forgot_password', user.show_forgot_password);
 router.post('/forgot_password', user.forgot_password);
 router.get('/change_password', user.show_change_password);
 router.post('/change_password', user.change_password);
+router.post('/inform_password_change', user.inform_password_change);
 
 /* If User is not verified */
 router.get('/not_verified', user.show_verify);
