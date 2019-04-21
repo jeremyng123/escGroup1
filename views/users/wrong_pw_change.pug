@@ -15,6 +15,10 @@ html(lang='en')
               .col-sm-12.col-md-12.col-xs-12
                 form(action='/users/change_password', method='POST')
                   div.formgroup
+                    label.small.mb-1.mt-3 Phone Number
+                    input(placeholder='e.g. 91234567',required=true, name='phoneNumber',type='text',value=formData.phoneNumber).form-control
+                    if (errors && errors.invalid)
+                      p#err_phoneNumber.small.text-danger #{errors.invalid}
                     label.small.mb-1.mt-3 New Password:
                     input(placeholder='New Password',required=true, name='newPW', type='password',value='').form-control
                     if (errors && errors.password)

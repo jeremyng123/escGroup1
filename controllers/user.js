@@ -7,12 +7,12 @@ let flash = require('connect-flash');       // this allow us to display an error
 const { isEmpty } = require('lodash');
 const { validateUser } = require('../validators/signup');
 
-var os = require("os");
-var hostname = os.hostname();
+// var os = require("os");
+// var hostname = os.hostname();
 
 /* Verify User accounts */
 exports.show_verify = function(req,res,next) {
-	res.render('users/verify', { title: "ACNAPI Login" , hostname: hostname, user: req.user })
+	res.render('users/verify', { title: "ACNAPI Login" , user: req.user })
 }
 
 exports.verify = function(req,res,next) {
@@ -27,7 +27,7 @@ exports.verify = function(req,res,next) {
 }
 
 exports.show_change_email = function(req,res,next) {
-	res.render('users/change_email', { title: "ACNAPI Login" , hostname: hostname, user: req.user })
+	res.render('users/change_email', { title: "ACNAPI Login" , user: req.user })
 }
 
 exports.change_email = function(req, res, next) {
@@ -96,7 +96,7 @@ exports.forgot_password = function(req, res, next) {
 let validator = require('validator');
 
 const rerender_change_password = function(errors, req, res, next){
-	return res.render('users/change_password', { title: "ACNAPI Change Password", formData: req.body, errors: errors , hostname: hostname });
+	return res.render('users/change_password', { title: "ACNAPI Change Password", formData: req.body, errors: errors });
 }
 
 exports.show_change_password = function(req, res, next) {
@@ -129,18 +129,16 @@ exports.change_password = async function(req, res, next) {
 				userId: req.user.userId 
 			}
 		}).then(update => {
-			res.redirect("/inform_password_change");    // redirect homepage
+			res.redirect("/users/inform_password_change");    // redirect homepage
 		}).catch(err => console.log("error again!" + err));
 	}
 }
 
 /**
- * sends an email to user to verify with user that passwor dhas been changed
+ * sends an email to user to verify with user that password has been changed
  */
 var request = require('request');
 exports.inform_password_change = async function(req, res, next) {
-	
-    const fullLink = "http://escgroup-1.herokuapp.com/users/verify/" + req.user.userId;
     var options = { method: 'POST',
     url: process.env.SEND_EMAIL_URL,
     headers: 
@@ -152,8 +150,8 @@ exports.inform_password_change = async function(req, res, next) {
     body: 
      { subject: 'ACNAPI Password Changed',
        sender: 'admin@accenture.com',
-       recipient: req.user.email, // req.user.email -- we can use this to send to clients' email too! :)
-       html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>Accenture</title> <meta name="viewport" content="width=device-width, initial-scale=1.0"/></head> <body style="margin: 0; padding:0;"> <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; border: 1px solid #cccccc;"> <tr> <td align="center" bgcolor=" #F0F0F0 " style="padding: 0px 0 0px 0;"> <img src="http://escgroup-1.herokuapp.com/images/Accenture-logo.png" alt="Sorry image cannot be displayed." width="300" height="150" style="display:block;"/> </td></tr><tr> <td bgcolor="#ffffff" style="padding: 45px 30px 0px 30px"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 18px; "> <b>Dear User,</b> </td></tr><tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 14px; padding: 10px 0 20px 0"> <b> Thank you for registering with Accenture's API portal. Please click <a href= ${fullLink} style="color: #000000;"><font color="#4C84E9"> here </font></a> to complete the verification process! </b> </td></tr></table> </td></tr><tr> <td bgcolor="#ffffff" style="padding: 70px 30px 40px 30px"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 18px; padding: 10px 0 20px 0"> <b><u> Be sure to check out our latest newsletter articles!</u></b> </td></tr><tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td width="260" valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 18px; "bgcolor="#70bbd9"> <img src="http://escgroup-1.herokuapp.com/images/email/TechVision2019.jpg" alt="" width="100%" height="140" style="display: block;"/> </td></tr><tr> <td bgcolor="#F0F0F0" style="padding: 10px 0 0 0;"> <b><font size=5px><u>Accenture Technology Vision 2019 </u> <br><br></font> </b> <b>The post-digital era is upon us. We outline five technology trends that will characterize the post-digital future. <br></b> <a href="https://www.accenture.com/sg-en/insights/technology/technology-trends-2019" style="color: #000000;"><font color="#4C84E9" size=3px> <b> Read More</b> </font></a> </td></tr></table> </td><td style="font-size: 0; line-height: 0; width: 20"> &nbsp; </td><td width="260" valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="ee4c50"> <img src="http://escgroup-1.herokuapp.com/images/email/wayBeyondMarketing.png" alt="" width="100%" height="140" style="display: block;"/> </td><tr> <td bgcolor=" #F0F0F0 " style="padding: 10px 0 65px 0;"> <b><font size=5px><u>Way Beyond Marketing</u> <br><br></font> </b> <b>Learn more about the rise of the hyper-relevant CMO. <br></b> <a href="https://www.accenture.com/sg-en/insights/consulting/cmo" style="color: #000000;"><font color="#4C84E9" size=3px> <b> Read More</b> </font></a> </td></tr></tr></table> </td></tr></table> </td></tr></table> </td></tr><tr> <td bgcolor="#F0F0F0 " style="padding: 10px 30px 10px 30px;"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td width="75%"" align="left" style="color: #000000; font-family: Arial, sans-serif; font-size: 14px;"> Accenture 2019 &reg; All rights reserved.<br/> <a href="#" style="color: #000000;"><font color="#4C84E9"> Unsubscribe</font></a> to our newsletter instantly </td><td align="right"> <table border="0" cellpadding="0" cellspacing="0"> <tr> <td> <a href="https://www.facebook.com/accenture/"> <img src="http://escgroup-1.herokuapp.com/images/email/social-facebook.svg" alt="Facebook" width="38" height="38" style="display: block;" border="0"/> </a> </td><td> <a href="https://twitter.com/Accenture?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src="http://escgroup-1.herokuapp.com/images/email/social-twitter.svg" alt="Twitter" width="38" height="38" style="display: block;" border="0"/> </a> </td><td> <a href="https://www.instagram.com/accenture/?hl=en"> <img src="http://escgroup-1.herokuapp.com/images/email/instagram.png" alt="Instagram" width="45" height="45" style="display: block;" border="0"/> </a> </td></tr></table> </td></tr></table> </td></tr></table> </body></html>` }, // test
+       recipient: req.user.email,
+       html: `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> <title>Accenture</title> <meta name="viewport" content="width=device-width, initial-scale=1.0"/></head> <body style="margin: 0; padding:0;"> <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse; border: 1px solid #cccccc;"> <tr> <td align="center" bgcolor=" #F0F0F0 " style="padding: 0px 0 0px 0;"> <img src="http://escgroup-1.herokuapp.com/images/Accenture-logo.png" alt="Sorry image cannot be displayed." width="300" height="150" style="display:block;"/> </td></tr><tr> <td bgcolor="#ffffff" style="padding: 45px 30px 0px 30px"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 18px; "> <b>Dear ${req.user.firstName},</b> </td></tr><tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 14px; padding: 10px 0 20px 0"> <b> Your password has been changed. If you did not make this change, please click <a href="http://escgroup-1.herokuapp.com/users/" + req.user.userId + "/pw" style="color: #000000;"><font color="#4C84E9"> here </font></a></b> </td></tr></table> </td></tr><tr> <td bgcolor="#ffffff" style="padding: 70px 30px 40px 30px"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 18px; padding: 10px 0 20px 0"> <b><u> Be sure to check out our latest newsletter articles!</u></b> </td></tr><tr> <td> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td width="260" valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td style="color: #153643; font-family: Arial, sans-serif;font-size: 18px; "bgcolor="#70bbd9"> <img src="http://escgroup-1.herokuapp.com/images/email/TechVision2019.jpg" alt="" width="100%" height="140" style="display: block;"/> </td></tr><tr> <td bgcolor="#F0F0F0" style="padding: 10px 0 0 0;"> <b><font size=5px><u>Accenture Technology Vision 2019 </u> <br><br></font> </b> <b>The post-digital era is upon us. We outline five technology trends that will characterize the post-digital future. <br></b> <a href="https://www.accenture.com/sg-en/insights/technology/technology-trends-2019" style="color: #000000;"><font color="#4C84E9" size=3px> <b> Read More</b> </font></a> </td></tr></table> </td><td style="font-size: 0; line-height: 0; width: 20"> &nbsp; </td><td width="260" valign="top"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td bgcolor="ee4c50"> <img src="http://escgroup-1.herokuapp.com/images/email/wayBeyondMarketing.png" alt="" width="100%" height="140" style="display: block;"/> </td><tr> <td bgcolor=" #F0F0F0 " style="padding: 10px 0 65px 0;"> <b><font size=5px><u>Way Beyond Marketing</u> <br><br></font> </b> <b>Learn more about the rise of the hyper-relevant CMO. <br></b> <a href="https://www.accenture.com/sg-en/insights/consulting/cmo" style="color: #000000;"><font color="#4C84E9" size=3px> <b> Read More</b> </font></a> </td></tr></tr></table> </td></tr></table> </td></tr></table> </td></tr><tr> <td bgcolor="#F0F0F0 " style="padding: 10px 30px 10px 30px;"> <table border="0" cellpadding="0" cellspacing="0" width="100%"> <tr> <td width="75%"" align="left" style="color: #000000; font-family: Arial, sans-serif; font-size: 14px;"> Accenture 2019 &reg; All rights reserved.<br/> <a href="#" style="color: #000000;"><font color="#4C84E9"> Unsubscribe</font></a> to our newsletter instantly </td><td align="right"> <table border="0" cellpadding="0" cellspacing="0"> <tr> <td> <a href="https://www.facebook.com/accenture/"> <img src="http://escgroup-1.herokuapp.com/images/email/social-facebook.svg" alt="Facebook" width="38" height="38" style="display: block;" border="0"/> </a> </td><td> <a href="https://twitter.com/Accenture?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor"> <img src="http://escgroup-1.herokuapp.com/images/email/social-twitter.svg" alt="Twitter" width="38" height="38" style="display: block;" border="0"/> </a> </td><td> <a href="https://www.instagram.com/accenture/?hl=en"> <img src="http://escgroup-1.herokuapp.com/images/email/instagram.png" alt="Instagram" width="45" height="45" style="display: block;" border="0"/> </a> </td></tr></table> </td></tr></table> </td></tr></table> </body></html>` }, // test
     json: true };
 
     request(options, function (error, response, body) {
@@ -164,23 +162,60 @@ exports.inform_password_change = async function(req, res, next) {
     return res.redirect("/");
 }
 
+const rerender_wrong_pw_change = function(errors, req, res, next){
+	return res.render('users/wrong_pw_change', { title: "ACNAPI Change Password", formData: req.body, errors: errors });
+}
+
+exports.show_wrong_pw_change = async function(req, res, next) {
+	res.render('users/wrong_pw_change', { title: "ACNAPI Change Password", formData: {} , errors: {} })
+}
+
+exports.wrong_pw_change = async function(req, res, next) {
+	let errors = {};
+	await validatePassword(errors, req)
+	if (!isEmpty(errors)) {
+		return rerender_wrong_pw_change(errors,req,res,next);
+	}
+	else {
+		return models.user.findOne({
+			where: {
+				userId			:	req.params.user_id,
+				phoneNumber	:	req.body.phoneNumber
+			}
+		}).then(user => {
+			if (user === null) res.redirect("/users/inform_password_change");    // redirect homepage
+			else {
+				return models.user.update({
+					password   : generateHash(req.body.newPW)
+				}, { 
+					where: { 
+						userId: req.params.user_id
+					}
+				}).then(update => {
+					res.redirect("/users/inform_password_change");    // redirect homepage
+				}).catch(err => console.log("error again!" + err));
+			}
+		})
+	}
+}
+
 	
 
 /* Login + Signup user credentials */
 /**formData is basically the values keyed in by the user in the form fields */
 exports.show_login = function(req, res, next){
-	res.render('users/login', { title: "ACNAPI Login" , formData: {}, hostname: hostname });
+	res.render('users/login', { title: "ACNAPI Login" , formData: {} });
 }
 exports.show_signup = function(req, res, next){
-	res.render('users/signup', { title: "ACNAPI Register", formData: {}, errors: {} , hostname: hostname });
+	res.render('users/signup', { title: "ACNAPI Register", formData: {}, errors: {} });
 }
 /** we use const for functions that are local (i.e. other files do not need to use this particular functions) */
 const rerender_signup = function(errors, req, res, next){
-	return res.render('users/signup', { title: "ACNAPI Register", formData: req.body, errors: errors , hostname: hostname });
+	return res.render('users/signup', { title: "ACNAPI Register", formData: req.body, errors: errors });
 }
 
 const rerender_login = function(errors, req, res, next){
-	return res.render('users/login', { title: "ACNAPI Register", formData: req.body, errors: errors , hostname: hostname });
+	return res.render('users/login', { title: "ACNAPI Register", formData: req.body, errors: errors });
 }
 
 const generateHash = function(password){
