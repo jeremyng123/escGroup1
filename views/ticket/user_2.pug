@@ -10,44 +10,31 @@ html(lang='en')
     .container-fluid
       .row.align-items-center
         .col-md-10.order-md-1.text-center.text-md-left
-          h1 tickets #{subtitle}
+          h1 My tickets #{subtitle}
           p
             span
-              a#tickets0(href="/my_tickets/" + user.userId + "/0") Queued #{pre}
+              a#tickets0(href="/my_ticket/" + "0/" + user.userId ) Queued #{pre}
               |          |
-              a#tickets1(href="/my_tickets/" + user.userId + "/1") In-Progress #{pre}
+              a#tickets1(href="/my_ticket/" + "1/" + user.userId ) In-Progress #{pre}
               |          |
-              a#tickets2(href="/my_tickets/" + user.userId + "/2") Solved
+              a#tickets2(href="/my_ticket/" + "2/" + user.userId ) Solved
             table.table.table-hover
               thead.thead-dark
                 tr
                   th(scope="col") #
-                  th(scope="col") Name
-                  th(scope="col") Email
-                  th(scope="col") Phone Number
                   th(scope="col") Topic
                   th(scope="col") Subject
                 tr
               tbody
-              for ticket in tickets
-                - var ticketPriority;
-                if ticket.priority
-                  - ticketPriority = "table-danger";
-                else
-                  - ticketPriority = "tickets";
-                tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
-                  td
-                    span #{count++}
-                  td
-                    span #{ticket.user.firstName + " " + ticket.user.lastName}
-                  td
-                    span #{ticket.user.email}
-                  td
-                    span #{ticket.user.phoneNumber}
-                  td
-                    span #{ticket.topic}  
-                  td
-                    span #{ticket.title}
+              if tickets != NULL
+                for ticket in tickets
+                  tr(id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
+                    td
+                      span #{count++}
+                    td
+                      span #{ticket.topic}  
+                    td
+                      span #{ticket.title}
                   
 
 

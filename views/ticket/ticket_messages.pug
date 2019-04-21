@@ -29,7 +29,6 @@ html(lang='en')
     .container-fluid
       .row.align-items-start
         .col
-          h1 tickets
           .table-responsive
             table.table
               thead.thead-dark
@@ -43,7 +42,7 @@ html(lang='en')
                     - bgColor = "edff54";
                   tr(id=ticket.ticketId)
                     td
-                      span #{message.fullname}
+                      span #{message.fullName}
                       br
                       span #{message.email}
                       br
