@@ -32,11 +32,11 @@ exports.isVerified = function(req,res,next){
   */
  exports.whatRights = function(req,res,next){
     if (req.user && req.user.is_admin){
-        // console.log("\n\n\n\n\n\n");
-        return res.redirect('/tickets/' + req.user.userId + '/0');  // tickets page that are queued
+        const PATH = '/ticket/' + '0/' + req.user.userId;
+        return res.redirect(PATH);  // tickets page that are queued
     }
     else if (req.user){
-        return res.redirect('/my_tickets/' + req.user.userId + '/0');
+        return res.redirect('/my_ticket/' + '0/' + req.user.userId );
     }
     else {
         return res.redirect('/users/signup');
