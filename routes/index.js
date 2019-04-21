@@ -87,6 +87,8 @@ module.exports = function(io) {
       return name;
     }
   });
+
+  
   var upload = multer({
     storage: storage
   });
