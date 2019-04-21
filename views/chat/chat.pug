@@ -197,7 +197,7 @@ script.
 
   setInterval(function () {
     messageTimeSent.each(function () {
-      var each = moment($(this).data("time"));
+      var each = moment($(this).attr("datetime"));
       $(this).text(each.fromNow());
     });
   }, 60000);
