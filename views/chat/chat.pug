@@ -102,7 +102,7 @@ script.
 
   // save the gravatar url
   socket.on("img", function (data) {
-    //- img = data;
+    img = data;
   });
 
   // receive the names and avatars of all people in the chat room
@@ -209,9 +209,11 @@ script.
 
     if (user === name) {
       who = "me";
+      imgg = '/images/aboutConsultant/JemPortrait.png'
     } else {
       who = "you";
     }
+      
 
     var li = $(
       "<li class=" +
@@ -219,7 +221,7 @@ script.
       ">" +
       '<div class="image">' +
       "<img src=" +
-      '/images/aboutConsultant/JemPortrait.png' +
+      imgg +
       " />" +
       "<b></b>" +
       '<i class="timesent" data-time=' +
