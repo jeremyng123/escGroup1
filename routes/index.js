@@ -87,26 +87,11 @@ module.exports = function(io) {
     }
   });
 
-  var carouStorage = multer.diskStorage({
-    destination: function(req, file, cb, res) {
-      cb( null,"public/images/carousel/" );
-    },
-
-    filename: function(req, file, cb, res) {
-      var name = 'slide1.jpg';
-      cb(null, name);
-      return name;
-    }
-  });
-
   
   var upload = multer({
     storage: storage
   });
 
-  var carouUpload = multer({
-    storage: carouStorage
-  });
 
   function checkUploadPath(req, res, next) {
     const uploadPath = "public/users/" + req.user.userId + "/tickets/" + req.user.ticketCount;
@@ -132,10 +117,32 @@ module.exports = function(io) {
     });
   });
 
-  router.post("/uploadCarou", carouUpload.single("file"), function(req, res) {
+  /************************ upload image for carousel notification ********************/
+  router.get('/uploadCarousel', function(req, res) {
+    return res.render('upload_car/upload_note', {user: req.user});
+  });
+
+  var carouStorage = multer.diskStorage({
+    destination: function(req, file, cb, res) {
+      cb( null,"public/images/carousel/" );
+    },
+
+    filename: function(req, file, cb, res) {
+      var name = 'slide1.jpg';
+      cb(null, name);
+      return name;
+    }
+  });
+
+
+  var carouUpload = multer({
+    storage: carouStorage
+  });
+
+  router.post("/uploadCarousel", carouUpload.single("file"), function(req, res) {
     res.json({
       location:
-      "public/images/carousel/" + req.file.filename
+      "images/carousel/" + req.file.filename
     });
   });
 
