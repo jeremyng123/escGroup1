@@ -52,6 +52,9 @@ module.exports = function(io) {
   router.post( "/ticket/1/:user_id", isLoggedIn, isVerified, hasAuth, admins.sort_1_tickets );
   router.get("/ticket/2/:user_id", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
   router.post( "/ticket/2/:user_id", isLoggedIn, isVerified, hasAuth, admins.sort_2_tickets );
+  router.get("/manage_users", isLoggedIn, isVerified, hasAuth, admins.show_manage_users);
+  router.get("/view/:user_id", isLoggedIn, isVerified, hasAuth, admins.show_user_profile);
+  router.post("/view/:user_id", isLoggedIn, isVerified, hasAuth, admins.edit_user_profile);
   
   router.get("/flag_ticket/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.flag_ticket );
 

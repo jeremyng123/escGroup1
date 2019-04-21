@@ -32,6 +32,7 @@ mixin navbar(user)
                 | #{user.firstName} (ADMIN)
               .dropdown-menu(aria-labelledby="navbarDropdownMenuLink") 
                 a#btn_logout.dropdown-item(href="/profile") Profile
+                a#btn_view_users.dropdown-item(href="/manage_users") Manage Users
                 .dropdown-divider
                 a#btn_logout.dropdown-item(href="/users/logout") Logout
         else
@@ -40,7 +41,7 @@ mixin navbar(user)
               a#navbarDropdownMenuLink.nav-link.dropdown-toggle(href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false") 
                 | #{user.firstName}
               .dropdown-menu(aria-labelledby="navbarDropdownMenuLink") 
-                a#btn_logout.dropdown-item(href="/profile") Profile
+                a#btn_profile.dropdown-item(href="/profile") Profile
                 .dropdown-divider
                 a#btn_logout.dropdown-item(href="/users/logout") Logout
       else
