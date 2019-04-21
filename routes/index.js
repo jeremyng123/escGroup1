@@ -29,7 +29,7 @@ module.exports = function(io) {
 
   /*************** GENERAL TICKET ROUTES *****************/
   router.get( "/my_ticket/:user_id", isLoggedIn, isVerified, general.show_my_tickets ); // user page -- display all queued tickets
-  router.post( "/sort_tickets", isLoggedIn, isVerified, general.show_my_tickets_sorted ); // user page -- display all queued tickets sorted
+  router.post( "/sort_tickets_user", isLoggedIn, isVerified, general.show_my_tickets_sorted ); // user page -- display all queued tickets sorted
   router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.show_ticket_messages ); // respond to ticket
   router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
   router.get("/solved/:ticket_id/", isLoggedIn, isVerified, general.ticket_solved );
@@ -47,9 +47,12 @@ module.exports = function(io) {
   /*************** ADMIN ROUTES *****************/
   router.get("/tickets", whatRights); // if user is not logged in, redirect to signup page, else admin/user tickets page
   router.get("/ticket/0/:user_id",isLoggedIn, isVerified, hasAuth, admins.show_tickets_queued); // admin page -- display all queued tickets
-  // router.get("/tickets/:user_id/0", admins.show_tickets_queued); // admin page -- display all queued tickets
+  router.post( "/ticket/0/:user_id", isLoggedIn, isVerified, hasAuth, admins.sort_0_tickets ); 
   router.get("/ticket/1/:user_id", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
+  router.post( "/ticket/1/:user_id", isLoggedIn, isVerified, hasAuth, admins.sort_1_tickets );
   router.get("/ticket/2/:user_id", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
+  router.post( "/ticket/2/:user_id", isLoggedIn, isVerified, hasAuth, admins.sort_2_tickets );
+  
   router.get("/flag_ticket/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.flag_ticket );
 
   /********* DELETE ROW FROM tickets TABLE *************/
