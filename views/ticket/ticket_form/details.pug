@@ -14,18 +14,22 @@ html(lang='en')
 
             // register form
             form(action='/ticket_form/details',method='POST' )
-              div.form-group
-                label(for='name') First Name:
-                input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly)
-              div.form-group
-                label(for='name') Last Name:
-                input#name.form-control(type='text', placeholder='e.g. Beckham', name='lastName', value=user.lastName, readonly)
-              div.form-group
-                label(for='email') Email:
-                input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly)
-              div.form-group
-                label(for='phoneNumber') Phone Number:
-                input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly)
+              div.form-group.row
+                label.col-sm-2.col-form-label(for='name') First Name:
+                .col-sm-10
+                  input#name.form-control(type='text', placeholder='e.g. David', name='firstName', value=user.firstName, readonly)
+              div.form-group.row
+                label.col-sm-2.col-form-label(for='name') Last Name:
+                .col-sm-10
+                  input#name.form-control(type='text', placeholder='e.g. Beckham', name='lastName', value=user.lastName, readonly)
+              div.form-group.row
+                label.col-sm-2.col-form-label(for='email') Email:
+                .col-sm-10
+                  input#email.form-control(type='email', placeholder='name@email.com', name='email', value=user.email, readonly)
+              div.form-group.row
+                label.col-sm-2.col-form-label(for='phoneNumber') Contact:
+                .col-sm-10
+                  input#phoneNumber.form-control(type='text', placeholder='e.g. 91234567' name='phoneNumber', value=user.phoneNumber, readonly)
               div.form-check
                 input#priority.form-check-input(type='checkbox', name='priority')
                 label(for='priority') <em>Bugs found?</em>

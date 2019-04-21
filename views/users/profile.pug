@@ -1,0 +1,43 @@
+doctype html
+html(lang='en')
+  include ../common/header.pug
+  +header(title)
+  body
+    header
+      include ../common/navbar.pug
+      +navbar(user)
+      .container
+        .row
+          .col-sm-12.offset-md-2.col-md-8
+            .jumbotron
+              h2.text-left Profile Page
+              .row
+                .col-sm-12.col-md-12.col-xs-12
+                  form(action='/profile_change', method='POST')
+                    div.formgroup
+                      label.small.mb-1.mt-3 Email: 
+                      input(placeholder='e.g. jem_ng@hotmail.com',required=true, name='email',type='email',value=user.email readonly="readonly").form-control
+                      if (errors && errors.email)
+                        p#err_email.small.text-danger #{errors.email}
+                      .form-row.mb-1
+                        .col
+                          label.small.mb-1.mt-3 First Name: 
+                          input(placeholder='e.g. Jeremy',required=true, name='firstName',type='text',value=user.firstName).form-control
+                          if (errors && errors.firstName)
+                            p#err_firstName.small.text-danger #{errors.firstName}
+                        .col
+                          label.small.mb-1.mt-3 Last Name: 
+                          input(placeholder='e.g. Ng',required=true, name='lastName',type='text',value=user.lastName).form-control
+                          if (errors && errors.lastName)
+                            p#err_lastName.small.text-danger #{errors.lastName}
+                      label.small.mb-1.mt-3 Phone Number: 
+                      input(placeholder='e.g. 91234567',required=true, name='phoneNumber',type='text',value=user.phoneNumber).form-control
+                      if (errors && errors.phoneNumber)
+                        p#err_phoneNumber.small.text-danger #{errors.phoneNumber}
+                      div(style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;display: block; font-size: 14px;')
+                        | Change your password 
+                        a(style="color: #3498DB;" href="/users/change_password") here
+                      button.mt-3.btn.btn-primary(type='submit') Confirm Changes
+    include ../common/footer.pug
+    +footer()
+    //- script(src="/javascripts/leads.js")
