@@ -7,10 +7,29 @@ exports.show_tickets_queued = function(req, res, next) {
         where : { tag : 0 },
         include: [ models.user ]
     }).then(tickets => {
-        console.log ("SIMILANJI\n\n" + JSON.stringify(tickets));
         return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
     })
 };
+
+exports.sort_0_tickets = function(req,res,next) {
+    if (req.body.filter === "No Filter" || req.body.filter == null) {
+        return models.ticket.findAll({
+            where : { tag : 0 },
+            include: [ models.user ]
+        }).then(tickets => {
+            return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
+        })
+    }
+    return models.ticket.findAll({
+        where : { 
+            tag         : 0,
+            topic       : req.body.filter
+        },
+        include: [ models.user ]
+    }).then(tickets => {
+        return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
+    })
+}
 
 exports.show_tickets_inprogress = function(req, res, next) {
     return models.ticket.findAll({
@@ -21,6 +40,27 @@ exports.show_tickets_inprogress = function(req, res, next) {
     })
 };
 
+exports.sort_1_tickets = function(req,res,next) {
+    if (req.body.filter === "No Filter" || req.body.filter == null) {
+        return models.ticket.findAll({
+            where : { tag : 1 },
+            include: [ models.user ]
+        }).then(tickets => {
+            return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
+        })
+    }
+    return models.ticket.findAll({
+        where : { 
+            tag         : 1,
+            topic       : req.body.filter
+        },
+        include: [ models.user ]
+    }).then(tickets => {
+        return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
+    })
+}
+
+
 exports.show_tickets_solved = function(req, res, next) {
     return models.ticket.findAll({
         where : { tag : 2 },
@@ -29,6 +69,27 @@ exports.show_tickets_solved = function(req, res, next) {
         return res.render('ticket/admin_2', { title: 'Tickets - Solved', tickets: tickets, user: req.user  , subtitle: "solved" , hostname: hostname });
     })
 };
+
+exports.sort_2_tickets = function(req,res,next) {
+    if (req.body.filter === "No Filter" || req.body.filter == null) {
+        return models.ticket.findAll({
+            where : { tag : 2 },
+            include: [ models.user ]
+        }).then(tickets => {
+            return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
+        })
+    }
+    return models.ticket.findAll({
+        where : { 
+            tag         : 2,
+            topic       : req.body.filter
+        },
+        include: [ models.user ]
+    }).then(tickets => {
+        return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
+    })
+}
+
 
 exports.flag_ticket = function(req, res, next) {
     return models.ticket.findOne({

@@ -11,8 +11,8 @@ html(lang='en')
       .row.align-items-center
         .col-md-10.order-md-1.text-center.text-md-left
           - let topics = ["No Filter", "Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
-          h1 My tickets #{subtitle}
-          form(action='/sort_tickets',method='POST')
+          h1 My tickets
+          form(action='/sort_tickets_user',method='POST')
             .form-group.row
               .col-sm-5
                 select(class = 'form-control' name='filter')
