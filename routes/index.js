@@ -83,7 +83,18 @@ module.exports = function(io) {
       var name =
         file.fieldname + "-" + Date.now() + path.extname(file.originalname);
       cb(null, name);
+      return name;
+    }
+  });
 
+  var carouStorage = multer.diskStorage({
+    destination: function(req, file, cb, res) {
+      cb( null,"public/images/carousel/" );
+    },
+
+    filename: function(req, file, cb, res) {
+      var name = 'slide1.jpg';
+      cb(null, name);
       return name;
     }
   });
@@ -93,9 +104,12 @@ module.exports = function(io) {
     storage: storage
   });
 
+  var carouUpload = multer({
+    storage: carouStorage
+  });
+
   function checkUploadPath(req, res, next) {
-    const uploadPath =
-      "public/users/" + req.user.userId + "/tickets/" + req.user.ticketCount;
+    const uploadPath = "public/users/" + req.user.userId + "/tickets/" + req.user.ticketCount;
     fs.exists(uploadPath, function(exists) {
       if (exists) {
         return next();
@@ -115,6 +129,13 @@ module.exports = function(io) {
     res.json({
       location:
         "users/" + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
+    });
+  });
+
+  router.post("/uploadCarou", carouUpload.single("file"), function(req, res) {
+    res.json({
+      location:
+      "public/images/carousel/" + req.file.filename
     });
   });
 
