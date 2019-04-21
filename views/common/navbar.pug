@@ -6,23 +6,21 @@ mixin navbar(user)
 
   nav.navbar.navbar-expand.navbar-dark.bg-dark(data-spy="affix")
     a(href="/", aria-label="Accenture Homepage").navbar-brand.mr-0.mr-md2
-      img(src="/images/navbar/accenture.png", width="40", height="40" style=" padding: 0px 00px 0px 0px")
+      img(src="/images/navbar/acnapi_logo.png", width="80", height="30" style=" padding: 0px 00px 0px 0px")
     .collapse.navbar-collapse
       ul.navbar-nav.mr-auto
+
         li.nav-item
-          a#btn_home.nav-link(href="/" data-toggle="tooltip" data-placement="bottom" title="Home Page") 
-            img(src='/images/navbar/homewhite.png', width="30", height="30" style="padding: 0 0 0 0")
-        li.nav-item
-          a#btn_tickets.nav-link(href="/tickets" data-toggle="tooltip" data-placement="bottom" title="Your Tickets") 
+          a#btn_tickets.nav-link(href="/tickets" data-toggle="tooltip" data-placement="bottom" title="Your Tickets") Tickets
             img(src='/images/navbar/bookwhite.png', width="30", height="30")
         li.nav-item
-          a#btn_ticket-form.nav-link(href="/ticket_form/basics" data-toggle="tooltip" data-placement="bottom" title="Questions") 
+          a#btn_ticket-form.nav-link(href="/ticket_form/basics" data-toggle="tooltip" data-placement="bottom" title="Questions") Tickets 
             img(src='/images/navbar/helpwhite.png', width="30", height="30")
         li.nav-item
-          a#btn_chat.nav-link(href='/room' target="_blank" ata-toggle="tooltip" data-placement="bottom" title="Chat with Admin now!") 
+          a#btn_chat.nav-link(href='/room' target="_blank" ata-toggle="tooltip" data-placement="bottom" title="Chat with Admin now!") Admin Chat 
             img(src='/images/navbar/chatwhite.png', width="30", height="30")
         li.nav-item
-          a#btn_consultant.nav-link(href='/consultant' data-toggle="tooltip" data-placement="bottom" title="Meet The Consultants") 
+          a#btn_consultant.nav-link(href='/consultant' data-toggle="tooltip" data-placement="bottom" title="Meet The Consultants") Meet the Consultants
             img(src='/images/navbar/consultantwhite.png', width="30", height="30")
     
     .navbar-right
