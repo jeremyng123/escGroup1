@@ -4,6 +4,7 @@ var router = express.Router();
 let user = require('../controllers/user');
 let {email_verification} = require('../middleware/send_verification');
 
+
 /* Login Page */
 router.get('/login', user.show_login);
 router.get('/signup', user.show_signup);

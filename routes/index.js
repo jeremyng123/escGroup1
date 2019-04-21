@@ -8,10 +8,16 @@ module.exports = function(io) {
   let user = require("../controllers/user"); // to direct them to login page!
 
   /*************** MIDDLEWARE *****************/
-  let { isLoggedIn, isVerified, hasAuth, whatRights } = require("../middleware/hasAuth");
+  let {
+    isLoggedIn,
+    isVerified,
+    hasAuth,
+    whatRights
+  } = require("../middleware/hasAuth");
   let { send_email } = require("../middleware/email");
   let { any_admin_rtchat } = require("../middleware/any_admin_rtchat");
-  let { specific_admin_rtchat} = require("../middleware/specific_admin_rtchat");
+  let {specific_admin_rtchat} = require("../middleware/specific_admin_rtchat");
+  let {send_sms} = require('../middleware/sms');
   /*************** REAL TIME CHAT DEPENDENCIES *****************/
   /**
    * Use the gravatar module, to turn email addresses into avatar images:
@@ -24,26 +30,55 @@ module.exports = function(io) {
   router.get("/consultant", general.get_consultantpage);
 
   /*************** PROFILE *****************/
-  router.get('/profile', general.show_profile);
-  router.post('/profile_change', general.profile_change);
+  router.get("/profile", general.show_profile);
+  router.post("/profile_change", general.profile_change);
 
   /*************** GENERAL TICKET ROUTES *****************/
+
   router.get( "/my_ticket/0/:user_id", isLoggedIn, isVerified, general.show_my_tickets_queued ); // user page -- display all queued tickets
   router.get( "/my_ticket/1/:user_id", isLoggedIn, isVerified, general.show_my_tickets_inprogress ); // user page -- display all in-progress tickets
   router.get( "/my_ticket/2/:user_id", isLoggedIn, isVerified, general.show_my_tickets_solved ); // user page -- display all solved tickets
   router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.show_ticket_messages ); // respond to ticket
   router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
 
+
   /*************** TICKET CREATION ROUTES *****************/
   router.get("/ticket_form/basics", isLoggedIn, isVerified, general.basics_get); // basics
-  router.post("/ticket_form/basics", isLoggedIn, isVerified, general.basics_post);
-  router.get("/ticket_form/solutions", isLoggedIn, isVerified, general.solutions_get);
-  router.get("/ticket_form/details", isLoggedIn, isVerified, general.details_get);
-  router.post("/ticket_form/details", isLoggedIn, isVerified, send_email, general.details_post);
-  router.get("/solution_detail", isLoggedIn, isVerified, general.solution_detail);
+  router.post(
+    "/ticket_form/basics",
+    isLoggedIn,
+    isVerified,
+    general.basics_post
+  );
+  router.get(
+    "/ticket_form/solutions",
+    isLoggedIn,
+    isVerified,
+    general.solutions_get
+  );
+  router.get(
+    "/ticket_form/details",
+    isLoggedIn,
+    isVerified,
+    general.details_get
+  );
+  router.post(
+    "/ticket_form/details",
+    isLoggedIn,
+    isVerified,
+    send_email,
+    general.details_post
+  );
+  router.get(
+    "/solution_detail",
+    isLoggedIn,
+    isVerified,
+    general.solution_detail
+  );
 
   /*************** ADMIN ROUTES *****************/
   router.get("/tickets", whatRights); // if user is not logged in, redirect to signup page, else admin/user tickets page
+
   router.get("/ticket/0/:user_id",isLoggedIn, isVerified, hasAuth, admins.show_tickets_queued); // admin page -- display all queued tickets
   // router.get("/tickets/:user_id/0", admins.show_tickets_queued); // admin page -- display all queued tickets
   router.get("/ticket/1/:user_id", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
@@ -60,11 +95,20 @@ module.exports = function(io) {
   router.get("/room", isLoggedIn, rtchat.room);
   router.get("/create", isLoggedIn, rtchat.create);
   router.get("/chat/:id", isLoggedIn, rtchat.chat);
-  router.get('/select', isLoggedIn, rtchat.select);
-  router.get('/chat/admin/:admin_id', isLoggedIn, specific_admin_rtchat, rtchat.chat_with_specific_admin);
-  router.get('/chat/all_admin/:user_id', isLoggedIn, any_admin_rtchat, rtchat.all_admin_redirect); // todo: add middle ware to send email here
-  router.get('/chat/user/:user_id', isLoggedIn, rtchat.chat_with_any_admin);
-
+  router.get("/select", isLoggedIn, rtchat.select);
+  router.get(
+    "/chat/admin/:admin_id",
+    isLoggedIn,
+    specific_admin_rtchat,
+    rtchat.chat_with_specific_admin
+  );
+  router.get(
+    "/chat/all_admin/:user_id",
+    isLoggedIn,
+    any_admin_rtchat,
+    rtchat.all_admin_redirect
+  ); // todo: add middle ware to send email here
+  router.get("/chat/user/:user_id", isLoggedIn, rtchat.chat_with_any_admin);
 
   /*************** UPLOAD IMAGES *****************/
   var multer = require("multer");
@@ -87,29 +131,15 @@ module.exports = function(io) {
     }
   });
 
-  var carouStorage = multer.diskStorage({
-    destination: function(req, file, cb, res) {
-      cb( null,"public/images/carousel/" );
-    },
 
-    filename: function(req, file, cb, res) {
-      var name = 'slide1.jpg';
-      cb(null, name);
-      return name;
-    }
-  });
-
-  
   var upload = multer({
     storage: storage
   });
 
-  var carouUpload = multer({
-    storage: carouStorage
-  });
 
   function checkUploadPath(req, res, next) {
-    const uploadPath = "public/users/" + req.user.userId + "/tickets/" + req.user.ticketCount;
+    const uploadPath =
+      "public/users/" + req.user.userId + "/tickets/" + req.user.ticketCount;
     fs.exists(uploadPath, function(exists) {
       if (exists) {
         return next();
@@ -125,20 +155,51 @@ module.exports = function(io) {
     });
   }
 
-  router.post("/upload", checkUploadPath, upload.single("file"), function(req, res) {
+  router.post("/upload", checkUploadPath, upload.single("file"), function(
+    req,
+    res
+  ) {
     res.json({
       location:
-        "users/" + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
+        "users/" +
+        req.user.userId +
+        "/tickets/" +
+        req.user.ticketCount +
+        "/" +
+        req.file.filename
     });
   });
 
-  router.post("/uploadCarou", carouUpload.single("file"), function(req, res) {
+  /************************ upload image for carousel notification ********************/
+  router.get('/uploadCarousel', function(req, res) {
+    return res.render('upload_car/upload_note', {user: req.user});
+  });
+
+  var carouStorage = multer.diskStorage({
+    destination: function(req, file, cb, res) {
+      cb( null,"public/images/carousel/" );
+    },
+
+    filename: function(req, file, cb, res) {
+      var name = 'slide1.jpg';
+      cb(null, name);
+      return name;
+    }
+  });
+
+
+  var carouUpload = multer({
+    storage: carouStorage
+  });
+
+  router.post("/uploadCarousel", carouUpload.single("file"), function(req, res) {
     res.json({
+
       location:
-      "public/images/carousel/" + req.file.filename
+      "images/carousel/" + 'slide1.jpg'
+
     });
   });
 
-  
   return router;
 };
