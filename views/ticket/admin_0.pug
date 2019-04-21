@@ -35,7 +35,7 @@ html(lang='en')
                     if ticket.priority
                       - ticketPriority = "table-danger";
                     else
-                      - ticketPriority = "table-active";
+                      - ticketPriority = "table-default";
                     tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
                       td
                         span #{count++}
@@ -49,10 +49,6 @@ html(lang='en')
                         span #{ticket.topic}  
                       td
                         span #{ticket.title}
-              div(style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 12px; color: #000;')
-              | For all admin: if the ticket posted is not respectful or against our rules and regulations, 
-              a(style="color: #3498DB;" href="/flag_ticket/"+ticket.ticketId) click here 
-              | to flag ticket
             else
               p There are currently no tickets! :)
                   

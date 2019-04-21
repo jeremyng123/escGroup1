@@ -33,6 +33,7 @@ module.exports = function(io) {
   router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
   router.get("/solved/:ticket_id/", isLoggedIn, isVerified, general.ticket_solved );
   router.get("/not_solved/:ticket_id/", isLoggedIn, isVerified, general.ticket_not_solved );
+  
 
   /*************** TICKET CREATION ROUTES *****************/
   router.get("/ticket_form/basics", isLoggedIn, isVerified, general.basics_get); // basics
@@ -48,6 +49,7 @@ module.exports = function(io) {
   // router.get("/tickets/:user_id/0", admins.show_tickets_queued); // admin page -- display all queued tickets
   router.get("/ticket/1/:user_id", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
   router.get("/ticket/2/:user_id", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
+  router.get("/flag_ticket/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.flag_ticket );
 
   /********* DELETE ROW FROM tickets TABLE *************/
   router.post("/ticket/:ticket_id/delete", admins.delete_ticket); // using post and different route

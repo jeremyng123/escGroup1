@@ -228,6 +228,8 @@ exports.ticket_not_solved = function(req, res, next) {
       }).catch(err => { new Error (err, "Unable to post message...")})
 }
 
+
+
 // exports.show_edit_ticket = function(req, res, next) {
 //   return models.ticket
 //     .findOne({
