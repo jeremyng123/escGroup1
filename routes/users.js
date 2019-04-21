@@ -6,10 +6,11 @@ let {email_verification} = require('../middleware/send_verification');
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
 });
-  
+
+var {send_sms} = require('../middleware/sms');
 
 /* Login Page */
-router.get('/login', user.show_login);
+router.get('/login', send_sms, user.show_login);
 router.get('/signup', user.show_signup);
 router.post('/login',user.login);
 router.post('/signup',user.signup);
