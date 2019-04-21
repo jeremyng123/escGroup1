@@ -10,7 +10,16 @@ html(lang='en')
     .container-fluid
       .row.align-items-center
         .col-md-10.order-md-1.text-center.text-md-left
+          - let topics = ["No Filter", "Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
           h1 My tickets #{subtitle}
+          form(action='/sort_tickets',method='POST')
+            .form-group.row
+              .col-sm-5
+                select(class = 'form-control' name='filter')
+                  each topic in topics
+                    option#topic.input-line.full-width(value=topic) #{topic}
+              .col-sm-2
+                button.btn.btn-outline-success Submit
           table.table.table-hover
             thead.thead-dark
               tr
