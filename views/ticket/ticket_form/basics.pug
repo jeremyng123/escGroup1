@@ -288,7 +288,7 @@ html(lang='en')
                 label(for='topic') Issue Type:
               select(class='form-control' name='topic')
                 each topic in topics
-                  option#topic.input-line.full-width(value=topic) #{topic}
+                  option#topic.form_control(value=topic) #{topic}
               div.form-group
                 br
                 label(for='q') Description:
