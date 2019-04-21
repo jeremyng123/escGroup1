@@ -3,7 +3,6 @@ var os = require("os");
 var hostname = os.hostname();
 
 exports.show_tickets_queued = function(req, res, next) {
-    console.log("\n\n\n\n\n\n");
     return models.ticket.findAll({
         where : { tag : 0 },
         include: [ models.user ]

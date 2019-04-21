@@ -202,7 +202,6 @@ exports.show_ticket_messages = function(req, res, next) {
       where : { ticketId : req.params.ticket_id },
       include: [ models.user , models.message ]
   }).then(ticket => {
-      console.log("\n\n" + JSON.stringify(ticket) + "\n\nHEHAHAASD SDASD \n\n\n\n\n\n")
       return res.render('ticket/ticket_messages', { title: 'Responding Tickets', ticket : ticket, user: req.user  , hostname: hostname });
   }).catch(err=>console.log("No ticket found: " + err));
 };
