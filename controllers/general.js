@@ -13,11 +13,18 @@ exports.get_welcome = function(req, res, next) {
 };
 
 exports.get_welcome_admin = function(req, res, next) {
-  return res.render("welcomeAdmin", {
-    title: "Accenture's ACNAPI Portal",
-    user: req.user
+  return models.ticket.findAll({
+    where : { tag : 0 },
+    include: [ models.user ]
+  }).then(
+    tickets => {
+      res.render("welcomeAdmin", {
+        title: "Accenture's ACNAPI Portal",
+        user: req.user, tickets: tickets
+      });
   });
 }
+
 exports.get_consultantpage = function(req, res, next) {
   return res.render("consultant", {
     title: "Accenture's ACNAPI Portal",
