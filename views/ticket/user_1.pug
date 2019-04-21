@@ -28,7 +28,7 @@ html(lang='en')
               tbody
               if tickets != NULL
                 for ticket in tickets
-                  tr(id=ticket.ticketId, href="/my_tickets/"+ user.userId + "/" + ticket.ticketId)
+                  tr(id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
                     td
                       span #{count++}
                     td
