@@ -30,7 +30,17 @@ exports.show_tickets_solved = function(req, res, next) {
     })
 };
 
-
+exports.flag_ticket = function(req, res, next) {
+    return models.ticket.findOne({
+        where   : { ticketId : req.params.ticket_id }
+    }).then(ticket => {
+            return ticket.update({
+                tag :   3
+            }).then( () => {
+                return res.redirect('/'); 
+              })
+        }).catch(err => { new Error (err, "Unable to post message...")})
+  }
 
 exports.delete_ticket = function(req, res, next) {
     return models.ticket.destroy({
