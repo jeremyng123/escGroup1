@@ -18,36 +18,39 @@ html(lang='en')
               a#tickets1(href="/tickets/" + user.userId + "/1") In-Progress #{pre}
               |          |
               a#tickets2(href="/tickets/" + user.userId + "/2") Solved
-            table.table.table-hover
-              thead.thead-dark
-                tr
-                  th(scope="col") #
-                  th(scope="col") Name
-                  th(scope="col") Email
-                  th(scope="col") Phone Number
-                  th(scope="col") Topic
-                  th(scope="col") Subject
-                tr
-              tbody
-              for ticket in tickets
-                - var ticketPriority;
-                if ticket.priority
-                  - ticketPriority = "table-danger";
-                else
-                  - ticketPriority = "tickets";
-                tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
-                  td
-                    span #{count++}
-                  td
-                    span #{ticket.user.firstName + " " + ticket.user.lastName}
-                  td
-                    span #{ticket.user.email}
-                  td
-                    span #{ticket.user.phoneNumber}
-                  td
-                    span #{ticket.topic}  
-                  td
-                    span #{ticket.title}
+            if tickets != NULL
+              table.table.table-hover
+                thead.thead-dark
+                  tr
+                    th(scope="col") #
+                    th(scope="col") Name
+                    th(scope="col") Email
+                    th(scope="col") Phone Number
+                    th(scope="col") Topic
+                    th(scope="col") Subject
+                  tr
+                tbody
+                for ticket in tickets
+                  - var ticketPriority;
+                  if ticket.priority
+                    - ticketPriority = "table-danger";
+                  else
+                    - ticketPriority = "tickets";
+                  tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
+                    td
+                      span #{count++}
+                    td
+                      span #{ticket.user.firstName + " " + ticket.user.lastName}
+                    td
+                      span #{ticket.user.email}
+                    td
+                      span #{ticket.user.phoneNumber}
+                    td
+                      span #{ticket.topic}  
+                    td
+                      span #{ticket.title}
+            else
+              p There are currently no tickets! :)
                   
 
 

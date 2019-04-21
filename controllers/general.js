@@ -136,7 +136,7 @@ exports.details_post = function(req, res, next) {
           phoneNumber : req.user.phoneNumber
         })
         .then(success => {
-          res.redirect("/"); // redirect to a new webpage as we submit email
+          return res.redirect("/"); // redirect to a new webpage as we submit email
         }).catch(err => console.log("error again!" + err));
     })
     .catch(err => console.log("error again!" + err));
@@ -144,17 +144,13 @@ exports.details_post = function(req, res, next) {
 
 /******************** SHOW TICKETS ***************************/
 exports.show_my_tickets_queued = function(req, res, next) {
-  return models.ticket
-    .findAll({
-      where: {
-        fk_userId: req.user.userId,
-        tag: 0
-      },
+  return models.ticket.findAll({
+      where: { fk_userId: req.user.userId, tag: 0 },
       include: [models.message]
     })
     .then(tickets => {
       console.log("USER SHOW TICKETS\n\n" + JSON.stringify(tickets));
-      res.render("ticket/user_0", {
+      return res.render("ticket/user_0", {
         title: "ACNAPI Tickets - Queued",
         tickets: tickets,
         user: req.user,
@@ -173,7 +169,7 @@ exports.show_my_tickets_inprogress = function(req, res, next) {
       include: [models.message]
     })
     .then(tickets => {
-      res.render("ticket/user_1", {
+      return res.render("ticket/user_1", {
         title: "ACNAPI Tickets - In Progress",
         tickets: tickets,
         user: req.user,
@@ -192,7 +188,7 @@ exports.show_my_tickets_solved = function(req, res, next) {
       include: [models.message]
     })
     .then(tickets => {
-      res.render("ticket/user_2", {
+      return res.render("ticket/user_2", {
         title: "ACNAPI Tickets - Solved",
         tickets: tickets,
         user: req.user,
@@ -206,8 +202,8 @@ exports.show_ticket_messages = function(req, res, next) {
       where : { ticketId : req.params.ticket_id },
       include: [ models.user , models.message ]
   }).then(ticket => {
-      console.log("\n\n" + JSON.stringify(ticket) + "HEHAHAASD SDASD \n\n\n\n\n\n")
-      res.render('ticket/ticket_messages', { title: 'Responding Tickets', ticket : ticket, user: req.user  , hostname: hostname });
+      console.log("\n\n" + JSON.stringify(ticket) + "\n\nHEHAHAASD SDASD \n\n\n\n\n\n")
+      return res.render('ticket/ticket_messages', { title: 'Responding Tickets', ticket : ticket, user: req.user  , hostname: hostname });
   }).catch(err=>console.log("No ticket found: " + err));
 };
 
@@ -219,7 +215,7 @@ exports.post_message = function(req, res, next) {
       include : [ models.message ]
   }).then (ticket => {
       if (ticket.tag !== 1){
-          ticket.update({
+          return ticket.update({
               tag :   1
           }).then( () => {
               return models.message.create({
@@ -230,18 +226,19 @@ exports.post_message = function(req, res, next) {
                   fullName    : FULLNAME,
                   email       : req.user.email,
                   phoneNumber : req.user.phoneNumber
-              }).then(() => { res.redirect(TICKET_PAGE); })
+              }).then(() => { return res.redirect(TICKET_PAGE); })
           }).catch(err => { new Error("i cannot create message")})
-      } else {
-              return models.message.create({
-                  fk_userId   : req.user.userId,
-                  fk_ticketId : ticket.ticketId,
-                  content     : req.body.content,
-                  is_admin    : req.user.is_admin,
-                  fullName    : FULLNAME,
-                  email       : req.user.email,
-                  phoneNumber : req.user.phoneNumber
-              }).then(() => { res.redirect(TICKET_PAGE); })
+      } 
+      else {
+        return models.message.create({
+          fk_userId   : req.user.userId,
+          fk_ticketId : ticket.ticketId,
+          content     : req.body.content,
+          is_admin    : req.user.is_admin,
+          fullName    : FULLNAME,
+          email       : req.user.email,
+          phoneNumber : req.user.phoneNumber
+        }).then(() => { return res.redirect(TICKET_PAGE); })
       }
   }).catch(err => { new Error (err, "Unable to post message...")})
 }
@@ -294,7 +291,7 @@ exports.profile_change = function(req, res, next) {
       userId: req.user.userId
       }
     }).then(update => {
-      res.redirect("/");    // redirect homepage
+      return res.redirect("/");    // redirect homepage
     }).catch(err => console.log("error again!" + err));
 };
 

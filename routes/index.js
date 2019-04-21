@@ -31,7 +31,8 @@ module.exports = function(io) {
   router.get( "/my_tickets/:user_id/0", isLoggedIn, isVerified, general.show_my_tickets_queued ); // user page -- display all queued tickets
   router.get( "/my_tickets/:user_id/1", isLoggedIn, isVerified, general.show_my_tickets_inprogress ); // user page -- display all in-progress tickets
   router.get( "/my_tickets/:user_id/2", isLoggedIn, isVerified, general.show_my_tickets_solved ); // user page -- display all solved tickets
-  
+  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.show_ticket_messages ); // respond to ticket
+  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
 
   /*************** TICKET CREATION ROUTES *****************/
   router.get("/ticket_form/basics", isLoggedIn, isVerified, general.basics_get); // basics
@@ -46,13 +47,11 @@ module.exports = function(io) {
   router.get("/tickets/:user_id/0",isLoggedIn, isVerified, hasAuth, admins.show_tickets_queued); // admin page -- display all queued tickets
   router.get("/tickets/:user_id/1", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
   router.get("/tickets/:user_id/2", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
-  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.show_ticket_messages ); // respond to ticket
-  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
 
   /********* DELETE ROW FROM tickets TABLE *************/
   router.post("/ticket/:ticket_id/delete", admins.delete_ticket); // using post and different route
   router.post("/ticket/:ticket_id/delete-json", admins.delete_ticket_json); // using ajax
-
+  
   /***************************
    * REAL TIME CHAT ROUTE
    *  ************************/

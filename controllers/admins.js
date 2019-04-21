@@ -3,30 +3,32 @@ var os = require("os");
 var hostname = os.hostname();
 
 exports.show_tickets_queued = function(req, res, next) {
+    console.log("\n\n\n\n\n\n");
     return models.ticket.findAll({
         where : { tag : 0 },
-        include: [ models.user , models.message]
+        include: [ models.user ]
     }).then(tickets => {
-        res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
-        })
+        console.log ("SIMILANJI\n\n" + JSON.stringify(tickets));
+        return res.render('ticket/admin_0', { title: 'Tickets - Queued', tickets: tickets, user: req.user , subtitle: "queued" , hostname: hostname });
+    })
 };
 
 exports.show_tickets_inprogress = function(req, res, next) {
     return models.ticket.findAll({
         where : { tag : 1 },
-        include: [ models.user , models.message ]
+        include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_1', { title: 'Tickets - In Progress', tickets: tickets, user: req.user  , subtitle: "in-progress" , hostname: hostname });
-        })
+        return res.render('ticket/admin_1', { title: 'Tickets - In Progress', tickets: tickets, user: req.user  , subtitle: "in-progress" , hostname: hostname });
+    })
 };
 
 exports.show_tickets_solved = function(req, res, next) {
     return models.ticket.findAll({
         where : { tag : 2 },
-        include: [ models.user , models.message ]
+        include: [ models.user ]
     }).then(tickets => {
-            res.render('ticket/admin_2', { title: 'Tickets - Solved', tickets: tickets, user: req.user  , subtitle: "solved" , hostname: hostname });
-        })
+        return res.render('ticket/admin_2', { title: 'Tickets - Solved', tickets: tickets, user: req.user  , subtitle: "solved" , hostname: hostname });
+    })
 };
 
 
