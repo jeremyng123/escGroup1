@@ -47,6 +47,7 @@ section.section
 script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js')
 script(src='/javascripts/moment.min.js')
 script(src='/socket.io/socket.io.js')
+script(src='/javascripts/notify.min.js')
 //- script(src='/javascripts/chat.js', type='text/javascript').
 //-   var user = #{user}
 script.
@@ -133,8 +134,10 @@ script.
 
       if (name === data.users[0]) {
         showMessage("youStartedChatWithNoMessages", data);
+        $.notify('You can chat now!');
       } else {
         showMessage("heStartedChatWithNoMessages", data);
+        $.notify('You can chat now!');
       }
 
       chatNickname.text(friend);
