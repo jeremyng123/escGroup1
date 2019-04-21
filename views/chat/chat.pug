@@ -108,17 +108,17 @@ script.
   socket.on("peopleinchat", function (data) {
 
     
-    console.log('emrys: user.firstName', user.firstName);
+    console.log('emrys: user.firstName', "!{user.firstName}");
 
 
     if (data.number === 0) {
-      name = user.firstName;
-      email = user.email;
+      name = "!{user.firstName}";
+      email = "!{user.email}";
       showMessage("inviteSomebody");
       socket.emit("login", { user: name, avatar: email, id: id });
     } else if (data.number === 1) {
-      name = user.firstName;
-      email = user.email;
+      name = "!{user.firstName}";
+      email = "!{user.email}";
       socket.emit("login", { user: name, avatar: email, id: id });
     } else {
       showMessage("tooManyPeople");
