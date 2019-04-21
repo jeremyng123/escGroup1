@@ -3,9 +3,6 @@ var router = express.Router();
 
 let user = require('../controllers/user');
 let {email_verification} = require('../middleware/send_verification');
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
-});
 
 
 /* Login Page */

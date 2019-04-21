@@ -6,7 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
-      primaryKey: true    // PrimaryKey meant that it must have a unique value
+      primaryKey: true,    // PrimaryKey meant that it must have a unique value
+      unique: true
     },
     messageCount:{        // supposed to use to count the number of messages done in a ticket
       type: DataTypes.INTEGER,

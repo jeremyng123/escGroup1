@@ -13,11 +13,11 @@ html(lang='en')
           h1 tickets #{subtitle}
           p
             span
-              a#tickets0(href="/my_tickets/" + user.userId + "/0") Queued #{pre}
+              a#tickets0(href="/my_ticket/" + "0/" + user.userId ) Queued #{pre}
               |          |
-              a#tickets1(href="/my_tickets/" + user.userId + "/1") In-Progress #{pre}
+              a#tickets1(href="/my_ticket/" + "1/" + user.userId ) In-Progress #{pre}
               |          |
-              a#tickets2(href="/my_tickets/" + user.userId + "/2") Solved
+              a#tickets2(href="/my_ticket/" + "2/" + user.userId ) Solved
             table.table.table-hover
               thead.thead-dark
                 tr
