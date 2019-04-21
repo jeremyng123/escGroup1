@@ -79,13 +79,13 @@ module.exports = function(io) {
    * REAL TIME CHAT ROUTE
    *  ************************/
   // this is changed
-  router.get("/room", rtchat.room);
-  router.get("/create", rtchat.create);
-  router.get("/chat/:id", rtchat.chat);
-  router.get('/select', rtchat.select);
-  router.get('/chat/admin/:admin_id', specific_admin_rtchat, rtchat.chat_with_specific_admin);
-  router.get('/chat/all_admin/:user_id', any_admin_rtchat, rtchat.all_admin_redirect); // todo: add middle ware to send email here
-  router.get('/chat/user/:user_id', rtchat.chat_with_any_admin);
+  router.get("/room", isLoggedIn, rtchat.room);
+  router.get("/create", isLoggedIn, rtchat.create);
+  router.get("/chat/:id", isLoggedIn, rtchat.chat);
+  router.get('/select', isLoggedIn, rtchat.select);
+  router.get('/chat/admin/:admin_id', isLoggedIn, specific_admin_rtchat, rtchat.chat_with_specific_admin);
+  router.get('/chat/all_admin/:user_id', isLoggedIn, any_admin_rtchat, rtchat.all_admin_redirect); // todo: add middle ware to send email here
+  router.get('/chat/user/:user_id', isLoggedIn, rtchat.chat_with_any_admin);
 
 
   /*************** UPLOAD IMAGES *****************/
