@@ -31,12 +31,6 @@ html(lang='en')
   +header(title)
   body
   head
-    script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-2')
-    script.
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-138699201-2');
     include common/navbar.pug
     +navbar(user)
     .container-fixed
