@@ -50,14 +50,25 @@ html(lang='en')
                     td(bgcolor=bgColor style="word-wrap: break-word;min-width: 160px;max-width: 160px;")
                       .box.sb2
                         span!=message.content
-          
-          form(action="/tickets/" + user.userId + "/" + ticket.ticketId, method="POST")
-            em
-              strong 
-                .input-group.mb-3
-                  textarea#content.form-control(name='content', placeholder='Enter your response here' rows="4")
-                  .input-group-append
-                    button.btn.btn-outline-dark(type='submit') Submit
+            hr
+          if !user.is_admin && ticket.tag == 1
+            div(style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 12px; color: #000;')
+              | If you think the admin has solved your problem, please 
+              a(style="color: #3498DB;" href="/solved/"+ticket.ticketId) click here 
+              | to move ticket to `solved` folder and give thanks! 
+          if ticket.tag == 2    
+            div(style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 12px; color: #000;')
+              | If you think the admin has made a mistake, please 
+              a(style="color: #3498DB;" href="/not_solved/"+ticket.ticketId) reopen ticket 
+              | to move ticket to `in-progress` folder
+          else
+            form(action="/tickets/" + user.userId + "/" + ticket.ticketId, method="POST")
+              em
+                strong 
+                  .input-group.mb-3
+                    textarea#content.form-control(name='content', placeholder='Enter your response here' rows="4")
+                    .input-group-append
+                      button.btn.btn-outline-dark(type='submit') Submit
             
 
 

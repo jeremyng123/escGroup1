@@ -24,6 +24,7 @@ html(lang='en')
                   th(scope="col") #
                   th(scope="col") Topic
                   th(scope="col") Subject
+                  th(scope="col") Status
                 tr
               tbody
               if tickets != NULL
@@ -35,6 +36,16 @@ html(lang='en')
                       span #{ticket.topic}  
                     td
                       span #{ticket.title}
+                    td
+                      - var status = 'Awaiting Response';
+                      if ticket.tag == 0
+                      else if ticket.tag == 1
+                        - status = 'In progress';
+                      else if ticket.tag == 2
+                        - status = 'Solved!'
+                      else
+                        - status = 'This ticket has violated rules'
+                      span #{status}
                   
 
 

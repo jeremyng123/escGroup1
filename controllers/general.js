@@ -145,12 +145,12 @@ exports.details_post = function(req, res, next) {
 /******************** SHOW TICKETS ***************************/
 exports.show_my_tickets_queued = function(req, res, next) {
   return models.ticket.findAll({
-      where: { fk_userId: req.user.userId, tag: 0 },
+      where: { fk_userId: req.user.userId },
       include: [models.message]
     })
     .then(tickets => {
       console.log("USER SHOW TICKETS\n\n" + JSON.stringify(tickets));
-      return res.render("ticket/user_0", {
+      return res.render("ticket/user", {
         title: "ACNAPI Tickets - Queued",
         tickets: tickets,
         user: req.user,
@@ -159,44 +159,6 @@ exports.show_my_tickets_queued = function(req, res, next) {
     });
 };
 
-exports.show_my_tickets_inprogress = function(req, res, next) {
-  return models.ticket
-    .findAll({
-      where: {
-        fk_userId: req.user.userId,
-        tag: 1
-      },
-      include: [models.message]
-    })
-    .then(tickets => {
-      return res.render("ticket/user_1", {
-        title: "ACNAPI Tickets - In Progress",
-        tickets: tickets,
-        user: req.user,
-        subtitle: "in-progress"
-      });
-    });
-};
-
-exports.show_my_tickets_solved = function(req, res, next) {
-  return models.ticket
-    .findAll({
-      where: {
-        fk_userId: req.user.userId,
-        tag: 2
-      },
-      include: [models.message]
-    })
-    .then(tickets => {
-      return res.render("ticket/user_2", {
-        title: "ACNAPI Tickets - Solved",
-        tickets: tickets,
-        user: req.user,
-        subtitle: "solved",
-        hostname: hostname 
-      });
-    });
-};
 exports.show_ticket_messages = function(req, res, next) {
   return models.ticket.findOne({
       where : { ticketId : req.params.ticket_id },
@@ -211,7 +173,7 @@ exports.post_message = function(req, res, next) {
   const TICKET_PAGE = "/tickets/" + req.user.userId +"/" + req.params.ticket_id;
   return models.ticket.findOne({
       where   : { ticketId : req.params.ticket_id },
-      include : [ models.message ]
+      include : [ models.message , models.user ]
   }).then (ticket => {
       if (ticket.tag !== 1){
           return ticket.update({
@@ -240,6 +202,30 @@ exports.post_message = function(req, res, next) {
         }).then(() => { return res.redirect(TICKET_PAGE); })
       }
   }).catch(err => { new Error (err, "Unable to post message...")})
+}
+
+exports.ticket_solved = function(req, res, next) {
+  return models.ticket.findOne({
+      where   : { ticketId : req.params.ticket_id }
+  }).then(ticket => {
+          return ticket.update({
+              tag :   2
+          }).then( () => {
+              return res.redirect('/'); 
+            })
+      }).catch(err => { new Error (err, "Unable to post message...")})
+}
+
+exports.ticket_not_solved = function(req, res, next) {
+  return models.ticket.findOne({
+      where   : { ticketId : req.params.ticket_id }
+  }).then(ticket => {
+          return ticket.update({
+              tag :   1
+          }).then( () => {
+              return res.redirect('/'); 
+            })
+      }).catch(err => { new Error (err, "Unable to post message...")})
 }
 
 // exports.show_edit_ticket = function(req, res, next) {

@@ -36,7 +36,7 @@ exports.isVerified = function(req,res,next){
         return res.redirect(PATH);  // tickets page that are queued
     }
     else if (req.user){
-        return res.redirect('/my_ticket/' + '0/' + req.user.userId );
+        return res.redirect('/my_ticket/' + req.user.userId );
     }
     else {
         return res.redirect('/users/signup');

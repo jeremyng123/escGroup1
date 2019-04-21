@@ -1,0 +1,53 @@
+- var count = 1
+doctype html
+html(lang='en')
+  include ../common/header.pug
+  +header(title)
+  body
+    head
+    include ../common/navbar.pug
+    +navbar(user)
+    .container-fluid
+      .row.align-items-center
+        .col-md-10.order-md-1.text-center.text-md-left
+          h1 My tickets #{subtitle}
+          table.table.table-hover
+            thead.thead-dark
+              tr
+                th(scope="col") #
+                th(scope="col") Topic
+                th(scope="col") Subject
+                th(scope="col") Status
+              tr
+            tbody
+            if tickets != NULL
+              for ticket in tickets
+                - var status, tableColor;
+                if ticket.tag == 0
+                  - status = 'Awaiting Response';
+                  - tableColor = 'table-active';
+                else if ticket.tag == 1
+                  - status = 'In progress';
+                  - tableColor = 'table-primary';
+                else if ticket.tag == 2
+                  - status = 'Solved!'
+                  - tableColor = 'table-success';
+                else
+                  - status = 'This ticket has violated rules'
+                  - tableColor = 'table-danger';
+                tr(class=tableColor id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
+                  td
+                    span #{count++}
+                  td
+                    span #{ticket.topic}  
+                  td
+                    span #{ticket.title}
+                  td
+                    
+                    span #{status}
+                  
+
+
+    include ../common/footer.pug
+    +footer()
+    script(src="/javascripts/ticket_table.js")
