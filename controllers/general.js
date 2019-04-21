@@ -143,21 +143,55 @@ exports.details_post = function(req, res, next) {
 };
 
 /******************** SHOW TICKETS ***************************/
-exports.show_my_tickets_queued = function(req, res, next) {
+exports.show_my_tickets = function(req, res, next) {
   return models.ticket.findAll({
       where: { fk_userId: req.user.userId },
       include: [models.message]
     })
     .then(tickets => {
-      console.log("USER SHOW TICKETS\n\n" + JSON.stringify(tickets));
       return res.render("ticket/user", {
-        title: "ACNAPI Tickets - Queued",
+        title: "ACNAPI My Tickets",
         tickets: tickets,
         user: req.user,
         subtitle: "queued"
       });
     });
 };
+
+exports.show_my_tickets_sorted = function(req, res, next) {
+  console.log("req.body.filter: " + req.body.filter);
+  if (req.body.filter === "No Filter" || req.body.filter == null ) {
+    return models.ticket.findAll({
+      where: { fk_userId: req.user.userId },
+      include: [models.message]
+    })
+    .then(tickets => {
+      return res.render("ticket/user", {
+        title: "ACNAPI My Tickets",
+        tickets: tickets,
+        user: req.user,
+        subtitle: "queued"
+      });
+    });
+  }
+
+  else {
+    return models.ticket.findAll({
+      where   : { 
+        fk_userId : req.user.userId,
+        topic     : req.body.filter
+      },
+      include: [ models.message ]
+    }).then(tickets => {
+      return res.render("ticket/user", {
+        title: "ACNAPI My Tickets",
+        tickets: tickets,
+        user: req.user,
+        subtitle: "queued"
+      });
+    });
+  }
+}
 
 exports.show_ticket_messages = function(req, res, next) {
   return models.ticket.findOne({
@@ -227,6 +261,8 @@ exports.ticket_not_solved = function(req, res, next) {
             })
       }).catch(err => { new Error (err, "Unable to post message...")})
 }
+
+
 
 
 

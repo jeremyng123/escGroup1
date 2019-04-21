@@ -28,7 +28,8 @@ module.exports = function(io) {
   router.post('/profile_change', general.profile_change);
 
   /*************** GENERAL TICKET ROUTES *****************/
-  router.get( "/my_ticket/:user_id", isLoggedIn, isVerified, general.show_my_tickets_queued ); // user page -- display all queued tickets
+  router.get( "/my_ticket/:user_id", isLoggedIn, isVerified, general.show_my_tickets ); // user page -- display all queued tickets
+  router.post( "/sort_tickets", isLoggedIn, isVerified, general.show_my_tickets_sorted ); // user page -- display all queued tickets sorted
   router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.show_ticket_messages ); // respond to ticket
   router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
   router.get("/solved/:ticket_id/", isLoggedIn, isVerified, general.ticket_solved );
