@@ -42,3 +42,16 @@ exports.isVerified = function(req,res,next){
         return res.redirect('/users/signup');
     }
 }
+
+exports.welcomeAdmin= function(req,res,next){
+    if (req.user && req.user.is_admin){
+        const PATH = '/welcomeAdmin';
+        return res.redirect(PATH);  // tickets page that are queued
+    }
+    else if (req.user){
+        return res.redirect('/');
+    }
+    else {
+        return res.redirect('/users/signup');
+    }
+}
