@@ -1,15 +1,15 @@
 doctype html
 html(lang='en')
-  head
-    script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
-    script.
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-138699201-1');
-    include ../common/header.pug
-    +header(title)
+  include ../common/header.pug
+  +header(title)
   body
+    head
+      script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
+      script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-138699201-1');
     include ../common/navbar.pug
     +navbar(user)
     .container
