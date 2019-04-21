@@ -139,7 +139,7 @@ module.exports = function(io) {
     });
   });
 
-  router.post("/uploadCarou", carouUpload.single("file"), function(req, res) {
+  router.post("/uploadCarousel", carouUpload.single("file"), function(req, res) {
     res.json({
       location:
       "public/images/carousel/" + req.file.filename
