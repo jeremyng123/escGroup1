@@ -53,18 +53,6 @@ module.exports = function(io) {
     isVerified,
     general.show_my_tickets_solved
   ); // user page -- display all solved tickets
-  router.get(
-    "/my_tickets/:user_id/:ticket_id",
-    isLoggedIn,
-    isVerified,
-    general.show_edit_ticket
-  ); // user making edit to his/her tickets
-  router.post(
-    "/my_tickets/:user_id/:ticket_id",
-    isLoggedIn,
-    isVerified,
-    general.edit_ticket
-  );
 
   /*************** TICKET CREATION ROUTES *****************/
   router.get("/ticket_form/basics", isLoggedIn, isVerified, general.basics_get); // basics
@@ -127,15 +115,13 @@ module.exports = function(io) {
     "/tickets/:user_id/:ticket_id/",
     isLoggedIn,
     isVerified,
-    hasAuth,
-    admins.show_ticket_messages
+    general.show_ticket_messages
   ); // respond to ticket
   router.post(
     "/tickets/:user_id/:ticket_id/",
     isLoggedIn,
     isVerified,
-    hasAuth,
-    admins.post_message
+    general.post_message
   );
 
   /********* DELETE ROW FROM tickets TABLE *************/
@@ -146,21 +132,23 @@ module.exports = function(io) {
    * REAL TIME CHAT ROUTE
    *  ************************/
   // this is changed
-  router.get("/room", rtchat.room);
-  router.get("/create", rtchat.create);
-  router.get("/chat/:id", rtchat.chat);
-  router.get("/select", rtchat.select);
+  router.get("/room", isLoggedIn, rtchat.room);
+  router.get("/create", isLoggedIn, rtchat.create);
+  router.get("/chat/:id", isLoggedIn, rtchat.chat);
+  router.get("/select", isLoggedIn, rtchat.select);
   router.get(
     "/chat/admin/:admin_id",
+    isLoggedIn,
     specific_admin_rtchat,
     rtchat.chat_with_specific_admin
   );
   router.get(
     "/chat/all_admin/:user_id",
+    isLoggedIn,
     any_admin_rtchat,
     rtchat.all_admin_redirect
   ); // todo: add middle ware to send email here
-  router.get("/chat/user/:user_id", rtchat.chat_with_any_admin);
+  router.get("/chat/user/:user_id", isLoggedIn, rtchat.chat_with_any_admin);
 
   /*************** UPLOAD IMAGES *****************/
   var multer = require("multer");
@@ -179,12 +167,28 @@ module.exports = function(io) {
       var name =
         file.fieldname + "-" + Date.now() + path.extname(file.originalname);
       cb(null, name);
-
       return name;
     }
   });
+
+  var carouStorage = multer.diskStorage({
+    destination: function(req, file, cb, res) {
+      cb(null, "public/images/carousel/");
+    },
+
+    filename: function(req, file, cb, res) {
+      var name = "slide1.jpg";
+      cb(null, name);
+      return name;
+    }
+  });
+
   var upload = multer({
     storage: storage
+  });
+
+  var carouUpload = multer({
+    storage: carouStorage
   });
 
   function checkUploadPath(req, res, next) {
@@ -217,6 +221,12 @@ module.exports = function(io) {
         req.user.ticketCount +
         "/" +
         req.file.filename
+    });
+  });
+
+  router.post("/uploadCarou", carouUpload.single("file"), function(req, res) {
+    res.json({
+      location: "public/images/carousel/" + req.file.filename
     });
   });
 
