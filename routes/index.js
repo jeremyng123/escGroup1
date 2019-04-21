@@ -28,36 +28,9 @@ module.exports = function(io) {
   router.post('/profile_change', general.profile_change);
 
   /*************** GENERAL TICKET ROUTES *****************/
-  router.get(
-    "/my_tickets/:user_id/0",
-    isLoggedIn,
-    isVerified,
-    general.show_my_tickets_queued
-  ); // user page -- display all queued tickets
-  router.get(
-    "/my_tickets/:user_id/1",
-    isLoggedIn,
-    isVerified,
-    general.show_my_tickets_inprogress
-  ); // user page -- display all in-progress tickets
-  router.get(
-    "/my_tickets/:user_id/2",
-    isLoggedIn,
-    isVerified,
-    general.show_my_tickets_solved
-  ); // user page -- display all solved tickets
-  router.get(
-    "/my_tickets/:user_id/:ticket_id",
-    isLoggedIn,
-    isVerified,
-    general.show_edit_ticket
-  ); // user making edit to his/her tickets
-  router.post(
-    "/my_tickets/:user_id/:ticket_id",
-    isLoggedIn,
-    isVerified,
-    general.edit_ticket
-  );
+  router.get( "/my_tickets/:user_id/0", isLoggedIn, isVerified, general.show_my_tickets_queued ); // user page -- display all queued tickets
+  router.get( "/my_tickets/:user_id/1", isLoggedIn, isVerified, general.show_my_tickets_inprogress ); // user page -- display all in-progress tickets
+  router.get( "/my_tickets/:user_id/2", isLoggedIn, isVerified, general.show_my_tickets_solved ); // user page -- display all solved tickets
   
 
   /*************** TICKET CREATION ROUTES *****************/
@@ -73,8 +46,8 @@ module.exports = function(io) {
   router.get("/tickets/:user_id/0",isLoggedIn, isVerified, hasAuth, admins.show_tickets_queued); // admin page -- display all queued tickets
   router.get("/tickets/:user_id/1", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
   router.get("/tickets/:user_id/2", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
-  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.show_ticket_messages ); // respond to ticket
-  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.post_message );
+  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.show_ticket_messages ); // respond to ticket
+  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
 
   /********* DELETE ROW FROM tickets TABLE *************/
   router.post("/ticket/:ticket_id/delete", admins.delete_ticket); // using post and different route
