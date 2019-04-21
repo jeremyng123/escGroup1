@@ -1,4 +1,4 @@
-$(function (user) {
+$(function () {
   // getting the id of the room from the url
   if (window.location.pathname.includes('/chat/admin'))
     // var id = Number(window.location.pathname.match(/\/chat\/admin\/(\d+)$/)[1]);
