@@ -9,7 +9,7 @@ var client = new twilio(accountSid, authToken);
 
 exports.send_sms = function(req, res, next) {
     client.messages.create({
-        body: 'Hello from Node',
+        body: 'Admin have replied your messages! please login to accenture ticket website and see our response!',
         to: '+6585026210',  
         from: '+19546211020'
     }).then((message) => console.log(message.sid));

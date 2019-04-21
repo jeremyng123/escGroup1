@@ -16,9 +16,8 @@ module.exports = function(io) {
   } = require("../middleware/hasAuth");
   let { send_email } = require("../middleware/email");
   let { any_admin_rtchat } = require("../middleware/any_admin_rtchat");
-  let {
-    specific_admin_rtchat
-  } = require("../middleware/specific_admin_rtchat");
+  let {specific_admin_rtchat} = require("../middleware/specific_admin_rtchat");
+  let {send_sms} = require('../middleware/sms');
   /*************** REAL TIME CHAT DEPENDENCIES *****************/
   /**
    * Use the gravatar module, to turn email addresses into avatar images:
@@ -115,6 +114,7 @@ module.exports = function(io) {
     "/tickets/:user_id/:ticket_id/",
     isLoggedIn,
     isVerified,
+    send_sms,
     general.show_ticket_messages
   ); // respond to ticket
   router.post(
