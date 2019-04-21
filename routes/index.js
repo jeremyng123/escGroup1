@@ -8,7 +8,7 @@ module.exports = function(io) {
   let user = require("../controllers/user"); // to direct them to login page!
 
   /*************** MIDDLEWARE *****************/
-  let { isLoggedIn, isVerified, hasAuth, whatRights } = require("../middleware/hasAuth");
+  let { isLoggedIn, isVerified, hasAuth, whatRights, welcomeAdmin } = require("../middleware/hasAuth");
   let { send_email } = require("../middleware/email");
   let { any_admin_rtchat } = require("../middleware/any_admin_rtchat");
   let { specific_admin_rtchat} = require("../middleware/specific_admin_rtchat");
@@ -20,7 +20,8 @@ module.exports = function(io) {
   let rtchat = require("../controllers/chat");
 
   /*************** HOMEPAGE *****************/
-  router.get("/", general.get_welcome);
+  router.get("/", welcomeAdmin, general.get_welcome);
+  router.get("/welcomeAdmin", general.get_welcome_admin);
   router.get("/consultant", general.get_consultantpage);
 
   /*************** PROFILE *****************/
@@ -138,7 +139,7 @@ module.exports = function(io) {
     });
   });
 
-  router.post("/uploadCarou", carouUpload.single("file"), function(req, res) {
+  router.post("/uploadCarousel", carouUpload.single("file"), function(req, res) {
     res.json({
       location:
       "public/images/carousel/" + req.file.filename
