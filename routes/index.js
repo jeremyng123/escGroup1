@@ -28,36 +28,9 @@ module.exports = function(io) {
   router.post('/profile_change', general.profile_change);
 
   /*************** GENERAL TICKET ROUTES *****************/
-  router.get(
-    "/my_tickets/:user_id/0",
-    isLoggedIn,
-    isVerified,
-    general.show_my_tickets_queued
-  ); // user page -- display all queued tickets
-  router.get(
-    "/my_tickets/:user_id/1",
-    isLoggedIn,
-    isVerified,
-    general.show_my_tickets_inprogress
-  ); // user page -- display all in-progress tickets
-  router.get(
-    "/my_tickets/:user_id/2",
-    isLoggedIn,
-    isVerified,
-    general.show_my_tickets_solved
-  ); // user page -- display all solved tickets
-  router.get(
-    "/my_tickets/:user_id/:ticket_id",
-    isLoggedIn,
-    isVerified,
-    general.show_edit_ticket
-  ); // user making edit to his/her tickets
-  router.post(
-    "/my_tickets/:user_id/:ticket_id",
-    isLoggedIn,
-    isVerified,
-    general.edit_ticket
-  );
+  router.get( "/my_tickets/:user_id/0", isLoggedIn, isVerified, general.show_my_tickets_queued ); // user page -- display all queued tickets
+  router.get( "/my_tickets/:user_id/1", isLoggedIn, isVerified, general.show_my_tickets_inprogress ); // user page -- display all in-progress tickets
+  router.get( "/my_tickets/:user_id/2", isLoggedIn, isVerified, general.show_my_tickets_solved ); // user page -- display all solved tickets
   
 
   /*************** TICKET CREATION ROUTES *****************/
@@ -73,8 +46,8 @@ module.exports = function(io) {
   router.get("/tickets/:user_id/0",isLoggedIn, isVerified, hasAuth, admins.show_tickets_queued); // admin page -- display all queued tickets
   router.get("/tickets/:user_id/1", isLoggedIn, isVerified, hasAuth, admins.show_tickets_inprogress ); // admin page -- display all in-progress tickets
   router.get("/tickets/:user_id/2", isLoggedIn, isVerified, hasAuth, admins.show_tickets_solved ); // admin page -- display all solved tickets
-  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.show_ticket_messages ); // respond to ticket
-  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, hasAuth, admins.post_message );
+  router.get("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.show_ticket_messages ); // respond to ticket
+  router.post("/tickets/:user_id/:ticket_id/", isLoggedIn, isVerified, general.post_message );
 
   /********* DELETE ROW FROM tickets TABLE *************/
   router.post("/ticket/:ticket_id/delete", admins.delete_ticket); // using post and different route
@@ -84,13 +57,13 @@ module.exports = function(io) {
    * REAL TIME CHAT ROUTE
    *  ************************/
   // this is changed
-  router.get("/room", rtchat.room);
-  router.get("/create", rtchat.create);
-  router.get("/chat/:id", rtchat.chat);
-  router.get('/select', rtchat.select);
-  router.get('/chat/admin/:admin_id', specific_admin_rtchat, rtchat.chat_with_specific_admin);
-  router.get('/chat/all_admin/:user_id', any_admin_rtchat, rtchat.all_admin_redirect); // todo: add middle ware to send email here
-  router.get('/chat/user/:user_id', rtchat.chat_with_any_admin);
+  router.get("/room", isLoggedIn, rtchat.room);
+  router.get("/create", isLoggedIn, rtchat.create);
+  router.get("/chat/:id", isLoggedIn, rtchat.chat);
+  router.get('/select', isLoggedIn, rtchat.select);
+  router.get('/chat/admin/:admin_id', isLoggedIn, specific_admin_rtchat, rtchat.chat_with_specific_admin);
+  router.get('/chat/all_admin/:user_id', isLoggedIn, any_admin_rtchat, rtchat.all_admin_redirect); // todo: add middle ware to send email here
+  router.get('/chat/user/:user_id', isLoggedIn, rtchat.chat_with_any_admin);
 
 
   /*************** UPLOAD IMAGES *****************/
@@ -110,17 +83,33 @@ module.exports = function(io) {
       var name =
         file.fieldname + "-" + Date.now() + path.extname(file.originalname);
       cb(null, name);
-
       return name;
     }
   });
+
+  var carouStorage = multer.diskStorage({
+    destination: function(req, file, cb, res) {
+      cb( null,"public/images/carousel/" );
+    },
+
+    filename: function(req, file, cb, res) {
+      var name = 'slide1.jpg';
+      cb(null, name);
+      return name;
+    }
+  });
+
+  
   var upload = multer({
     storage: storage
   });
 
+  var carouUpload = multer({
+    storage: carouStorage
+  });
+
   function checkUploadPath(req, res, next) {
-    const uploadPath =
-      "public/users/" + req.user.userId + "/tickets/" + req.user.ticketCount;
+    const uploadPath = "public/users/" + req.user.userId + "/tickets/" + req.user.ticketCount;
     fs.exists(uploadPath, function(exists) {
       if (exists) {
         return next();
@@ -140,6 +129,13 @@ module.exports = function(io) {
     res.json({
       location:
         "users/" + req.user.userId + "/tickets/" + req.user.ticketCount + "/" + req.file.filename
+    });
+  });
+
+  router.post("/uploadCarou", carouUpload.single("file"), function(req, res) {
+    res.json({
+      location:
+      "public/images/carousel/" + req.file.filename
     });
   });
 

@@ -220,45 +220,61 @@ html(lang='en')
             height: 100%;
           }
         }
-    include ../common/navbar.pug
-    +navbar(user)
-    .bold-line
-    .container
-      .window
-        .overlay
-        .content
-          .welcome Sign Up
-          .subtitle Log In to Use Our Services
+      script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
+      script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-138699201-1');
+      include ../common/navbar.pug
+      +navbar()
+      .container
+        .row
+          .col-sm-12.offset-md-2.col-md-8
+            .jumbotron
+              h2.text-center Sign up!
+              .row
+                .col-sm-12.col-md-12.col-xs-12
+                  form(action='/users/signup', method='POST')
+                    div.formgroup
+                      label.small.mb-1.mt-3 Email: 
+                      input(placeholder='e.g. jem_ng@hotmail.com',required=true, name='email',type='email',value=formData.email).form-control
+                      if (errors && errors.email)
+                        p#err_email.small.text-danger #{errors.email}
+                      .form-row.mb-1
+                        .col
+                          label.small.mb-1.mt-3 First Name: 
+                          input(placeholder='e.g. Jeremy',required=true, name='firstName',type='text',value=formData.firstName).form-control
+                          if (errors && errors.firstName)
+                            p#err_firstName.small.text-danger #{errors.firstName}
+                        .col
+                          label.small.mb-1.mt-3 Last Name: 
+                          input(placeholder='e.g. Ng',required=true, name='lastName',type='text',value=formData.lastName).form-control
+                          if (errors && errors.lastName)
+                            p#err_lastName.small.text-danger #{errors.lastName}
+                      label.small.mb-1.mt-3 Phone Number: 
+                      input(placeholder='e.g. 91234567',required=true, name='phoneNumber',type='text',value=formData.phoneNumber).form-control
+                      if (errors && errors.phoneNumber)
+                        p#err_phoneNumber.small.text-danger #{errors.phoneNumber}
+                      label.small.mb-1.mt-3 Password: 
+                      input(placeholder='New Password',required=true, name='password', type='password',value='').form-control
+                      if (errors && errors.password)
+                        p#err_password.small.text-danger #{errors.password}
+                      label.small.mb-1.mt-3 Confirm Password:
+                      input(placeholder='Confirm password',required=true, name='password2', type='password',value='').form-control
+                      if (errors && errors.password2)
+                        p#err_password2.small.text-danger #{errors.password2}
+                      button.mt-3.btn.btn-primary(type='submit') Sign up
+                      p.mt-2.mb-0 
+                        | Already have an account? #[a(href="/users/login") Log in here].
+                  hr
+                  // Terms of service
+                  p
+                    | By clicking
+                    em Sign up
+                    |  you agree to our
+                    a(href="" target="_blank") terms of service
 
-          form(action='/users/signup', method='POST')
-            div.formgroup
-              .input-fields
-                input.input-line.full-width(placeholder='Email',required=true, name='email',type='email',value=formData.email)
-                if (errors && errors.email)
-                  p#err_email.small.text-danger #{errors.email}
-                input.input-line.full-width(placeholder='First Name',required=true, name='firstName',type='text',value=formData.firstName)
-                if (errors && errors.firstName)
-                  p#err_firstName.small.text-danger #{errors.firstName}
-                input.input-line.full-width(placeholder='Last Name',required=true, name='lastName',type='text',value=formData.lastName)
-                if (errors && errors.lastName)
-                  p#err_lastName.small.text-danger #{errors.lastName}
-                input.input-line.full-width(placeholder='Phone Number',required=true, name='phoneNumber',type='text',value=formData.phoneNumber)
-                if (errors && errors.phoneNumber)
-                  p#err_phoneNumber.small.text-danger #{errors.phoneNumber}
-                input.input-line.full-width(placeholder='New Password', required=true, name='password', type='password',value='')
-                if (errors && errors.password)
-                  p#err_password.small.text-danger #{errors.password}
-                input.input-line.full-width(placeholder='Confirm Password',required=true, name='password2', type='password',value='')
-                if (errors && errors.password2)
-                  p#err_password2.small.text-danger #{errors.password2}
-
-              br
-              br
-              div
-                button.ghost-round.full-width Sign Up
-              .spacing
-                p.mt-2.mb-0 
-                        | Already have an account? #[a(href="/users/login" class="text-light") Log in here].
 
     include ../common/footer.pug
     +footer()
