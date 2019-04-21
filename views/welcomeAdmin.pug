@@ -56,49 +56,61 @@ html(lang='en')
                 img.img-responsive(src='/images/ViewUser.png', width='150', height='150 ', alt='Generic placeholder thumbnail')
               span
               h5 View User
-            //- .col-xs-6.col-sm-3.placeholder
-            //-   a(href="/room") 
-            //-     img.img-responsive(src='/images/004-notification.png', width='100', height='100', alt='Generic placeholder thumbnail')
-            //-   span
-            //-   h4 Notification 
+            .col-xs-6.col-sm-3.placeholder
+              a(href="/uploadCarousel") 
+                img.img-responsive(src='/images/004-notification.png', width='100', height='100', alt='Generic placeholder thumbnail')
+              span
+              h4 Notification 
                 
           h2.sub-header Outstanding Tickets
-          .table-responsive
-            table.table.table-striped
-              thead
-                tr
-                  th Index #
-                  th Ticket ID
-                  th Title
-                  th Comments
-                  th Status
-              tbody
-                tr
-                  td 1
-                  td 12345
-                  td Debugging Issues
-                  td Sorry I can't help.
-                  td Unsolved
-                tr
-                  td 2
-                  td 123456
-                  td Server Down
-                  td Buy new server.
-                  td Solved
-                
+            .container-fluid
+              .row.align-items-center
+                .col-md-10.order-md-1.text-center.text-md-left
+                  h1 tickets #{subtitle}
+                  p
+                    span
+                      a#tickets0(href="/tickets/" + user.userId + "/0") Queued #{pre}
+                      |          |
+                      a#tickets1(href="/tickets/" + user.userId + "/1") In-Progress #{pre}
+                      |          |
+                      a#tickets2(href="/tickets/" + user.userId + "/2") Solved
+                    table.table.table-hover
+                      thead.thead-dark
+                        tr
+                          th(scope="col") #
+                          th(scope="col") Name
+                          th(scope="col") Email
+                          th(scope="col") Phone Number
+                          th(scope="col") Topic
+                          th(scope="col") Subject
+                        tr
+                      tbody
+                      for ticket in tickets
+                        - var ticketPriority;
+                        if ticket.priority
+                          - ticketPriority = "table-danger";
+                        else
+                          - ticketPriority = "tickets";
+                        tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
+                          td
+                            span #{count++}
+                          td
+                            span #{ticket.user.firstName + " " + ticket.user.lastName}
+                          td
+                            span #{ticket.user.email}
+                          td
+                            span #{ticket.user.phoneNumber}
+                          td
+                            span #{ticket.topic}  
+                          td
+                            span #{ticket.title}
+                  
     //
       Bootstrap core JavaScript
       ==================================================
     // Placed at the end of the document so the pages load faster
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js')
-    script.
-      window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\\/script>')
-    script(src='../../dist/js/bootstrap.min.js')
-    // Just to make our placeholder images work. Don't actually copy the next line!
-    script(src='../../assets/js/vendor/holder.min.js')
-    // IE10 viewport hack for Surface/desktop Windows 8 bug
-    script(src='../../assets/js/ie10-viewport-bug-workaround.js')
-
+    script(src='/js/bootstrap.min.js')
     include common/footer.pug
     +footer()
     

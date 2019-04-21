@@ -6,7 +6,9 @@ html(lang='en')
   +header(title)
   body
     head
+
       script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
+
       script.
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
@@ -194,7 +196,8 @@ html(lang='en')
           flex-flow: column;
           box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.2);
           box-sizing: border-box;
-          height: 700px;
+          margin-top: 30px;
+          height: 650px;
           width: 1000px;
           background: #fff;
           background: url('https://pexels.imgix.net/photos/27718/pexels-photo-27718.jpg?fit=crop&w=1280&h=823') top left no-repeat;
@@ -235,6 +238,7 @@ html(lang='en')
             height: 100%;
           }
         }
+
     include ../common/navbar.pug
     +navbar(user)
     .bold-line

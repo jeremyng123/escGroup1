@@ -7,6 +7,13 @@ head
   title Private chat room | Demo
   link(type='text/css' rel='stylesheet' href='../stylesheets/stylesheet.css')
   link(href='http://fonts.googleapis.com/css?family=Open+Sans Condensed:300italic,300,700' rel='stylesheet' type='text/css')
+  style.
+   .center {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 150px;
+        }
 header.banner
   h1.bannertext
     a#logo(href='http://tutorialzine.com/2014/03/nodejs-private-webchat/')
@@ -21,8 +28,9 @@ section.section
     |
     for admin in admins
       // use the id of the admin as the real time chat website address
-      a(href='/chat/admin/' + admin.userId) #{admin.firstName}
-        img(src='../images/unnamed.jpg') 
+      img(src='/images/aboutConsultant/JemPortrait.png', width="150", height="180")
+      a(href='/chat/admin/' + admin.userId, class="center") #{admin.firstName}
+         
     | 
     h2 if you dont know any admin
     .link
@@ -89,9 +97,6 @@ script.
 
   // receive the names and avatars of all people in the chat room
   socket.on("peopleinchat", function (data) {
-
-    
-    console.log('emrys: user.firstName', user.firstName);
 
 
     if (data.number === 0) {

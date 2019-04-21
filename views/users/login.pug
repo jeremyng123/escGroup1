@@ -35,6 +35,12 @@ html(lang='en')
   +header(title)
   body
     header
+    script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
+    script.
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-138699201-1');    
     style.
         @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
         body,
@@ -219,8 +225,8 @@ html(lang='en')
         .overlay {
           background: -webkit-linear-gradient(#FEDA77, #F58529);
           background: linear-gradient(#FEDA77, #F58529);
-          opacity: 0.85;
-          filter: alpha(opacity=85);
+          opacity: 0.9;
+          filter: alpha(opacity=90);
           height: 560px;
           position: absolute;
           width: 1000px;
@@ -251,12 +257,7 @@ html(lang='en')
             height: 100%;
           }
         }
-    script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
-    script.
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-138699201-1');
+    
     include ../common/navbar.pug
     +navbar(user)
     .bold-line
