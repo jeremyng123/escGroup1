@@ -142,7 +142,7 @@ module.exports = function(io) {
   router.post("/uploadCarousel", carouUpload.single("file"), function(req, res) {
     res.json({
       location:
-      "images/carousel/" + req.file.filename
+      "images/carousel/" + 'slide1.jpg'
     });
   });
 
