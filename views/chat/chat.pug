@@ -13,7 +13,7 @@ header.banner
 section.section
   // These elements are displayed as white info cards in the middle of the screen
   .left
-    img#leftImage(src='/images/unnamed.jpg')
+    img#leftImage(src='/images/aboutConsultant/JemPortrait.png')
     .info
       h2
         span.nickname-left
@@ -29,7 +29,7 @@ section.section
        | .
     h5 keep the website open, we will remind you when an admin enters
   .nomessages
-    img#noMessagesImage(src='/images/unnamed.jpg')
+    img#noMessagesImage(src='/images/aboutConsultant/JemPortrait.png')
     .info
       h2
         | You are chatting with 
@@ -209,9 +209,11 @@ script.
 
     if (user === name) {
       who = "me";
+      imgg = '/images/aboutConsultant/JemPortrait.png'
     } else {
       who = "you";
     }
+      
 
     var li = $(
       "<li class=" +
@@ -286,7 +288,8 @@ script.
       });
 
       friend = data.users[1];
-      noMessagesImage.attr("src", data.avatars[1]);
+      //- noMessagesImage.attr("src", data.avatars[1]);
+      noMessagesImage.attr("src", '/images/aboutConsultant/JemPortrait.png');
     } 
     
     else if (status === "heStartedChatWithNoMessages") {
@@ -302,12 +305,14 @@ script.
 
       friend = data.users[0];
       noMessagesImage.attr("src", data.avatars[0]);
+      
     }
 
     else if (status === "chatStarted") {
       section.children().css("display", "none");
       chatForm.parent().css('display', 'block');// emrys
       chatScreen.css("display", "block");
+      
     }
 
     else if (status === "somebodyLeft") {

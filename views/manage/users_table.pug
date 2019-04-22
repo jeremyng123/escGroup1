@@ -1,0 +1,47 @@
+- var count = 1
+doctype html
+html(lang='en')
+  include ../common/header.pug
+  +header(title)
+  body
+    head
+    include ../common/navbar.pug
+    +navbar(user)
+    .container-fluid
+      .row.align-items-center
+        .col-md-10.order-md-1.text-center.text-md-left
+          table.table.table-hover
+            thead.thead-dark
+              tr
+                th(scope="col") #
+                th(scope="col") Name
+                th(scope="col") Email
+                th(scope="col") Phone Number
+                th(scope="col") User Type
+              tr
+            tbody
+              for u in users
+                - var status, tableColor;
+                if u.is_admin
+                  - status = 'Admin';
+                  - tableColor = 'table-primary';
+                else
+                  - status = 'User'
+                  - tableColor = 'table-secondary';
+                tr(class=tableColor id=u.userId, href="/view/"+ u.userId)
+                  td
+                    span #{count++}
+                  td
+                    span #{u.firstName } #{u.lastName}  
+                  td
+                    span #{u.email}
+                  td
+                    span #{u.phoneNumber}
+                  td
+                    span #{status}
+                  
+
+
+    include ../common/footer.pug
+    +footer()
+    script(src="/javascripts/user_table.js")

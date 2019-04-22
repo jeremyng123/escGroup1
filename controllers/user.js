@@ -95,13 +95,13 @@ exports.forgot_password = function(req, res, next) {
 };
 let validator = require('validator');
 
+exports.show_change_password = function(req, res, next) {
+	return res.render('users/change_password', { title: "ACNAPI Change Password", formData: {} , errors: {} , user: req.user })
+	};
+	
 const rerender_change_password = function(errors, req, res, next){
 	return res.render('users/change_password', { title: "ACNAPI Change Password", formData: req.body, errors: errors });
 }
-
-exports.show_change_password = function(req, res, next) {
-	return res.render('users/change_password', { title: "ACNAPI Change Password", formData: {} , errors: {} , user: req.user })
-  };
 
 const validatePassword = function (errors, req){
 	if (!validator.isAscii(req.body.newPW)){

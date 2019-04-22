@@ -1,0 +1,64 @@
+- var count = 1
+doctype html
+html(lang='en')
+  include ../common/header.pug
+  +header(title)
+  body
+    head
+    include ../common/navbar.pug
+    +navbar(user)
+    .container-fluid
+      .row.align-items-center
+        .col-md-10.order-md-1.text-center.text-md-left
+          - let topics = ["No Filter", "Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
+          h1 My tickets
+          form(action='/sort_tickets_user',method='POST')
+            .form-group.row
+              .col-sm-5
+                select(class = 'form-control' name='filter')
+                  each topic in topics
+                    option#topic.input-line.full-width(value=topic) #{topic}
+              .col-sm-2
+                button.btn.btn-outline-success Submit
+          table.table.table-hover
+            thead.thead-dark
+              tr
+                th(scope="col") #
+                th(scope="col") Topic
+                th(scope="col") Subject
+                th(scope="col") Date Created
+                th(scope="col") Status
+              tr
+            tbody
+            if tickets != NULL
+              for ticket in tickets
+                - var status, tableColor;
+                if ticket.tag == 0
+                  - status = 'Awaiting Response';
+                  - tableColor = 'table-default';
+                else if ticket.tag == 1
+                  - status = 'In progress';
+                  - tableColor = 'table-primary';
+                else if ticket.tag == 2
+                  - status = 'Solved!'
+                  - tableColor = 'table-success';
+                else
+                  - status = 'This ticket has violated rules'
+                  - tableColor = 'table-danger';
+                tr(class=tableColor id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
+                  td
+                    span #{count++}
+                  td
+                    span #{ticket.topic}  
+                  td
+                    span #{ticket.title}
+                  td
+                    span #{ticket.createdAt}
+                  td
+                    span #{status}
+                  
+
+
+    include ../common/footer.pug
+    +footer()
+    script(src="/javascripts/ticket_table.js")

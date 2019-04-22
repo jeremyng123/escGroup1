@@ -32,13 +32,21 @@ exports.isVerified = function(req,res,next){
   */
  exports.whatRights = function(req,res,next){
     if (req.user && req.user.is_admin){
-        const PATH = '/ticket/' + '0/' + req.user.userId;
-        return res.redirect(PATH);  // tickets page that are queued
+        return res.redirect('/ticket/' + '0/' + req.user.userId);  // tickets page that are queued
     }
     else if (req.user){
-        return res.redirect('/my_ticket/' + '0/' + req.user.userId );
+        return res.redirect('/my_ticket/' + req.user.userId );
     }
     else {
         return res.redirect('/users/signup');
+    }
+}
+
+exports.welcomeAdmin= function(req,res,next){
+    if (req.user && req.user.is_admin){
+        return res.redirect('/welcomeAdmin');  // tickets page that are queued
+    }
+    else {
+        return next();
     }
 }

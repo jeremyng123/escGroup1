@@ -10,44 +10,60 @@ html(lang='en')
     .container-fluid
       .row.align-items-center
         .col-md-10.order-md-1.text-center.text-md-left
+          - let topics = ["No Filter", "Python", "C++", "Java", "Go", "Android Studio", "Javascript", "C"];
+          h1 Tickets
+          form(action='/ticket/0/' + user.userId,method='POST')
+            .form-group.row
+              .col-sm-5
+                select(class = 'form-control' name='filter')
+                  each topic in topics
+                    option#topic.input-line.full-width(value=topic) #{topic}
+              .col-sm-2
+                button.btn.btn-outline-success Submit
           h1 tickets #{subtitle}
           p
             span
-              a#tickets0(href="/tickets/" + user.userId + "/0") Queued #{pre}
+              a#tickets0(href="/ticket/" + "0/" + user.userId ) Queued #{pre}
               |          |
-              a#tickets1(href="/tickets/" + user.userId + "/1") In-Progress #{pre}
+              a#tickets1(href="/ticket/" + "1/" + user.userId ) In-Progress #{pre}
               |          |
-              a#tickets2(href="/tickets/" + user.userId + "/2") Solved
-            table.table.table-hover
-              thead.thead-dark
-                tr
-                  th(scope="col") #
-                  th(scope="col") Name
-                  th(scope="col") Email
-                  th(scope="col") Phone Number
-                  th(scope="col") Topic
-                  th(scope="col") Subject
-                tr
-              tbody
-              for ticket in tickets
-                - var ticketPriority;
-                if ticket.priority
-                  - ticketPriority = "table-danger";
-                else
-                  - ticketPriority = "tickets";
-                tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
-                  td
-                    span #{count++}
-                  td
-                    span #{ticket.user.firstName + " " + ticket.user.lastName}
-                  td
-                    span #{ticket.user.email}
-                  td
-                    span #{ticket.user.phoneNumber}
-                  td
-                    span #{ticket.topic}  
-                  td
-                    span #{ticket.title}
+              a#tickets2(href="/ticket/" + "2/" + user.userId ) Solved
+            if tickets != NULL
+              table.table.table-hover
+                thead.thead-dark
+                  tr
+                    th(scope="col") #
+                    th(scope="col") Name
+                    th(scope="col") Email
+                    th(scope="col") Phone Number
+                    th(scope="col") Topic
+                    th(scope="col") Subject
+                    th(scope="col") Date Created
+                  tr
+                tbody
+                  for ticket in tickets
+                    - var ticketPriority;
+                    if ticket.priority
+                      - ticketPriority = "table-danger";
+                    else
+                      - ticketPriority = "table-default";
+                    tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
+                      td
+                        span #{count++}
+                      td
+                        span #{ticket.user.firstName + " " + ticket.user.lastName}
+                      td
+                        span #{ticket.user.email}
+                      td
+                        span #{ticket.user.phoneNumber}
+                      td
+                        span #{ticket.topic}  
+                      td
+                        span #{ticket.title}
+                      td
+                        span #{ticket.createdAt}
+            else
+              p There are currently no tickets! :)
                   
 
 

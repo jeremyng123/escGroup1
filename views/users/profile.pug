@@ -6,6 +6,14 @@ html(lang='en')
   +header(title)
   body
     head
+
+      script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
+
+      script.
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-138699201-1');
     style.
         @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
         body,
@@ -188,7 +196,8 @@ html(lang='en')
           flex-flow: column;
           box-shadow: 0px 15px 50px 10px rgba(0, 0, 0, 0.2);
           box-sizing: border-box;
-          height: 700px;
+          margin-top: 30px;
+          height: 650px;
           width: 1000px;
           background: #fff;
           background: url('https://pexels.imgix.net/photos/27718/pexels-photo-27718.jpg?fit=crop&w=1280&h=823') top left no-repeat;
@@ -229,12 +238,7 @@ html(lang='en')
             height: 100%;
           }
         }
-      script(async src='https://www.googletagmanager.com/gtag/js?id=UA-138699201-1')
-      script.
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-138699201-1');
+
     include ../common/navbar.pug
     +navbar(user)
     .bold-line
@@ -269,7 +273,7 @@ html(lang='en')
                 p#err_phoneNumber.small.text-danger #{errors.phoneNumber}
               .spacing
                 p.mt-2.mb-0
-                  | Change your password #[a(href="/users/forgot_password" class="text-light") here].
-              button.ghost-round.full-width Confirm Changes
+                  | Change your password #[a(href="/users/change_password" class="text-light") here].
+              button.btn.ghost-round.full-width Confirm Changes
     include ../common/footer.pug
     +footer()
