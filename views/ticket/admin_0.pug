@@ -38,6 +38,7 @@ html(lang='en')
                     th(scope="col") Phone Number
                     th(scope="col") Topic
                     th(scope="col") Subject
+                    th(scope="col") Date Created
                   tr
                 tbody
                   for ticket in tickets
@@ -59,6 +60,8 @@ html(lang='en')
                         span #{ticket.topic}  
                       td
                         span #{ticket.title}
+                      td
+                        span #{ticket.createdAt}
             else
               p There are currently no tickets! :)
                   

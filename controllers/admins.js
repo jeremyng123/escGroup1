@@ -1,6 +1,41 @@
 const models = require('../models');
 var os = require("os");
 var hostname = os.hostname();
+let validator = require('validator');
+const { isEmpty } = require('lodash');
+
+
+exports.show_manage_users = function(req, res, next) {
+    if (!req.user && !req.user.is_admin) return res.redirect('/users/signup');
+    return models.user.findAll({
+    }).then(users => {
+        return res.render('manage/users_table', { title: 'Tickets - Queued', users: users , user: req.user,  hostname: hostname });
+    })
+};
+
+
+exports.show_user_profile = function(req, res, next) {
+    if (!req.user && !req.user.is_admin) return res.redirect('/users/signup');
+    return models.user.findOne({
+        where : { userId : req.params.user_id}
+    }).then(u => {
+        return res.render('manage/user_profile', { title: u.email + ' Profile', u: u , user: req.user, formData: {} , errors: {}  });
+    })
+};
+
+exports.edit_user_profile = function(req, res, next) {
+    var makeAdmin = false;
+    if (req.body.makeAdmin === "admin") makeAdmin = true;
+    return models.user.update({
+        is_admin    : makeAdmin 
+    }, { 
+        where: { 
+            userId: req.params.user_id
+        }
+    }).then(() => {
+            res.redirect('/')
+    }).catch(err => {console.log(err);})
+};
 
 exports.show_tickets_queued = function(req, res, next) {
     return models.ticket.findAll({

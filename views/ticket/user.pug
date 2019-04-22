@@ -26,6 +26,7 @@ html(lang='en')
                 th(scope="col") #
                 th(scope="col") Topic
                 th(scope="col") Subject
+                th(scope="col") Date Created
                 th(scope="col") Status
               tr
             tbody
@@ -52,7 +53,8 @@ html(lang='en')
                   td
                     span #{ticket.title}
                   td
-                    
+                    span #{ticket.createdAt}
+                  td
                     span #{status}
                   
 
