@@ -87,7 +87,6 @@ html(lang='en')
                       tbody
                         if tickets
                           for ticket in tickets
-                            p=ticket
                             - var ticketPriority;
                             if ticket.priority
                               - ticketPriority = "table-danger";
