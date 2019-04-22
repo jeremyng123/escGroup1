@@ -17,94 +17,88 @@ html(lang='en')
     +navbar(user)
     .container-fixed
       html
-  head
-  body
     nav.navbar.navbar-inverse.navbar-fixed-top
-        #navbar.navbar-collapse.collapse
-          ul.nav.navbar-nav.navbar-right
-            li
-              a(href='#') Quick Access
-            li
-              a(href='#') Settings
-            li
-              a(href='#') Profile
-            li
-              a(href='#') Help
-          form.navbar-form.navbar-right
-            input.form-control(type='text', placeholder='Search...')
+      #navbar.navbar-collapse.collapse
+        ul.nav.navbar-nav.navbar-right
+          li
+            a(href='#') Quick Access
+          li
+            a(href='#') Settings
+          li
+            a(href='#') Profile
+          li
+            a(href='#') Help
+        form.navbar-form.navbar-right
+          input.form-control(type='text', placeholder='Search...')
 
 
-        .col-sm-9.col-sm-offset-3.col-md-10.col-md-offset-2.main
-          h1.page-header Quick Access
-          .row.placeholders
-            .col-xs-6.col-sm-3.placeholder 
-              - url = 'https://analytics.google.com/analytics/web/#/report-home/a138699201w199385313p193834823'             
-              a(href=url) 
-                img.img-responsive(src="/images/googleAnalytics.png", width='250', height='200', alt='Generic placeholder thumbnail' )
-            .col-xs-6.col-sm-3.placeholder
-              a(href="/room") 
-                img.img-responsive(src='/images/006-talk.png', width='150', height='150', alt='Generic placeholder thumbnail')
-              span
-              h5 RT Chat
-            .col-xs-6.col-sm-3.placeholder
-              a(href="/ticket/0/" + user.userId) 
-                img.img-responsive(src='/images/001-ticket.png', width='150', height='150', alt='Generic placeholder thumbnail')
-              span
-              h5 Ticket
-            .col-xs-6.col-sm-3.placeholder
-              a(href="/manage_users") 
-                img.img-responsive(src='/images/ViewUser.png', width='150', height='150 ', alt='Generic placeholder thumbnail')
-              span
-              h5 View User
-            .col-xs-6.col-sm-3.placeholder
-              a(href="/uploadCarousel") 
-                img.img-responsive(src='/images/004-notification.png', width='100', height='100', alt='Generic placeholder thumbnail')
-              span
-              h4 Notification 
-                
+    h1.page-header Quick Access
+    .container-fluid
+      .col-xs-6.col-sm-3.placeholder 
+        - url = 'https://analytics.google.com/analytics/web/#/report-home/a138699201w199385313p193834823'
+        table.table
+          thead.thead-dark
+            tr
+              th(scope="col") 
+                a(href=url) 
+                  img.img-responsive(src="/images/googleAnalytics.png", width='250', height='200', style="padding:30px" alt='Generic placeholder thumbnail' )
+              th(scope="col")
+                a(href="/room") 
+                  img.img-responsive(src='/images/006-talk.png', width='150', height='150', style="padding:30px", alt='Generic placeholder thumbnail')
+                span
+                  h5 RT Chat
+              th(scope="col")
+                a(href="/ticket/0/" + user.userId) 
+                  img.img-responsive(src='/images/001-ticket.png', width='150', height='150', style="padding:30px", alt='Generic placeholder thumbnail')
+                span
+                  h5 Ticket
+              th(scope="col")
+                a(href="/manage_users") 
+                  img.img-responsive(src='/images/ViewUser.png', width='150', height='150 ', style="padding:30px", alt='Generic placeholder thumbnail')
+                span
+                  h5 View User
+              th(scope="col")
+                a(href="/uploadCarousel") 
+                  img.img-responsive(src='/images/004-notification.png', width='140', height='140', style="padding:30px", alt='Generic placeholder thumbnail')
+                span
+                h4 Notification 
+            tr
           h2.sub-header Outstanding Tickets
             .container-fluid
               .row.align-items-center
                 .col-md-10.order-md-1.text-center.text-md-left
-                  h1 tickets #{subtitle}
-                  p
-                    span
-                      a#tickets0(href="/tickets/" + user.userId + "/0") Queued #{pre}
-                      |          |
-                      a#tickets1(href="/tickets/" + user.userId + "/1") In-Progress #{pre}
-                      |          |
-                      a#tickets2(href="/tickets/" + user.userId + "/2") Solved
-                    table.table.table-hover
-                      thead.thead-dark
-                        tr
-                          th(scope="col") #
-                          th(scope="col") Name
-                          th(scope="col") Email
-                          th(scope="col") Phone Number
-                          th(scope="col") Topic
-                          th(scope="col") Subject
-                        tr
-                      tbody
-                        if tickets
-                          for ticket in tickets
-                            - var ticketPriority;
-                            if ticket.priority
-                              - ticketPriority = "table-danger";
-                            else
-                              - ticketPriority = "tickets";
-                            tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
-                              td
-                                span #{count++}
-                              td
-                                span #{ticket.user.firstName + " " + ticket.user.lastName}
-                              td
-                                span #{ticket.user.email}
-                              td
-                                span #{ticket.user.phoneNumber}
-                              td
-                                span #{ticket.topic}  
-                              td
-                                span #{ticket.title}
+                  table.table.table-hover
+                    thead.thead-dark
+                      tr
+                        th(scope="col") #
+                        th(scope="col") Name
+                        th(scope="col") Email
+                        th(scope="col") Phone Number
+                        th(scope="col") Topic
+                        th(scope="col") Subject
+                      tr
+                    tbody
+                      if tickets
+                        - var count = 1;
+                        for ticket in tickets
+                          - var ticketPriority;
+                          if ticket.priority
+                            - ticketPriority = "table-danger";
+                          else
+                            - ticketPriority = "tickets";
+                          tr(class=ticketPriority, id=ticket.ticketId, href="/tickets/"+ user.userId + "/" + ticket.ticketId)
+                            td
+                              span #{count++}
+                            td
+                              span #{ticket.user.firstName + " " + ticket.user.lastName}
+                            td
+                              span #{ticket.user.email}
+                            td
+                              span #{ticket.user.phoneNumber}
+                            td
+                              span #{ticket.topic}  
+                            td
+                              span #{ticket.title}
     //
       Bootstrap core JavaScript
       ==================================================
