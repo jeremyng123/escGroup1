@@ -13,24 +13,11 @@ exports.get_welcome = function(req, res, next) {
 };
 
 exports.get_welcome_admin = function(req, res, next) {
-  return models.ticket.findAll({
-    where : { tag : 0 },
-    include: [ models.user ]
-  }).then(
-    tickets => {
-      res.render("welcomeAdmin", {
-        title: "Accenture's ACNAPI Portal",
-        user: req.user, tickets: tickets
-      });
-  });
+  return res.render("welcomeAdmin", { title: "Accenture's ACNAPI Portal", user: req.user });
 }
 
 exports.get_consultantpage = function(req, res, next) {
-  return res.render("consultant", {
-    title: "Accenture's ACNAPI Portal",
-    user: req.user
-  });
-  // passport session will flood the request with 'user' when there is one in session
+  return res.render("consultant", { title: "Accenture's ACNAPI Portal", user: req.user }) 
 };
 
 /********************* TICKET CREATION **********************/
