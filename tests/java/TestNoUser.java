@@ -1,5 +1,8 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -33,35 +36,38 @@ public class TestNoUser {
 
     protected static Map<Integer, String> LogFails;
 
-    public static void main (String[] args) throws Exception{
-        LogFails = new LinkedHashMap<>();
-        testHomePortal();
-        openSignUpPage();
-        testShortPasswordPrompt();
-        testInvalidCharactersInPassword();
-        testInvalidPhoneNumber();
-        testInvalidEmail();
-        openLoginPage();
-        if (failedCases >0)
-            System.out.println("~~~~~ Failed Cases ~~~~~");
-        for (int i: LogFails.keySet()){
-            System.out.println("Test case " + i + ": \n\t" + LogFails.get(i) + "\n\n");
-        }
-
-        System.out.println("\n\n~~~~~ SUMMARY ~~~~~");
-        System.out.println("Total cases: " + totalCase);
-        if (passedCases >0)
-            System.out.println("Total passed cases: " + passedCases);
-        if (failedCases >0)
-            System.out.println("Total failed cases: " + failedCases);
-    }
+//    public static void main (String[] args) throws Exception{
+//        LogFails = new LinkedHashMap<>();
+//        testHomePortal();
+//        openSignUpPage();
+//        testShortPasswordPrompt();
+//        testInvalidCharactersInPassword();
+//        testInvalidPhoneNumber();
+//        testInvalidEmail();
+//        openLoginPage();
+//        if (failedCases >0)
+//            System.out.println("~~~~~ Failed Cases ~~~~~");
+//        for (int i: LogFails.keySet()){
+//            System.out.println("Test case " + i + ": \n\t" + LogFails.get(i) + "\n\n");
+//        }
+//
+//        System.out.println("\n\n~~~~~ SUMMARY ~~~~~");
+//        System.out.println("Total cases: " + totalCase);
+//        if (passedCases >0)
+//            System.out.println("Total passed cases: " + passedCases);
+//        if (failedCases >0)
+//            System.out.println("Total failed cases: " + failedCases);
+//    }
     /************** Helper Methods **************/
+
     /**
      * Run this each time before each test cases!
+     *
      * @throws Exception
      */
+    @BeforeEach
     public static void setUp() throws Exception {
-        System.setProperty(webdriver,pathtoDriver);
+        System.setProperty(webdriver, pathtoDriver);
         driver = new ChromeDriver();
         driver.get(baseURL);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
@@ -70,273 +76,156 @@ public class TestNoUser {
 
     /**
      * Run this each time after each test cases!
+     *
      * @throws Exception
      */
-    public static void tearDown(){
+    @AfterEach
+    public static void tearDown() {
         driver.quit();
         navbar = null;
     }
 
-    public static String currentMethodName(int index){
+    public static String currentMethodName(int index) {
         return Thread.currentThread().getStackTrace()[index].getMethodName();
     }
 
-    public static void printSuccessCase(){
+    public static void printSuccessCase() {
         System.out.println("\t" + totalCase + ": " + currentMethodName(3) + " is successful.");
         passedCases++;
     }
 
 
-
     /************** Test Cases **************/
+
     /**
      * Test case: 1 -- check that the Home page has the correct title.
-     * @throws Exception
      */
+    @Test
     public static void testHomePortal() {
-        try {
-            setUp();
-            assertEquals("Accenture's ACNAPI Portal", driver.getTitle(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
-            printSuccessCase();
-        } catch (AssertionError e){
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-            LogFails.put(totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        assertEquals("Accenture's ACNAPI Portal", driver.getTitle(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
     }
 
-    /************** Test Cases **************/
     /**
      * Test case: 2 -- check that the Signup page has the correct title.
+     *
      * @throws Exception
      */
+    @Test
     public static void openSignUpPage() {
-        try {
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_signup")).click();
-            assertEquals("ACNAPI Register",driver.getTitle(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
-            printSuccessCase();
-        } catch (AssertionError e){
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-            LogFails.put(totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_signup")).click();
+        assertEquals("ACNAPI Register", driver.getTitle(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
     }
 
     /**
      * Test case: 3 -- Test prompt user to have longer password
-     * @throws Exception
      */
+    @Test
     public static void testShortPasswordPrompt() {
-        try {
-            String err_code = "err_password";
+        String err_code = "err_password";
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_signup")).click();
+        driver.findElement(By.name("email")).sendKeys(USERNAME);
+        driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
+        driver.findElement(By.name("lastName")).sendKeys("Langkawi");
+        driver.findElement(By.name("phoneNumber")).sendKeys(PHONENUMBER);
+        driver.findElement(By.name("password")).sendKeys("1234567", Keys.ENTER);
 
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_signup")).click();
-            driver.findElement(By.name("email")).sendKeys(USERNAME);
-            driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
-            driver.findElement(By.name("lastName")).sendKeys("Langkawi");
-            driver.findElement(By.name("phoneNumber")).sendKeys(PHONENUMBER);
-            driver.findElement(By.name("password")).sendKeys("1234567", Keys.ENTER);
-
-            WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
-            assertEquals("Please ensure that your password has a minimum of 8 characters",driver.findElement(By.id("err_password")).getText(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
-            printSuccessCase();
-        } catch (AssertionError e){
-//            e.printStackTrace();
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-//            f.printStackTrace();
-            LogFails.put(++totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
+        assertEquals("Please ensure that your password has a minimum of 8 characters", driver.findElement(By.id("err_password")).getText(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
     }
 
     /**
      * Test case: 4 -- Test prompt user to only have alphanumberics + special characters that are ASCII formatted
-     * @throws Exception
      */
+    @Test
     public static void testInvalidCharactersInPassword() {
-        try {
-            String err_code = "err_password";
+        String err_code = "err_password";
 
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_signup")).click();
-            driver.findElement(By.name("email")).sendKeys(USERNAME);
-            driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
-            driver.findElement(By.name("lastName")).sendKeys("Langkawi");
-            driver.findElement(By.name("phoneNumber")).sendKeys(PHONENUMBER);
-            driver.findElement(By.name("password")).sendKeys("1234567我爱你", Keys.ENTER);
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_signup")).click();
+        driver.findElement(By.name("email")).sendKeys(USERNAME);
+        driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
+        driver.findElement(By.name("lastName")).sendKeys("Langkawi");
+        driver.findElement(By.name("phoneNumber")).sendKeys(PHONENUMBER);
+        driver.findElement(By.name("password")).sendKeys("1234567我爱你", Keys.ENTER);
 
-            WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
-            assertEquals("Invalid characters in password, please try another one!",err.getText(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
-            printSuccessCase();
-        } catch (AssertionError e){
-//            e.printStackTrace();
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-//            f.printStackTrace();
-            LogFails.put(++totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
+        assertEquals("Invalid characters in password, please try another one!", err.getText(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
     }
 
     /**
      * Test case: 5 -- Test prompt user to have valid 8 digit phone number
-     * @throws Exception
      */
+    @Test
     public static void testInvalidPhoneNumber() {
-        try {
-            String err_code = "err_phoneNumber";
+        String err_code = "err_phoneNumber";
 
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_signup")).click();
-            driver.findElement(By.name("email")).sendKeys(USERNAME);
-            driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
-            driver.findElement(By.name("lastName")).sendKeys("Langkawi");
-            driver.findElement(By.name("phoneNumber")).sendKeys("1234567");
-            driver.findElement(By.name("password")).sendKeys(PASSWORD, Keys.ENTER);
 
-            WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
-            assertEquals("Please key in a valid phone number with 8 digits (i.e. 91234567). Omit all special characters and spaces!",err.getText(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
-            printSuccessCase();
-        } catch (AssertionError e){
-//            e.printStackTrace();
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-//            f.printStackTrace();
-            LogFails.put(++totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_signup")).click();
+        driver.findElement(By.name("email")).sendKeys(USERNAME);
+        driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
+        driver.findElement(By.name("lastName")).sendKeys("Langkawi");
+        driver.findElement(By.name("phoneNumber")).sendKeys("1234567");
+        driver.findElement(By.name("password")).sendKeys(PASSWORD, Keys.ENTER);
+
+        WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
+        assertEquals("Please key in a valid phone number with 8 digits (i.e. 91234567). Omit all special characters and spaces!", err.getText(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
     }
 
     /**
      * Test case: 6 -- Test prompt user to have proper email
-     * @throws Exception
      */
+    @Test
     public static void testInvalidEmail() {
-        try {
-            String err_code = "err_email";
+        String err_code = "err_email";
 
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_signup")).click();
-            driver.findElement(By.name("email")).sendKeys("some_invalid_email@192.168.0.1");
-            driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
-            driver.findElement(By.name("lastName")).sendKeys("Langkawi");
-            driver.findElement(By.name("phoneNumber")).sendKeys(PHONENUMBER);
-            driver.findElement(By.name("password")).sendKeys(PASSWORD, Keys.ENTER);
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_signup")).click();
+        driver.findElement(By.name("email")).sendKeys("some_invalid_email@192.168.0.1");
+        driver.findElement(By.name("firstName")).sendKeys("Balapoopi");
+        driver.findElement(By.name("lastName")).sendKeys("Langkawi");
+        driver.findElement(By.name("phoneNumber")).sendKeys(PHONENUMBER);
+        driver.findElement(By.name("password")).sendKeys(PASSWORD, Keys.ENTER);
 
-            WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
-            assertEquals("Please use valid email!",err.getText(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
-            printSuccessCase();
-        } catch (AssertionError e){
-//            e.printStackTrace();
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-//            f.printStackTrace();
-            LogFails.put(++totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        WebElement err = wait.until(ExpectedConditions.presenceOfElementLocated(By.id(err_code)));
+        assertEquals("Please use valid email!", err.getText(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
     }
 
     /**
      * Test case: 7 -- Open login page
-     * @throws Exception
      */
+    @Test
     public static void openLoginPage() {
-        try {
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_login")).click();
-            assertEquals("ACNAPI Register",driver.getTitle(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
-            printSuccessCase();
-        } catch (AssertionError e){
-//            e.printStackTrace();
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-//            f.printStackTrace();
-            LogFails.put(++totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_login")).click();
+        assertEquals("ACNAPI Register", driver.getTitle(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");
     }
 
     /**
      * Test case: 8 -- Try wrong login credentials
-     * @throws Exception
      */
+    @Test
     public static void testWrongLoginCredentials() {
-        try {
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_login")).click();
-            driver.findElement(By.name("email")).sendKeys(USERNAME);
-            driver.findElement(By.name("password")).sendKeys(PASSWORD + "wrong", Keys.ENTER);
-            assertEquals("ACNAPI Login",driver.getTitle(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");     // check that it redirects back to login page
-            printSuccessCase();
-        } catch (AssertionError e){
-//            e.printStackTrace();
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-//            f.printStackTrace();
-            LogFails.put(++totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_login")).click();
+        driver.findElement(By.name("email")).sendKeys(USERNAME);
+        driver.findElement(By.name("password")).sendKeys(PASSWORD + "wrong", Keys.ENTER);
+        assertEquals("ACNAPI Login", driver.getTitle(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");     // check that it redirects back to login page
     }
 
     /**
      * Test case: 9 -- Try visiting different routes and ensuring that the user returns to signup page
+     *
      * @throws Exception
      */
+    @Test
     public static void testDifferentRoutesNotLoggedIn() {
-        try {
-            setUp();
-            navbar = driver.findElement(By.className("navbar"));
-            navbar.findElement(By.id("btn_login")).click();
-            driver.findElement(By.name("email")).sendKeys(USERNAME);
-            driver.findElement(By.name("password")).sendKeys(PASSWORD + "wrong", Keys.ENTER);
-            assertEquals("ACNAPI Login",driver.getTitle(),++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");     // check that it redirects back to login page
-            printSuccessCase();
-        } catch (AssertionError e){
-//            e.printStackTrace();
-            LogFails.put(totalCase, e.toString());
-            failedCases += 1;
-        } catch (Exception f) {
-//            f.printStackTrace();
-            LogFails.put(++totalCase, f.toString());
-            failedCases += 1;
-        } finally {
-            tearDown();
-        }
+        navbar = driver.findElement(By.className("navbar"));
+        navbar.findElement(By.id("btn_login")).click();
+        driver.findElement(By.name("email")).sendKeys(USERNAME);
+        driver.findElement(By.name("password")).sendKeys(PASSWORD + "wrong", Keys.ENTER);
+        assertEquals("ACNAPI Login", driver.getTitle(), ++totalCase + ": " + currentMethodName(2) + " is incorrect: \n");     // check that it redirects back to login page
     }
 }
