@@ -38,7 +38,7 @@ public class SmartSolution {
     private WebDriver driver;
 
     protected final String webdriver = "webdriver.gecko.driver";
-    protected final String pathtoDriver = System.getenv("HOME") + "Users/emrys/Documents/geckodriver";
+    protected final String pathtoDriver =  "Users/emrys/Documents/geckodriver";
 
     /**
      * driver setup
