@@ -50,4 +50,60 @@ public class SmartSolution {
         Thread.sleep(500);
     }
 
+    /**
+     * functional test:
+     * send ticket button click
+     */
+
+    /**
+     * UI test
+     * /ticket_form/basics
+     * issue type diplay content
+     * description hidden test
+     */
+
+
+    /**
+     * UI test
+     * /ticket_form/basics
+     * UI size and style
+     */
+
+    /**
+     * functional test, correct url for checking solution button
+     */
+
+
+    /**
+     * system test:
+     * /ticket_form/basics -> /ticket_form/
+     */
+
+    /**
+     * function testing: accuracy for solution
+     */
+
+    /**
+     * function testing: time performace for solution
+     */
+
+    /**
+     * UI testing:
+     * /solution page for showing the solution of the corrected Url
+     */
+
+    /**
+     * functional testing: go the detail page of the solution
+     * solution is displayed and questions is displayed
+     */
+
+    /**
+     * system testing:
+     * go to solution and previous page and go back
+     */
+
+    /**
+     * system testing:
+     * go to details page to create ticket and go back
+     */
 }
