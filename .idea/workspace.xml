@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5dc38d3-04b4-4145-b55d-9da883fd44ee" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/java/SmartSolution.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/java/SmartSolution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/ticket/ticket_form/basics.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/ticket/ticket_form/basics.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/ticket/ticket_form/details.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/ticket/ticket_form/details.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/ticket/ticket_form/solutions.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/ticket/ticket_form/solutions.pug" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,8 +19,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/java/RTchat.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="49" />
+            <state relative-caret-position="365">
+              <caret line="196" column="45" lean-forward="true" selection-start-line="193" selection-start-column="8" selection-end-line="196" selection-end-column="45" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -24,11 +28,20 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/Documents/selenium-java-3.141.59/client-combined-3.141.59-sources.jar!/org/openqa/selenium/WebDriver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="328">
+              <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/java/SmartSolution.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="932">
-              <caret line="106" column="54" selection-start-line="106" selection-start-column="54" selection-end-line="106" selection-end-column="54" />
+            <state relative-caret-position="425">
+              <caret line="290" column="28" lean-forward="true" selection-start-line="272" selection-start-column="8" selection-end-line="290" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -60,6 +73,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>equals</find>
+      <find>top</find>
+      <find>getc</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -75,7 +90,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
     <option name="x" value="1440" />
     <option name="y" value="27" />
     <option name="width" value="960" />
@@ -117,7 +132,7 @@
     <property name="Repository.Attach.Annotations" value="false" />
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556356389436" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556369872775" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -168,7 +183,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1440" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="1440" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12673056" />
@@ -231,16 +246,6 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/tests/Test_No_User.java" />
-    <entry file="file://$PROJECT_DIR$/tests/java/TestNoUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2445">
-          <caret line="264" column="5" lean-forward="true" selection-start-line="264" selection-start-column="5" selection-end-line="264" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/java/NoUser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -251,10 +256,27 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/Documents/selenium-java-3.141.59/client-combined-3.141.59-sources.jar!/org/openqa/selenium/WebDriver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/java/TestNoUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2445">
+          <caret line="264" column="5" lean-forward="true" selection-start-line="264" selection-start-column="5" selection-end-line="264" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/tests/java/RTchat.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
-          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="49" />
+        <state relative-caret-position="365">
+          <caret line="196" column="45" lean-forward="true" selection-start-line="193" selection-start-column="8" selection-end-line="196" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -263,8 +285,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/java/SmartSolution.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="932">
-          <caret line="106" column="54" selection-start-line="106" selection-start-column="54" selection-end-line="106" selection-end-column="54" />
+        <state relative-caret-position="425">
+          <caret line="290" column="28" lean-forward="true" selection-start-line="272" selection-start-column="8" selection-end-line="290" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
