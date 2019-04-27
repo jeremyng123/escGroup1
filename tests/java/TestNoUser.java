@@ -1,3 +1,4 @@
+package tests.java;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.openqa.selenium.By;
@@ -7,7 +8,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.seleniumhq.jetty9.util.log.Log;
 
 import java.util.HashMap;
 import java.util.HashSet;
