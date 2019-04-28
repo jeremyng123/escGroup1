@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+=======
+package tests.java;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+>>>>>>> 3b937f6ce0a0a9a986d76a83d0f8488c34d8a1c5
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
