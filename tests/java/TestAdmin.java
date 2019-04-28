@@ -58,16 +58,8 @@ public class TestAdmin {
         navbar.findElement(By.id("btn_tickets")).click();
         // get all the links
         List<WebElement> tickets = driver.findElements(By.tagName("tr"));
-        // print all the links
-        for (int i = 0; i < tickets.size(); i=i+1) {
-            System.out.println(i + " " + tickets.get(i).getText());
-            System.out.println(i + " " + tickets.get(i).getAttribute("href"));
-        }
         Collections.shuffle(tickets);
         for (int i = 0; i < tickets.size(); i = i + 1) {
-
-            System.out.println(tickets.get(i).getAttribute("href"));
-            System.out.println("*** Navigating to" + " " + tickets.get(i).getAttribute("href"));
             if (tickets.get(i).getAttribute("href") == null)
                 continue;
             boolean staleElementLoaded = true;
@@ -87,16 +79,54 @@ public class TestAdmin {
                 }
             }
         }
-
-
-        navbar = driver.findElement(By.className("navbar"));
-        navbar.findElement(By.id("btn_ticket-form")).click();
-
-        navbar = driver.findElement(By.className("navbar"));
-        navbar.findElement(By.id("btn_chat")).click();
-
-
-
+        driver.findElement(By.id("tickets1")).click();
+        // get all the links
+        tickets = driver.findElements(By.tagName("tr"));
+        Collections.shuffle(tickets);
+        for (int i = 0; i < tickets.size(); i = i + 1) {
+            if (tickets.get(i).getAttribute("href") == null)
+                continue;
+            boolean staleElementLoaded = true;
+            while (staleElementLoaded) {
+                try {
+                    driver.navigate().to(tickets.get(i).getAttribute("href"));
+                    Thread.sleep(1000);
+                    driver.navigate().back();
+                    tickets = driver.findElements(By.tagName("tr"));
+                    Collections.shuffle(tickets);
+                    System.out.println("*** Navigated to" + " " + tickets.get(i).getAttribute("href"));
+                    staleElementLoaded = false;
+                } catch (StaleElementReferenceException e) {
+                    staleElementLoaded = true;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        driver.findElement(By.id("tickets2")).click();
+        // get all the links
+        tickets = driver.findElements(By.tagName("tr"));
+        Collections.shuffle(tickets);
+        for (int i = 0; i < tickets.size(); i = i + 1) {
+            if (tickets.get(i).getAttribute("href") == null)
+                continue;
+            boolean staleElementLoaded = true;
+            while (staleElementLoaded) {
+                try {
+                    driver.navigate().to(tickets.get(i).getAttribute("href"));
+                    Thread.sleep(1000);
+                    driver.navigate().back();
+                    tickets = driver.findElements(By.tagName("tr"));
+                    Collections.shuffle(tickets);
+                    System.out.println("*** Navigated to" + " " + tickets.get(i).getAttribute("href"));
+                    staleElementLoaded = false;
+                } catch (StaleElementReferenceException e) {
+                    staleElementLoaded = true;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**

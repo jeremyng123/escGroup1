@@ -65,9 +65,8 @@ public class TestUser {
         }
         Collections.shuffle(tickets);
         for (int i = 0; i < tickets.size(); i = i + 1) {
-
-            System.out.println(tickets.get(i).getAttribute("href"));
-            System.out.println("*** Navigating to" + " " + tickets.get(i).getAttribute("href"));
+//            System.out.println(tickets.get(i).getAttribute("href"));
+//            System.out.println("*** Navigating to" + " " + tickets.get(i).getAttribute("href"));
             if (tickets.get(i).getAttribute("href") == null)
                 continue;
             boolean staleElementLoaded = true;
@@ -87,16 +86,6 @@ public class TestUser {
                 }
             }
         }
-
-
-        navbar = driver.findElement(By.className("navbar"));
-        navbar.findElement(By.id("btn_ticket-form")).click();
-
-        navbar = driver.findElement(By.className("navbar"));
-        navbar.findElement(By.id("btn_chat")).click();
-
-
-
     }
 
     /**

@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5dc38d3-04b4-4145-b55d-9da883fd44ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/java/DriverProperty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/GA/Algorithm.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/GA/FitnessCalc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/GA/GA.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/GA/Individual.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/GA/Population.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/GA/run_GA" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/MonkeyTestISTD.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/TestAdmin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/java/TestUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/escGroup1.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/escGroup1.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/java/NoUser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/java/TestNoUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/java/TestNoUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/java/out/production/escGroup1/NoUser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/java/out/production/escGroup1/TestNoUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/tests/java/out/production/escGroup1/TestNoUser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/consultant.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/consultant.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/java/TestAdmin.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/java/TestAdmin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/java/TestUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/tests/java/TestUser.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -68,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tests/java/TestUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-360">
-              <caret line="15" column="58" lean-forward="true" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
+            <state relative-caret-position="71">
+              <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -80,8 +65,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tests/java/TestAdmin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="46" column="22" lean-forward="true" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+            <state relative-caret-position="95">
+              <caret line="105" column="42" selection-start-line="105" selection-start-column="42" selection-end-line="105" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -101,6 +86,7 @@
       <find>total</find>
       <find>log</find>
       <find>login</find>
+      <find>click</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -190,7 +176,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TestUser.testTicketForm">
+  <component name="RunManager" selected="JUnit.TestAdmin.testTicketClickables">
     <configuration name="GA" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GA.GA" />
       <module name="escGroup1" />
@@ -204,21 +190,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TestAdmin.testTicketClickables" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="escGroup1" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="TestAdmin" />
+      <option name="METHOD_NAME" value="testTicketClickables" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TestUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="escGroup1" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="TestUser" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestUser.testPageTitles" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="escGroup1" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="TestUser" />
-      <option name="METHOD_NAME" value="testPageTitles" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -245,11 +231,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.TestAdmin.testTicketClickables" />
         <item itemvalue="JUnit.TestUser.testTicketForm" />
         <item itemvalue="Application.GA" />
         <item itemvalue="JUnit.TestUser.testTicketClickables" />
         <item itemvalue="JUnit.TestUser" />
-        <item itemvalue="JUnit.TestUser.testPageTitles" />
       </list>
     </recent_temporary>
   </component>
@@ -414,8 +400,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/java/TestUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-360">
-          <caret line="15" column="58" lean-forward="true" selection-start-line="15" selection-start-column="58" selection-end-line="15" selection-end-column="58" />
+        <state relative-caret-position="71">
+          <caret line="87" column="9" selection-start-line="87" selection-start-column="9" selection-end-line="87" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -424,8 +410,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/java/TestAdmin.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="46" column="22" lean-forward="true" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+        <state relative-caret-position="95">
+          <caret line="105" column="42" selection-start-line="105" selection-start-column="42" selection-end-line="105" selection-end-column="42" />
         </state>
       </provider>
     </entry>
