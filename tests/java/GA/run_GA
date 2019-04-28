@@ -1,0 +1,4 @@
+#!/bin/bash
+
+javac GA.java Individual.java Population.java FitnessCalc.java Algorithm.java
+java GA
