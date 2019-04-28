@@ -1,8 +1,11 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 =======
+=======
+>>>>>>> 3b937f6ce0a0a9a986d76a83d0f8488c34d8a1c5
 package tests.java;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
