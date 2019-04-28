@@ -1,3 +1,4 @@
+# RT chat
 ## functional tests
 
 test | expected outcome
@@ -48,4 +49,35 @@ a third person try to enter the chat after the chat is established | the room is
 
 
 
-    
+# smart_solution test
+
+## functional testing
+test | expected solution 
+--- | ---
+click submit ticket without login | user redirect to login page
+click submit ticket with login | user redirect /ticket_form/basics
+user search with keyword and language type, and click search | user lead to ticket_form/smart_solution page
+smart_solution accuracy test | with 4 question related to the common search questions
+
+
+## system testing 
+test | expected solution
+--- | ---
+user key in search word and search for smart solution | the given answer contains the keyword using is searching
+user can create ticket (enter /ticket_form/details page) if user click next button
+user click create another ticket button | user give up the existing ticket submission
+user click details | user continue the ticket submission with his entering the issue type preserved
+
+
+## UI testing 
+test | expected solution
+--- | ---
+/ticket_form/basics | correct content is displayed
+/ticket_form/basics | progress bar is working
+/ticket_form/details/id | the questino and answer is not null for individual questions
+/ticket_form/solutions | 5 top solution is provided with their link link to details page
+
+## performace testing 
+test | expected solution
+--- | ---
+query common questions | the answering time is <10 seconds
