@@ -5,3 +5,4 @@ POST/
 ./DS_Store
 **/.DS_Store
 public/users/
+.vscode/
